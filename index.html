@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-3-0" data-ui-revision="GALILEA-THEME-CONTRACT-17-3-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-4-0" data-ui-revision="GALILEA-RESPONSIVE-THEME-17-4-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1840,6 +1840,206 @@
     .site-header .nav-drop-menu :where(button,a):hover,
     .site-header .nav-drop-menu :where(button,a).active{color:var(--text)!important}
 
+
+    /* ====================================================================== */
+    /* GALILEA V17.4 · RESPONSIVE & THEME INTEGRITY                           */
+    /* Final mobile/desktop guardrails for the island, cards, and readers.    */
+    /* ====================================================================== */
+    html,body{max-width:100%;overflow-x:clip}
+    :where(.shell,.view,.section,.card,.toolbar,.grid,.grid>*,.section-head,.button-row,
+      .discussion-layout,.discussion-layout>*,.discussion-copy,.download-bar,.download-bar>*,
+      .reader-content,.resource-reading,.lesson-feature,.resource-feature,.faq-category-grid,
+      .footer-main,.footer-main>*,.mobile-nav,.mobile-nav-group,.mobile-nav-grid){min-width:0}
+    :where(img,picture,video,canvas,iframe){max-width:100%}
+    :where(h1,h2,h3,h4,h5,h6){overflow-wrap:anywhere;word-break:normal}
+    :where(p,li,dd,td,.muted,.lead,.section-copy,.faq-answer){overflow-wrap:break-word}
+    :where(.chip,.badge,.status-chip){
+      box-sizing:border-box;flex:0 0 auto;width:max-content;max-width:100%;
+      white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;
+      writing-mode:horizontal-tb!important;text-orientation:mixed!important
+    }
+
+    /* Dynamic island: identitas selalu terlihat dan tetap hijau di kedua tema. */
+    .site-header .brand-copy{min-width:0!important}
+    .site-header .brand-name{
+      display:block!important;overflow:hidden!important;text-overflow:ellipsis!important;
+      white-space:nowrap!important;color:var(--island-text)!important
+    }
+
+    /* Kartu diskusi: badge tidak boleh menyempit menjadi kolom huruf. */
+    .discussion-layout{grid-template-columns:minmax(0,1.08fr) minmax(320px,.92fr)}
+    .discussion-copy{
+      width:100%;align-items:flex-start!important;justify-content:center;
+      color:var(--text)!important;background:var(--surface)!important
+    }
+    .discussion-copy>.chip{
+      align-self:flex-start!important;min-width:max-content!important;width:max-content!important;
+      max-width:100%!important;line-height:1.15
+    }
+    .discussion-copy h3{
+      width:100%;max-width:18ch;margin-top:22px;color:var(--text)!important;
+      font-size:clamp(1.8rem,3vw,3.1rem);line-height:1.02;text-wrap:balance
+    }
+    .discussion-copy p{width:100%;max-width:58ch;color:var(--text-soft)!important}
+    .discussion-copy .button-row{width:100%;margin-top:18px}
+
+    /* Bar unduhan/bagikan: badge, salinan, dan tombol memiliki ruang sendiri. */
+    .download-bar{
+      color:var(--text)!important;border-color:color-mix(in srgb,var(--brand) 34%,var(--line))!important;
+      background:linear-gradient(110deg,var(--surface-soft),color-mix(in srgb,var(--brand-soft) 66%,var(--surface)))!important
+    }
+    .download-bar>div{flex:1 1 280px;min-width:0}
+    .download-bar>.btn{flex:0 0 auto}
+    .download-bar>div>.chip{
+      display:inline-flex!important;align-items:center!important;min-width:max-content!important;
+      width:max-content!important;max-width:100%!important;margin:0 0 10px!important;
+      color:#fff!important
+    }
+    [data-theme="dark"] .download-bar>div>.chip{color:#07120b!important}
+    .download-bar>div>strong{
+      display:block!important;margin:0!important;color:var(--text)!important;
+      font-size:clamp(1rem,1.6vw,1.22rem);line-height:1.3
+    }
+    .download-bar>div>span:not(.chip){
+      display:block!important;margin-top:5px!important;color:var(--text-soft)!important;
+      font-size:.82rem;line-height:1.55;white-space:normal!important
+    }
+
+    /* Reader menjadi satu viewport yang stabil; isi saja yang menggulir. */
+    #reader-dialog{
+      box-sizing:border-box;position:fixed;inset:0;width:100vw;height:100vh;height:100dvh;
+      max-width:none;max-height:none;margin:0;padding:24px;overflow:hidden
+    }
+    #reader-dialog[open]{display:grid;place-items:center}
+    #reader-dialog .modal{
+      width:min(1040px,100%);max-height:min(860px,calc(100dvh - 48px));
+      display:flex;flex-direction:column;overflow:hidden;color:var(--text)!important;
+      border-color:var(--line)!important;background:var(--surface)!important
+    }
+    #reader-dialog .modal-head{
+      position:relative;top:auto;flex:0 0 auto;color:var(--text)!important;
+      border-color:var(--line)!important;
+      background:color-mix(in srgb,var(--surface) 92%,transparent)!important
+    }
+    #reader-dialog .modal-head strong{min-width:0;color:var(--text)!important;line-height:1.25}
+    #reader-dialog .modal-head .icon-button{flex:0 0 auto}
+    #reader-dialog .modal-body{
+      min-width:0;flex:1 1 auto;overflow:auto;overscroll-behavior:contain;
+      -webkit-overflow-scrolling:touch;color:var(--text)!important
+    }
+    #reader-dialog .reader-content{max-width:76ch;margin-inline:auto;color:var(--text)!important}
+    #reader-dialog .reader-content :where(h1,h2,h3,h4,strong){color:var(--text)!important}
+    #reader-dialog .reader-content :where(p,li,blockquote){color:var(--text-soft)!important}
+    #reader-dialog .reader-content :where(table,pre){display:block;max-width:100%;overflow-x:auto}
+
+    /* Nomor dekoratif footer dihapus: tautan kini terbaca sebagai navigasi biasa. */
+    .footer-group{counter-reset:none!important}
+    .site-footer .footer-link{
+      counter-increment:none!important;grid-template-columns:minmax(0,1fr)!important
+    }
+    .site-footer .footer-link::before{display:none!important;content:none!important}
+
+    @media(max-width:900px){
+      .discussion-layout,.lesson-feature,.resource-feature{grid-template-columns:minmax(0,1fr)!important}
+      .discussion-copy h3{max-width:24ch}
+      .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media(max-width:760px){
+      :root{--shell:min(100% - 24px,720px)}
+      .site-header .header-row,.site-header.is-scrolled .header-row{
+        width:calc(100% - 12px)!important;grid-template-columns:minmax(0,1fr) auto!important;
+        gap:7px!important;padding:0 8px 0 11px!important
+      }
+      .site-header .brand{width:100%!important;min-width:0!important;gap:8px!important;overflow:hidden}
+      .site-header .brand-copy{
+        display:block!important;max-width:min(44vw,176px)!important;overflow:hidden!important
+      }
+      .site-header .brand-name{
+        font-size:clamp(11px,.7rem,13px)!important;font-weight:850!important;
+        letter-spacing:.015em!important
+      }
+      .site-header .brand-tagline{display:none!important}
+      .site-header .mobile-toggle{min-width:88px!important;padding:0 12px!important}
+      .page-head h1,.section-head h2,.chapter-heading h2{
+        font-size:clamp(2.35rem,11vw,4.35rem)!important;line-height:.95!important
+      }
+      .section-head{align-items:flex-start}
+      .discussion-copy{padding:clamp(24px,7vw,38px)!important;border-radius:24px!important}
+      .discussion-copy h3{
+        max-width:100%;font-size:clamp(1.75rem,8.4vw,2.65rem)!important;line-height:1.04
+      }
+    }
+
+    @media(max-width:620px){
+      :where(.grid-2,.grid-3,.grid-4,.faq-category-grid){grid-template-columns:minmax(0,1fr)!important}
+      .toolbar,.filters,.section-head,.faq-contact-card,.resource-reading-head{
+        align-items:stretch!important;flex-direction:column!important
+      }
+      .filters{width:100%}
+      .tabs{
+        width:100%;max-width:100%;display:flex;flex-wrap:nowrap;overflow-x:auto;
+        overscroll-behavior-inline:contain;scrollbar-width:thin;padding-bottom:3px
+      }
+      .tabs .tab{flex:0 0 auto}
+      .button-row{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%}
+      .button-row>.btn,.button-row>a.btn{
+        width:100%;min-width:0;min-height:52px;height:auto;padding:12px 14px;
+        line-height:1.25;white-space:normal;text-align:center
+      }
+      .discussion-copy>.chip{font-size:.66rem}
+      .download-bar{
+        display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+        align-items:stretch!important;gap:18px!important;margin:22px 0 26px!important;
+        padding:20px!important;border-radius:20px!important
+      }
+      .download-bar>div{width:100%;flex:none}
+      .download-bar>.btn{width:100%;min-width:0;white-space:normal}
+      #reader-dialog{
+        padding:max(10px,env(safe-area-inset-top)) 8px
+          calc(72px + env(safe-area-inset-bottom)) 8px
+      }
+      #reader-dialog[open]{place-items:start center}
+      #reader-dialog .modal{
+        width:100%;max-height:calc(100dvh - 94px - env(safe-area-inset-bottom));
+        border-radius:24px
+      }
+      #reader-dialog .modal-head{padding:14px 16px!important}
+      #reader-dialog .modal-head strong{
+        font-size:clamp(1rem,5vw,1.18rem);overflow-wrap:anywhere
+      }
+      #reader-dialog .modal-body{
+        padding:22px 18px calc(86px + env(safe-area-inset-bottom))!important
+      }
+      #reader-dialog .reader-content{font-size:clamp(1rem,4.35vw,1.08rem);line-height:1.8}
+      .footer-closing{padding:84px 0 48px!important}
+      .footer-closing-copy strong{
+        font-size:clamp(2.65rem,13vw,4rem)!important;line-height:.88!important;
+        letter-spacing:-.06em!important
+      }
+      .footer-main{gap:42px!important}
+      .footer-brand h2{font-size:clamp(2.45rem,12vw,3.9rem)!important}
+    }
+
+    @media(max-width:390px){
+      .site-header .brand-mark{width:32px!important;height:40px!important}
+      .site-header .brand-mark .official-advent-logo{width:28px!important;height:34px!important}
+      .site-header .brand-copy{display:block!important;max-width:43vw!important}
+      .site-header .brand-name{font-size:11px!important}
+      .site-header .mobile-toggle{min-width:82px!important;padding-inline:10px!important}
+      .site-header .menu-label{font-size:10px!important}
+      .discussion-copy{padding:22px 18px!important}
+      .download-bar{padding:17px!important}
+      .download-bar>div>.chip{font-size:.66rem}
+      #reader-dialog .modal-body{
+        padding:20px 14px calc(84px + env(safe-area-inset-bottom))!important
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      #reader-dialog .modal,.download-bar,.discussion-copy{transition:none!important}
+    }
+
 </style>
 </head>
 <body>
@@ -1900,7 +2100,7 @@
     <div class="shell header-row">
       <button class="brand" type="button" data-route="home" aria-label="Buka Beranda">
         <span class="brand-mark" aria-hidden="true"><img id="header-logo-fallback" class="official-advent-logo" src="https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png" alt=""></span>
-        <span class="brand-copy"><span class="brand-name" id="header-name">GMAHK Galilea Balikpapan</span><span class="brand-tagline" id="header-tagline">Bertumbuh dalam iman</span></span>
+        <span class="brand-copy"><span class="brand-name" id="header-name">GMAHK Galilea</span><span class="brand-tagline" id="header-tagline">Bertumbuh dalam iman</span></span>
       </button>
       <nav class="desktop-nav nav-pill" aria-label="Navigasi utama">
         <button class="nav-link" type="button" data-route="home">Beranda</button>
@@ -1936,7 +2136,7 @@
   </footer>
 
   <dialog id="search-dialog"><div class="modal"><div class="modal-head"><strong>Pencarian</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body"><form class="search-box" id="search-form"><input id="search-input" type="search" minlength="2" autocomplete="off" placeholder="Cari jadwal, nama, lagu, atau halaman…"><button class="btn primary" type="submit"><svg class="icon"><use href="#i-search"></use></svg>Cari</button></form><div class="search-results" id="search-results"><p class="muted">Ketik sedikitnya dua huruf.</p></div></div></div></dialog>
-  <dialog id="reader-dialog"><div class="modal wide"><div class="modal-head"><strong id="reader-title">Bacaan</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body" id="reader-body"></div></div></dialog>
+  <dialog id="reader-dialog"><div class="modal wide"><div class="modal-head"><strong id="reader-title">Bacaan</strong><button class="icon-button" type="button" data-close aria-label="Tutup bacaan"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body" id="reader-body"></div></div></dialog>
   <dialog id="photo-dialog" class="photo-dialog"><div class="photo-stage"><button class="icon-button photo-close" type="button" data-close aria-label="Tutup foto"><svg class="icon"><use href="#i-close"></use></svg></button><img id="photo-dialog-image" src="" alt="Dokumentasi kegiatan"></div></dialog>
   <dialog id="settings-dialog"><div class="modal"><div class="modal-head"><strong>Tampilan & aksesibilitas</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body settings-grid"><div><p class="small muted">Bahasa viewer</p><label class="language-settings" translate="no"><svg class="icon"><use href="#i-globe"></use></svg><select id="language-settings"><option value="id">Bahasa Indonesia</option><option value="en">English</option><option value="ms">Bahasa Melayu</option><option value="zh-CN">简体中文</option><option value="es">Español</option></select></label><p class="help-text">Bahasa Indonesia adalah tampilan awal. Judul, menu, dan konten yang sedang dibuka ikut diterjemahkan.</p></div><div><p class="small muted">Tema</p><div class="segmented" id="theme-options"><button data-theme-value="light">Terang</button><button data-theme-value="dark">Gelap</button><button data-theme-value="system">Sistem</button></div></div><div><p class="small muted">Ukuran tulisan</p><div class="segmented" id="font-options"><button data-font-value="normal">Normal</button><button data-font-value="large">Besar</button><button data-font-value="xlarge">Sangat besar</button></div></div><div><p class="small muted">Gerakan</p><div class="segmented" id="motion-options"><button data-motion-value="full">Halus</button><button data-motion-value="reduced">Kurangi</button></div></div></div></div></dialog>
   <div class="toast-zone" id="toast-zone" aria-live="polite"></div>
@@ -2309,7 +2509,7 @@
         const logoFallback = $('#header-logo-fallback');
         /* Identitas viewer selalu satu: lambang Advent inline yang mengikuti mode. */
         if (logoFallback) logoFallback.hidden = false;
-        $('#header-name').textContent = site.short_name || site.church_name;
+        $('#header-name').textContent = 'GMAHK Galilea';
         $('#header-tagline').textContent = site.tagline || '';
         $('#footer-address').textContent = site.address || 'Balikpapan, Kalimantan Timur';
         $('#footer-whatsapp').href = whatsappUrl(site);
@@ -2317,7 +2517,7 @@
         $('#footer-maps').href = mapsUrl(site);
         $('#footer-maps').innerHTML = brandIcon('maps') + 'Google Maps';
         $('#footer-copy').textContent = state.data.copyright + ' · ' + (site.footer_text || 'Website resmi GMAHK Galilea Balikpapan');
-        $('#footer-updated').textContent = 'V17.2.0 · Data diperbarui ' + state.data.updatedAt;
+        $('#footer-updated').textContent = 'V17.4.0 · Data diperbarui ' + state.data.updatedAt;
         document.title = routeTitle(state.route) + ' · ' + (site.church_name || 'GMAHK Galilea Balikpapan');
         startAnalytics(site.analytics_id);
       }
@@ -3058,7 +3258,7 @@
         if (!item || item.format !== 'text' || !String(item.contentHtml || '').trim()) {
           return toast('Teks Renungan Pagi dari sumber resmi sedang belum tersedia.');
         }
-        const shareBar = '<div class="download-bar"><div><span class="chip brand">' + esc(item.todayLabel) + '</span><strong style="margin-top:10px">Renungan Pagi teks untuk dibagikan</strong><span>Sumber resmi Advent · Tanpa video</span></div><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div>';
+        const shareBar = '<div class="download-bar devotional-share-bar"><div><span class="chip brand">' + esc(item.todayLabel) + '</span><strong>Renungan Pagi teks untuk dibagikan</strong><span>Sumber resmi Advent · Tanpa video</span></div><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div>';
         return openReader(item.title,shareBar + '<div class="reader-content">' + cleanHtml(item.contentHtml) + '</div>');
       }
       function scheduleJson(card) {
