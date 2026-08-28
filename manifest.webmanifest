@@ -1,0 +1,12 @@
+{
+  "name": "GMAHK Galilea Balikpapan",
+  "short_name": "Galilea",
+  "description": "Jadwal ibadah, Sekolah Sabat, Alkitab, Lagu Sion, dan informasi jemaat Galilea Balikpapan.",
+  "lang": "id",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f2f5ef",
+  "theme_color": "#294b37",
+  "categories": ["lifestyle", "education", "books"]
+}
