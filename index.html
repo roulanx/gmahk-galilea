@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-4-0" data-ui-revision="GALILEA-RESPONSIVE-THEME-17-4-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-5-0" data-ui-revision="GALILEA-ALL-PAGE-CONTRAST-17-5-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2040,6 +2040,183 @@
       #reader-dialog .modal,.download-bar,.discussion-copy{transition:none!important}
     }
 
+
+    /* ====================================================================== */
+    /* GALILEA V17.5 · ALL-PAGE COLOR & MOBILE SAFE AREA                     */
+    /* Dark surfaces own their foreground; mobile pages clear iOS toolbars.  */
+    /* ====================================================================== */
+    :root{
+      --on-dark:#fbfcf7;
+      --on-dark-soft:rgba(251,252,247,.82);
+      --on-dark-faint:rgba(251,252,247,.66);
+      --mobile-browser-safe:calc(108px + env(safe-area-inset-bottom,0px));
+    }
+    [data-theme="dark"]{
+      --on-dark:#fbfcf7;
+      --on-dark-soft:rgba(251,252,247,.84);
+      --on-dark-faint:rgba(251,252,247,.7);
+    }
+
+    /* Kontrak final untuk setiap permukaan yang memang selalu hijau/gelap. */
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .activity-film-placeholder,.word-stage,.faith-interlude,.mobile-panel,.site-footer){
+      color:var(--on-dark)!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .activity-film-placeholder,.word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      :is(h1,h2,h3,h4,h5,h6,strong,summary,label,legend,th,dt){
+      color:var(--on-dark)!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .activity-film-placeholder,.word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      :is(p,li,td,dd,.muted,.lead,.section-copy,.faq-answer,.help-text,.meta){
+      color:var(--on-dark-soft)!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .activity-film-placeholder,.word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      :is(.faint,.small.faint){
+      color:var(--on-dark-faint)!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      :is(.chip:not(.brand):not(.gold),.badge:not(.brand):not(.gold),.status-chip:not(.brand):not(.gold)){
+      color:var(--on-dark)!important;
+      border-color:rgba(255,255,255,.28)!important;
+      background:rgba(255,255,255,.1)!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      .btn:not(.primary):not(.whatsapp){
+      color:var(--on-dark)!important;
+      border-color:rgba(255,255,255,.34)!important;
+      background:rgba(255,255,255,.09)!important
+    }
+
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      :is(.eyebrow,.link-arrow,a:not(.btn)){
+      color:#ead59d!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .word-stage,.faith-interlude,.mobile-panel,.site-footer)
+      :is(blockquote,.resource-aside-copy,.devotional-summary,.devotional-verse,.devotional-date span){
+      color:var(--on-dark-soft)!important
+    }
+    :is(.hero,.film-hero,.page-head,.next-cover,.devotional-aside,.devotional-cinema,
+      .devotional-media,.resource-aside,.song-reader-hero,.faq-welcome,.activity-film,
+      .word-stage,.faith-interlude,.mobile-panel,.site-footer) .icon{
+      color:inherit
+    }
+
+    /* Panel jadwal terdekat: semua salinan terang pada hijau, detail mengikuti tema. */
+    .next-cover{color:var(--on-dark)!important}
+    .next-cover h3{color:var(--on-dark)!important}
+    .next-cover .meta,.next-cover .meta>*{color:var(--on-dark-soft)!important}
+    .next-cover .icon{color:currentColor!important}
+    .next-details{
+      min-width:0;color:var(--text)!important;background:var(--surface)!important
+    }
+    .next-details :is(h1,h2,h3,h4,strong,dt,dd){color:var(--text)!important}
+    .next-details :is(p,.muted,.lead){color:var(--text-soft)!important}
+    .next-details .eyebrow{color:var(--brand-strong)!important}
+
+    /* Judul jenis ibadah tidak boleh terpotong atau keluar dari latar chip. */
+    .service-block{
+      width:100%;min-width:0;display:flex;flex-direction:column;align-items:flex-start
+    }
+    .service-block>.chip{
+      display:inline-flex!important;align-self:flex-start!important;flex:0 0 auto!important;
+      width:auto!important;min-width:0!important;max-width:100%!important;height:auto!important;
+      padding:8px 12px!important;white-space:normal!important;word-break:normal!important;
+      overflow-wrap:break-word!important;overflow:visible!important;line-height:1.25!important
+    }
+    .service-block>.field-grid{width:100%;min-width:0}
+    .service-block .field{min-width:0}
+    .service-block .field dd{max-width:100%;line-height:1.45}
+
+    /* Permukaan terang/dinamis selalu kembali ke token tema aktif. */
+    :is(.next-details,.discussion-copy,.schedule-card,.service-card,.leader-card,.library-card,
+      .profile-card,.journal-note,.toolbar,.notice,dialog .modal,.bible-sidebar,.bible-content,
+      .bible-reader,.song-reader,.reader-content,.resource-reading){
+      color:var(--text)!important
+    }
+    :is(.next-details,.discussion-copy,.schedule-card,.service-card,.leader-card,.library-card,
+      .profile-card,.journal-note,.toolbar,.notice,dialog .modal,.bible-sidebar,.bible-content,
+      .bible-reader,.song-reader,.reader-content,.resource-reading)
+      :is(h1,h2,h3,h4,h5,h6,strong,summary,label,legend,th,dt,dd){
+      color:var(--text)!important
+    }
+    :is(.next-details,.discussion-copy,.schedule-card,.service-card,.leader-card,.library-card,
+      .profile-card,.journal-note,.toolbar,.notice,dialog .modal,.bible-sidebar,.bible-content,
+      .bible-reader,.song-reader,.reader-content,.resource-reading)
+      :is(p,li,td,.muted,.lead,.help-text,.meta){
+      color:var(--text-soft)!important
+    }
+
+    @media(max-width:760px){
+      html{scroll-padding-bottom:var(--mobile-browser-safe)}
+      #app.view{
+        min-height:100dvh;padding-bottom:var(--mobile-browser-safe)!important
+      }
+      #app .section:last-child{padding-bottom:clamp(54px,12vw,82px)}
+      .next-card{min-height:0!important}
+      .next-cover{
+        min-height:310px!important;padding:30px 24px!important
+      }
+      .next-cover h3{
+        max-width:100%!important;margin:46px 0 14px!important;
+        font-size:clamp(2.15rem,11vw,3.35rem)!important;line-height:1.02!important
+      }
+      .next-cover .meta{font-size:.85rem!important}
+      .next-details{
+        padding:30px 22px var(--mobile-browser-safe)!important
+      }
+      .service-block+.service-block{
+        margin-top:24px!important;padding-top:24px!important
+      }
+      .service-block>.chip{
+        max-width:100%!important;font-size:.72rem!important
+      }
+      .field-grid{
+        width:100%;grid-template-columns:minmax(0,1fr)!important;gap:18px!important
+      }
+      .field dt{font-size:.69rem!important;line-height:1.35}
+      .field dd{
+        font-size:clamp(1rem,4.8vw,1.18rem)!important;line-height:1.45!important
+      }
+      .schedule-card,.service-card,.leader-card,.library-card,.profile-card,.card-pad{
+        max-width:100%;overflow:hidden
+      }
+      .mobile-panel{
+        padding-bottom:var(--mobile-browser-safe)!important
+      }
+      #reader-dialog .modal-body{
+        padding-bottom:var(--mobile-browser-safe)!important
+      }
+      .toast-zone{
+        bottom:var(--mobile-browser-safe)!important
+      }
+      .site-footer .footer-bottom{
+        padding-bottom:var(--mobile-browser-safe)!important
+      }
+    }
+
+    @media(max-width:390px){
+      :root{--mobile-browser-safe:calc(116px + env(safe-area-inset-bottom,0px))}
+      .next-cover{min-height:290px!important;padding-inline:20px!important}
+      .next-cover h3{font-size:clamp(2rem,10.8vw,2.85rem)!important}
+      .next-details{padding-inline:18px!important}
+      .service-block>.chip{font-size:.68rem!important;padding:8px 10px!important}
+    }
+
 </style>
 </head>
 <body>
@@ -2517,7 +2694,7 @@
         $('#footer-maps').href = mapsUrl(site);
         $('#footer-maps').innerHTML = brandIcon('maps') + 'Google Maps';
         $('#footer-copy').textContent = state.data.copyright + ' · ' + (site.footer_text || 'Website resmi GMAHK Galilea Balikpapan');
-        $('#footer-updated').textContent = 'V17.4.0 · Data diperbarui ' + state.data.updatedAt;
+        $('#footer-updated').textContent = 'V17.5.0 · Data diperbarui ' + state.data.updatedAt;
         document.title = routeTitle(state.route) + ' · ' + (site.church_name || 'GMAHK Galilea Balikpapan');
         startAnalytics(site.analytics_id);
       }
