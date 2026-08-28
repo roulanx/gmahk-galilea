@@ -12,7 +12,7 @@ const index = read('index.html');
 assert.match(index, /GALILEA-CREATIVE-CINEMA-17-1-0/);
 assert.match(index, /fetch\('\/api\/gas'/);
 assert.match(index, /fetch\('\/api\/quarterly-pdf'/);
-assert.match(index, /property="og:image" content="https:\/\/gmahk-galilea\.vercel\.app\/og-galilea-creative-v17\.png/);
+assert.match(index, /property="og:image" content="https:\/\/gmahk-galilea\.vercel\.app\/api\/og/);
 assert.doesNotMatch(index, /google\.script\.run/);
 assert.doesNotMatch(index, /<\?(?:=|!=|\s)/);
 assert.match(index, /data-open-activity/);
@@ -66,7 +66,7 @@ const vercel = JSON.parse(read('vercel.json'));
 assert.equal(vercel.rewrites[0].source, '/admin');
 assert.equal(vercel.rewrites[0].destination, '/api/admin');
 assert.deepEqual(vercel.regions, ['sin1']);
-assert.ok(vercel.headers.some(item => item.source === '/og-galilea-creative-v17.png'));
+assert.ok(vercel.headers.some(item => item.source === '/api/og'));
 
 const manifest = JSON.parse(read('manifest.webmanifest'));
 assert.equal(manifest.start_url, '/');

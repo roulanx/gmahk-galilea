@@ -1,5 +1,4 @@
-µ¨¥zºè¯
-â¶)à²Ö§uªÝ¢ëiºÐk¢G§¦*^/**
+/**
  * GALILEA PORTAL V16 â€” CINEMATIC SANCTUARY
  * Backend website GMAHK Galilea Balikpapan.
  *
@@ -920,8 +919,7 @@ function gwReadAnnouncements_(spreadsheet) {
       dateLabel: date ? gwFormatShortDate_(date) : gwClean_(display[index][0]),
       title: gwClean_(display[index][1]),
       summary: gwClean_(display[index][2]),
-      url: gwSµ¨¥zºè¯
-â¶)à²Ö§uªÝ¢ëiºÐk¢G§¦*^afeUrl_(display[index][3]),
+      url: gwSafeUrl_(display[index][3]),
       status: gwNormalize_(display[index][4])
     };
   }).filter(function (item) {
