@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-1-0">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-1-0" data-ui-revision="GALILEA-DYNAMIC-ISLAND-17-2-0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1608,6 +1608,130 @@
     @media(max-width:900px){.footer-closing{grid-template-columns:1fr;gap:28px}.footer-main{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
     @media(max-width:620px){.site-footer{min-height:0}.footer-closing{grid-template-columns:1fr;padding:100px 0 56px}.footer-chapter{font-size:4rem}.footer-closing-copy strong{font-size:clamp(3.4rem,17vw,5.4rem)}.footer-main{grid-template-columns:1fr;gap:48px;padding:58px 0 36px}.footer-brand{grid-column:1}.footer-brand h2{font-size:clamp(2.8rem,13vw,4.5rem)}.footer-bottom{align-items:flex-start}.site-footer::before{right:21%}.footer-crossbar{right:calc(21% - 80px);width:160px}}
     [data-motion="reduced"] .footer-bottom::before{animation:none!important;width:48%}
+
+    /* ====================================================================== */
+    /* GALILEA V17.2 · FULL-WIDTH GREEN DYNAMIC ISLAND                        */
+    /* One navigation system, clean responsive states, complete theme parity. */
+    /* ====================================================================== */
+    :root{
+      --island-bg:linear-gradient(135deg,#082416 0%,#174b31 54%,#2f6947 100%);
+      --island-text:#f7fbf6;
+      --island-muted:rgba(247,251,246,.68);
+      --island-line:rgba(255,255,255,.2);
+      --island-control:rgba(255,255,255,.1);
+      --island-control-hover:rgba(255,255,255,.19);
+    }
+    [data-theme="dark"]{
+      --island-bg:linear-gradient(135deg,#020c07 0%,#0a2d1b 54%,#174b31 100%);
+      --island-text:#f5faf4;
+      --island-muted:rgba(245,250,244,.7);
+      --island-line:rgba(226,242,226,.18);
+      --island-control:rgba(226,242,226,.09);
+      --island-control-hover:rgba(226,242,226,.17);
+    }
+    html{color-scheme:light}
+    html[data-theme="dark"]{color-scheme:dark}
+    body,.view,.section,.card,.toolbar,.notice,dialog .modal,input,select,textarea{
+      transition:background-color .32s var(--ease),border-color .32s var(--ease),color .32s var(--ease),box-shadow .32s var(--ease)
+    }
+    .site-header{
+      height:104px!important;padding:14px 0!important;pointer-events:none!important;
+      transition:height .32s var(--ease),padding .32s var(--ease)!important
+    }
+    .site-header .header-row{
+      width:calc(100% - 32px)!important;max-width:none!important;height:76px!important;margin:0 auto!important;
+      grid-template-columns:minmax(230px,.9fr) minmax(620px,1.75fr) auto!important;gap:14px!important;
+      padding:0 12px 0 20px!important;border:1px solid var(--island-line)!important;border-radius:999px!important;
+      color:var(--island-text)!important;background:var(--island-bg)!important;
+      box-shadow:0 20px 58px rgba(2,20,10,.25),inset 0 1px rgba(255,255,255,.16)!important;
+      backdrop-filter:blur(22px) saturate(130%)!important;overflow:visible!important;pointer-events:auto!important
+    }
+    .site-header .header-row::before,.site-header .header-row::after{display:none!important}
+    .site-header.is-scrolled{height:88px!important;padding:8px 0!important}
+    .site-header.is-scrolled .header-row{height:70px!important;border-radius:999px!important;background:var(--island-bg)!important;box-shadow:0 16px 48px rgba(2,20,10,.32)!important}
+    .site-header .brand{max-width:none!important;gap:12px!important;padding:0!important;color:var(--island-text)!important}
+    .site-header .brand::after{display:none!important}
+    .site-header .brand-mark{width:42px!important;height:48px!important}
+    .site-header .brand-mark .official-advent-logo{
+      width:35px!important;height:41px!important;filter:brightness(0) invert(1) drop-shadow(0 7px 15px rgba(0,0,0,.14))!important
+    }
+    .site-header .brand-name{color:var(--island-text)!important;font-size:.82rem!important;letter-spacing:.025em!important}
+    .site-header .brand-tagline{color:var(--island-muted)!important}
+    .site-header .desktop-nav.nav-pill{
+      position:relative!important;z-index:4!important;width:100%!important;max-width:780px!important;justify-self:center!important;
+      display:flex!important;justify-content:center!important;gap:2px!important;padding:5px!important;overflow:visible!important;
+      border:1px solid rgba(255,255,255,.12)!important;border-radius:999px!important;background:rgba(1,16,8,.2)!important;
+      box-shadow:inset 0 1px rgba(255,255,255,.08)!important
+    }
+    .site-header .nav-link,.site-header .nav-drop>button{
+      min-height:42px!important;padding:0 10px!important;border-radius:999px!important;color:var(--island-muted)!important;
+      background:transparent!important;font-size:.69rem!important;font-weight:800!important;white-space:nowrap!important
+    }
+    .site-header .nav-link:hover,.site-header .nav-link.active,.site-header .nav-drop>button:hover,.site-header .nav-drop.open>button{
+      color:var(--island-text)!important;background:var(--island-control-hover)!important;box-shadow:none!important;transform:none!important
+    }
+    .site-header .nav-link.active{outline:1px solid rgba(255,255,255,.18);outline-offset:-1px}
+    .site-header .nav-drop-menu{
+      top:calc(100% + 14px)!important;min-width:230px!important;padding:9px!important;border:1px solid var(--line)!important;
+      border-radius:18px!important;color:var(--text)!important;background:var(--surface)!important;box-shadow:var(--shadow)!important;
+      backdrop-filter:blur(24px) saturate(130%)!important
+    }
+    .site-header .nav-drop-menu button{min-height:44px!important;color:var(--text-soft)!important;background:transparent!important}
+    .site-header .nav-drop-menu button:hover,.site-header .nav-drop-menu button.active{color:var(--text)!important;background:var(--surface-soft)!important}
+    .site-header .header-actions{grid-column:3!important;justify-self:end!important;display:flex!important;align-items:center!important;gap:6px!important;white-space:nowrap!important}
+    .site-header .icon-button,.site-header .language-switcher{
+      color:var(--island-text)!important;border-color:var(--island-line)!important;background:var(--island-control)!important
+    }
+    .site-header .icon-button:hover,.site-header .language-switcher:hover{
+      color:var(--island-text)!important;border-color:rgba(255,255,255,.32)!important;background:var(--island-control-hover)!important;
+      box-shadow:none!important;transform:translateY(-1px)!important
+    }
+    .site-header .language-switcher select{color:var(--island-text)!important;background:transparent!important}
+    .site-header .language-switcher option{color:var(--text)!important;background:var(--surface)!important}
+    .site-header .mobile-toggle{display:none!important;color:var(--island-text)!important;border-color:var(--island-line)!important;background:var(--island-control)!important}
+    .site-header .mobile-toggle[aria-expanded="true"]{color:#092013!important;border-color:#d8efce!important;background:#d8efce!important}
+    .nav-scene,.page-chapter,.chapter-rail,.film-chapter-mark,.footer-chapter{display:none!important}
+    .cinema-chapter-grid{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+    .page-head .shell{grid-template-columns:minmax(0,1fr)!important;gap:0!important}
+    .film-hero-bottom{grid-template-columns:minmax(0,1fr)!important}
+    .footer-closing{grid-template-columns:minmax(0,1fr)!important}
+    .broadcast-stage{padding-block:clamp(82px,8vw,116px)!important}
+    .broadcast-stage .section-head{align-items:end!important}
+    @media(max-width:1320px){
+      .site-header .header-row{grid-template-columns:minmax(220px,1fr) auto!important}
+      .site-header .desktop-nav.nav-pill{display:none!important}
+      .site-header .header-actions{grid-column:2!important}
+      .site-header .mobile-toggle{display:flex!important;min-width:104px!important;padding:0 15px!important;border-radius:999px!important}
+      .mobile-panel{padding-top:118px!important}
+    }
+    @media(max-width:760px){
+      :root{--header-h:84px}
+      .site-header{height:84px!important;padding:8px 0!important}
+      .site-header.is-scrolled{height:76px!important;padding:5px 0!important}
+      .site-header .header-row,.site-header.is-scrolled .header-row{
+        width:calc(100% - 16px)!important;height:68px!important;grid-template-columns:minmax(0,1fr) auto!important;gap:8px!important;
+        padding:0 8px 0 13px!important;border-radius:999px!important
+      }
+      .site-header.is-scrolled .header-row{height:66px!important}
+      .site-header .brand{min-width:0!important}
+      .site-header .brand-copy{display:block!important;max-width:min(42vw,190px)!important}
+      .site-header .brand-name{font-size:.7rem!important}
+      .site-header .brand-tagline{display:none!important}
+      .site-header .brand-mark{width:35px!important;height:42px!important}
+      .site-header .brand-mark .official-advent-logo{width:30px!important;height:36px!important}
+      .site-header .header-actions>.language-switcher,.site-header .header-actions>.search-trigger,.site-header .header-actions>.a11y-trigger{display:none!important}
+      .site-header .header-actions>.icon-button{width:44px!important;height:44px!important}
+      .site-header .mobile-toggle{height:46px!important;min-width:92px!important;padding:0 13px!important}
+      .site-header .menu-label{font-size:.65rem!important}
+      .mobile-panel{padding:98px 14px 34px!important}
+    }
+    @media(max-width:460px){
+      .site-header .brand-copy{display:none!important}
+      .site-header .header-row,.site-header.is-scrolled .header-row{grid-template-columns:42px minmax(0,1fr)!important}
+      .site-header .header-actions{grid-column:2!important}
+    }
+    [data-motion="reduced"] body,[data-motion="reduced"] .view,[data-motion="reduced"] .section,[data-motion="reduced"] .card,[data-motion="reduced"] .toolbar,[data-motion="reduced"] .notice,[data-motion="reduced"] dialog .modal,[data-motion="reduced"] input,[data-motion="reduced"] select,[data-motion="reduced"] textarea{transition:none!important}
+
   </style>
 </head>
 <body>
@@ -1670,11 +1794,6 @@
         <span class="brand-mark" aria-hidden="true"><img id="header-logo-fallback" class="official-advent-logo" src="https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png" alt=""></span>
         <span class="brand-copy"><span class="brand-name" id="header-name">GMAHK Galilea Balikpapan</span><span class="brand-tagline" id="header-tagline">Bertumbuh dalam iman</span></span>
       </button>
-      <div class="nav-scene" role="status" aria-live="polite">
-        <span class="nav-scene-index" id="nav-scene-index">01</span>
-        <span class="nav-scene-copy"><small>Bab yang sedang dibuka</small><strong id="nav-scene-title">Beranda</strong></span>
-        <span class="nav-scene-track" aria-hidden="true"><i id="nav-progress"></i></span>
-      </div>
       <nav class="desktop-nav nav-pill" aria-label="Navigasi utama">
         <button class="nav-link" type="button" data-route="home">Beranda</button>
         <span class="nav-drop"><button type="button" data-nav-toggle aria-expanded="false">Profil <svg class="icon"><use href="#i-down"></use></svg></button><span class="nav-drop-menu"><button type="button" data-route="church"><svg class="icon"><use href="#i-church"></use></svg>Gereja</button><button type="button" data-route="leaders"><svg class="icon"><use href="#i-users"></use></svg>Pengurus</button><button type="button" data-route="contact"><svg class="icon"><use href="#i-map"></use></svg>Kontak</button></span></span>
@@ -1689,7 +1808,7 @@
         <button class="icon-button search-trigger" type="button" aria-label="Cari" data-open="search"><svg class="icon"><use href="#i-search"></use></svg></button>
         <button class="icon-button" id="theme-button" type="button" aria-label="Ganti tema"><svg class="icon"><use href="#i-moon"></use></svg></button>
         <button class="icon-button a11y-trigger" type="button" aria-label="Aksesibilitas" data-open="settings"><svg class="icon"><use href="#i-access"></use></svg></button>
-        <button class="icon-button mobile-toggle" id="mobile-toggle" type="button" aria-label="Buka menu" aria-expanded="false"><span class="menu-label">Buka Bab</span><svg class="icon mobile-menu-glyph" aria-hidden="true"><use href="#i-menu"></use></svg><svg class="icon mobile-close-glyph" aria-hidden="true"><use href="#i-close"></use></svg></button>
+        <button class="icon-button mobile-toggle" id="mobile-toggle" type="button" aria-label="Buka menu" aria-expanded="false"><span class="menu-label">Menu</span><svg class="icon mobile-menu-glyph" aria-hidden="true"><use href="#i-menu"></use></svg><svg class="icon mobile-close-glyph" aria-hidden="true"><use href="#i-close"></use></svg></button>
       </div>
     </div>
   </header>
@@ -1699,7 +1818,7 @@
 
   <footer class="site-footer" id="footer">
     <span class="footer-crossbar" aria-hidden="true"></span>
-    <div class="footer-closing"><span class="footer-chapter">∞</span><div class="footer-closing-copy"><small>Closing scene · Hidupkan firman</small><strong>Iman tidak berhenti di layar.</strong></div></div>
+    <div class="footer-closing"><div class="footer-closing-copy"><small>Closing scene · Hidupkan firman</small><strong>Iman tidak berhenti di layar.</strong></div></div>
     <div class="shell footer-main">
       <div class="footer-brand"><span class="eyebrow">GMAHK Galilea Balikpapan</span><h2>Mari beribadah dan bertumbuh bersama.</h2><p id="footer-address">Balikpapan, Kalimantan Timur</p><div class="button-row"><a class="btn primary" id="footer-whatsapp" target="_blank" rel="noopener"><svg class="brand-svg whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.76 9.76 0 0 0-8.47 14.64L2 22l5.5-1.44A9.98 9.98 0 1 0 12.04 2Zm0 17.73a7.8 7.8 0 0 1-3.98-1.09l-.29-.17-3.26.85.87-3.17-.19-.31a7.74 7.74 0 1 1 6.85 3.89Zm4.27-5.81c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.52.12-.16.23-.6.76-.74.92-.13.16-.27.18-.5.06-.23-.12-.99-.36-1.88-1.16a7.05 7.05 0 0 1-1.3-1.62c-.14-.23-.02-.36.1-.48.1-.1.23-.27.35-.41.12-.14.16-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.52-1.27-.72-1.74-.19-.46-.38-.4-.52-.4h-.45c-.15 0-.4.06-.62.3-.21.23-.81.8-.81 1.94s.83 2.25.95 2.4c.11.16 1.63 2.5 3.96 3.5.55.24.98.38 1.32.49.55.17 1.05.15 1.45.09.44-.07 1.38-.57 1.57-1.12.2-.55.2-1.03.14-1.12-.06-.1-.21-.16-.45-.28Z"/></svg>WhatsApp</a><a class="btn" id="footer-maps" target="_blank" rel="noopener"><svg class="brand-svg maps-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M12 22s7-6.13 7-13A7 7 0 0 0 5.2 7.32L12 22Z"/><path fill="#4285F4" d="M5.2 7.32A7 7 0 0 1 12 2v7L5.2 7.32Z"/><path fill="#EA4335" d="M12 2a7 7 0 0 1 6.08 3.53L12 9V2Z"/><path fill="#FBBC04" d="m12 9 6.08-3.47A7 7 0 0 1 19 9c0 1.57-.4 3.05-1.03 4.4L12 9Z"/><circle cx="12" cy="9" r="2.45" fill="#fff"/></svg>Google Maps</a></div></div>
       <div class="footer-group"><strong>Jelajahi</strong><button class="footer-link" data-route="schedule">Jadwal ibadah</button><button class="footer-link" data-route="sabbath">Sekolah Sabat</button><button class="footer-link" data-route="bible">Alkitab</button><button class="footer-link" data-route="hymnal">Lagu Sion</button><button class="footer-link" data-route="services">Layanan jemaat</button></div>
@@ -1756,11 +1875,6 @@
 
       const APP_URL = window.location.origin;
       const ROUTES = ['home','church','leaders','schedule','sabbath','bible','hymnal','activities','announcements','gallery','services','faq','contact'];
-      const ROUTE_CHAPTERS = {
-        home:['01','Beranda'],church:['02','Tentang Gereja'],leaders:['03','Pengurus Jemaat'],schedule:['04','Jadwal Ibadah'],
-        sabbath:['05','Sekolah Sabat'],bible:['06','Alkitab'],hymnal:['07','Lagu Sion'],activities:['08','Kegiatan Jemaat'],
-        announcements:['09','Pengumuman'],gallery:['10','Galeri'],services:['11','Layanan Jemaat'],faq:['12','Bantuan & FAQ'],contact:['13','Kontak Gereja']
-      };
       const MOBILE_GROUPS = [
         {label:'Utama',items:[
           ['home','home','Beranda','Ringkasan hari ini']
@@ -2063,6 +2177,9 @@
       function applyTheme(value) {
         const theme = value === 'system' ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : value;
         document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        if (themeColor) themeColor.content = theme === 'dark' ? '#06170e' : '#174b31';
         safeStorage.set('galilea:theme', value);
         $('#theme-button').innerHTML = icon(theme === 'dark' ? 'sun' : 'moon');
         $('#theme-button').setAttribute('aria-label', theme === 'dark' ? 'Gunakan mode terang' : 'Gunakan mode gelap');
@@ -2092,7 +2209,7 @@
         $('#footer-maps').href = mapsUrl(site);
         $('#footer-maps').innerHTML = brandIcon('maps') + 'Google Maps';
         $('#footer-copy').textContent = state.data.copyright + ' · ' + (site.footer_text || 'Website resmi GMAHK Galilea Balikpapan');
-        $('#footer-updated').textContent = 'V17.1.0 · Data diperbarui ' + state.data.updatedAt;
+        $('#footer-updated').textContent = 'V17.2.0 · Data diperbarui ' + state.data.updatedAt;
         document.title = routeTitle(state.route) + ' · ' + (site.church_name || 'GMAHK Galilea Balikpapan');
         startAnalytics(site.analytics_id);
       }
@@ -2137,10 +2254,6 @@
         setMobileMenu(false);
       }
       function syncCinemaNav() {
-        const chapter = ROUTE_CHAPTERS[state.route] || ROUTE_CHAPTERS.home;
-        const index = $('#nav-scene-index'), title = $('#nav-scene-title');
-        if (index) index.textContent = chapter[0];
-        if (title) title.textContent = chapter[1];
         updateCinemaHeader();
       }
       function updateCinemaHeader() {
@@ -2151,17 +2264,21 @@
       }
       function navigate(route, options) {
         const next = ROUTES.includes(route) ? route : 'home';
+        const previous = state.route;
+        const shouldRecord = !options || options.history !== false;
+        if (shouldRecord && (next !== previous || location.hash !== '#' + next)) {
+          history.pushState({route:next},'','#' + next);
+        }
         state.route = next;
         syncCinemaNav();
         if (options && options.action === 'mine') state.scheduleTab = 'mine';
-        history.replaceState(null,'','#' + next);
         closeMobile();
-        $$('.nav-drop.open').forEach(drop=>{drop.classList.remove('open');drop.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded','false');});
+        $('.nav-drop.open').forEach(drop=>{drop.classList.remove('open');drop.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded','false');});
         const paint=()=>{render();window.scrollTo({top:0,behavior:'auto'});};
         if(document.startViewTransition&&document.documentElement.dataset.motion!=='reduced')document.startViewTransition(paint);
         else paint();
         document.title = routeTitle(next) + ' · ' + (state.data.site.church_name || 'Galilea');
-        $$('[data-route]').forEach(button => button.classList.toggle('active', button.dataset.route === next));
+        $('[data-route]').forEach(button => button.classList.toggle('active', button.dataset.route === next));
         track('page_view',{page_title:routeTitle(next),page_location:location.href});
       }
 
@@ -2179,8 +2296,7 @@
       }
 
       function pageHead(eyebrow, title, description) {
-        const chapters = {church:'02',leaders:'03',schedule:'04',sabbath:'05',bible:'06',hymnal:'07',activities:'08',announcements:'09',gallery:'10',services:'11',faq:'12',contact:'13'};
-        return '<section class="page-head"><div class="shell"><span class="page-chapter" aria-hidden="true">' + (chapters[state.route] || '01') + '</span><div><p class="eyebrow">' + esc(eyebrow) + '</p><h1>' + esc(title) + '</h1>' + (description ? '<p class="lead">' + esc(description) + '</p>' : '') + '</div></div></section>';
+        return '<section class="page-head"><div class="shell"><div><p class="eyebrow">' + esc(eyebrow) + '</p><h1>' + esc(title) + '</h1>' + (description ? '<p class="lead">' + esc(description) + '</p>' : '') + '</div></div></section>';
       }
       function emptyText(text) { return '<div class="empty"><p>' + esc(text) + '</p></div>'; }
       function fieldsHtml(fields) {
@@ -2214,13 +2330,13 @@
           '<div class="film-hero-media">' + (heroImage ? '<img src="' + attr(heroImage) + '" alt="">' : '') + '</div><div class="film-hero-shade" aria-hidden="true"></div><div class="film-hero-lines" aria-hidden="true"></div><span class="film-cross-light" aria-hidden="true"></span>' +
           '<div class="film-hero-inner"><p class="film-kicker">' + esc(site.tagline || 'Bertumbuh dalam iman') + '</p><h1>' + esc(site.hero_title || 'Iman yang hidup. Kasih yang bergerak.') + '</h1><p class="film-hero-lead">' + esc(site.hero_description || '') + '</p>' +
           '<div class="film-hero-actions"><button class="btn primary" type="button" data-route="schedule">Lihat jadwal ibadah' + icon('arrow') + '</button><button class="btn ghost" type="button" data-route="services">Layanan jemaat</button></div>' +
-          '<div class="film-hero-bottom"><div class="film-greeting"><strong>' + esc(formatGreeting()) + ', ' + esc(site.greeting_audience || 'Jemaat Galilea') + '.</strong><span>' + esc(currentDateLabel()) + '</span></div><div class="film-chapter-mark"><strong>01</strong><span>Beranda · Galilea</span></div></div></div></section>' +
+          '<div class="film-hero-bottom"><div class="film-greeting"><strong>' + esc(formatGreeting()) + ', ' + esc(site.greeting_audience || 'Jemaat Galilea') + '.</strong><span>' + esc(currentDateLabel()) + '</span></div></div></div></section>' +
           '<section class="service-reel" aria-label="Informasi ibadah"><div class="service-reel-item"><small>Ibadah Sabat</small><strong>' + esc(site.sabbath_service) + '</strong></div><div class="service-reel-item"><small>Permintaan Doa</small><strong>' + esc(site.wednesday_service) + '</strong></div><div class="service-reel-item"><small>Lokasi</small><strong>' + esc(site.address) + '</strong></div></section>' +
-          '<section class="cinema-chapter"><div class="shell cinema-chapter-grid"><aside class="chapter-rail"><span class="chapter-number">02</span><span>Pelayanan</span></aside><div><div class="chapter-heading"><h2>Jadwal minggu ini.</h2><p>Seluruh nama dan pembagian tugas tersedia langsung dari spreadsheet jemaat.</p></div>' + renderNotices() + '<button class="schedule-cue" type="button" data-route="schedule"><span class="schedule-cue-icon">' + icon('calendar') + '</span><span class="schedule-cue-copy"><small>Ibadah terdekat</small><strong>Buka pembagian pelayanan</strong><span>' + esc(scheduleDate) + '</span></span><span class="schedule-cue-arrow">' + icon('arrow') + '</span></button></div></div></section>' +
-          '<section class="word-stage"><div class="word-stage-heading"><p class="eyebrow">03 · Renungan Pagi</p><h2>Mulai hari bersama firman.</h2><p>Bacaan teks harian yang dicocokkan dengan tanggal WITA dan dapat dibagikan lengkap.</p></div><div id="home-devotional">' + loadingBox('Menyiapkan renungan pagi','Mencocokkan bacaan dengan tanggal hari ini…') + '</div></section>' +
-          '<section class="cinema-chapter broadcast-stage"><div class="shell cinema-chapter-grid"><aside class="chapter-rail"><span class="chapter-number">04</span><span>Siaran iman</span></aside><div class="broadcast-stack"><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">AWR Borneo</p><h2>Tiga video terbaru.</h2></div><a class="link-arrow" href="' + attr(site.awr_youtube_channel_url || 'https://www.youtube.com/@AWRBorneo') + '" target="_blank" rel="noopener">Buka kanal YouTube' + icon('external') + '</a></div><div id="home-video">' + loadingBox('Menghubungkan AWR Borneo','Menyiapkan tiga video terbaru dari kanal resmi…') + '</div></div><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">Diskusi Sekolah Sabat</p><h2>Pembahasan minggu ini.</h2></div></div><div id="home-sabbath-video">' + loadingBox('Menyiapkan pembahasan mingguan','Mencari materi pelajaran terbaru…') + '</div></div></div></div></section>' +
+          '<section class="cinema-chapter"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Jadwal minggu ini.</h2><p>Seluruh nama dan pembagian tugas tersedia langsung dari spreadsheet jemaat.</p></div>' + renderNotices() + '<button class="schedule-cue" type="button" data-route="schedule"><span class="schedule-cue-icon">' + icon('calendar') + '</span><span class="schedule-cue-copy"><small>Ibadah terdekat</small><strong>Buka pembagian pelayanan</strong><span>' + esc(scheduleDate) + '</span></span><span class="schedule-cue-arrow">' + icon('arrow') + '</span></button></div></div></section>' +
+          '<section class="word-stage"><div class="word-stage-heading"><p class="eyebrow">Renungan Pagi</p><h2>Mulai hari bersama firman.</h2><p>Bacaan teks harian yang dicocokkan dengan tanggal WITA dan dapat dibagikan lengkap.</p></div><div id="home-devotional">' + loadingBox('Menyiapkan renungan pagi','Mencocokkan bacaan dengan tanggal hari ini…') + '</div></section>' +
+          '<section class="cinema-chapter broadcast-stage"><div class="shell cinema-chapter-grid"><div class="broadcast-stack"><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">AWR Borneo</p><h2>Tiga video terbaru.</h2></div><a class="link-arrow" href="' + attr(site.awr_youtube_channel_url || 'https://www.youtube.com/@AWRBorneo') + '" target="_blank" rel="noopener">Buka kanal YouTube' + icon('external') + '</a></div><div id="home-video">' + loadingBox('Menghubungkan AWR Borneo','Menyiapkan tiga video terbaru dari kanal resmi…') + '</div></div><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">Diskusi Sekolah Sabat</p><h2>Pembahasan minggu ini.</h2></div></div><div id="home-sabbath-video">' + loadingBox('Menyiapkan pembahasan mingguan','Mencari materi pelajaran terbaru…') + '</div></div></div></div></section>' +
           '<section class="faith-interlude"><div class="shell faith-interlude-grid"><article class="faith-verse"><p class="eyebrow">' + esc(site.bible_reference) + '</p><p class="quote">“' + esc(site.bible_verse) + '”</p><button class="btn ghost" type="button" data-route="bible">Baca Alkitab' + icon('arrow') + '</button></article><div class="faith-theme"><article class="card card-pad" id="advent-theme">' + loadingBox('Menyiapkan tema Advent','Membaca tema untuk tahun berjalan…') + '</article></div></div></section>' +
-          '<section class="cinema-chapter journal-stage"><div class="shell cinema-chapter-grid"><aside class="chapter-rail"><span class="chapter-number">05</span><span>Kehidupan jemaat</span></aside><div><div class="chapter-heading"><h2>Kabar dari Galilea.</h2><p>Kegiatan ditampilkan sebagai cerita visual dan dapat memuat beberapa foto dalam satu postingan.</p></div><div class="journal-grid">' + (journal || emptyText('Belum ada kabar yang dipublikasikan.')) + '</div><div class="button-row" style="margin-top:36px"><button class="btn primary" type="button" data-route="activities">Seluruh kegiatan' + icon('arrow') + '</button><button class="btn" type="button" data-route="announcements">Pengumuman</button></div></div></div></section>';
+          '<section class="cinema-chapter journal-stage"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Kabar dari Galilea.</h2><p>Kegiatan ditampilkan sebagai cerita visual dan dapat memuat beberapa foto dalam satu postingan.</p></div><div class="journal-grid">' + (journal || emptyText('Belum ada kabar yang dipublikasikan.')) + '</div><div class="button-row" style="margin-top:36px"><button class="btn primary" type="button" data-route="activities">Seluruh kegiatan' + icon('arrow') + '</button><button class="btn" type="button" data-route="announcements">Pengumuman</button></div></div></div></section>';
       }
 
       async function loadDevotionalHome() {
@@ -3044,6 +3160,7 @@
           startDayRolloverWatcher();
           const initialRoute = location.hash.replace('#','');
           state.route = ROUTES.includes(initialRoute) ? initialRoute : 'home';
+          history.replaceState({route:state.route},'','#' + state.route);
           const cached = cacheGet('v1700-bootstrap');
           if (cached) { state.data = cached; setShellData(); render(); releaseStartupLoader(); }
           const fresh = await server('getWebsiteData',[]);
@@ -3120,7 +3237,10 @@
       $('#language-settings').addEventListener('change',event => setLanguage(event.target.value));
       $('#install-app').addEventListener('click',openInstallHelp);
       window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); state.deferredInstall=event; });
-      window.addEventListener('hashchange',() => { const route=location.hash.replace('#',''); if(ROUTES.includes(route) && route!==state.route) navigate(route); });
+      window.addEventListener('popstate',() => {
+        const route = location.hash.replace('#','');
+        navigate(ROUTES.includes(route) ? route : 'home',{history:false});
+      });
       window.addEventListener('scroll',updateCinemaHeader,{passive:true});
       window.addEventListener('resize',updateCinemaHeader,{passive:true});
       $$('dialog').forEach(dialog => dialog.addEventListener('click',event => { if(event.target===dialog) dialog.close(); }));
