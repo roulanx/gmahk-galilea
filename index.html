@@ -2273,12 +2273,12 @@
         syncCinemaNav();
         if (options && options.action === 'mine') state.scheduleTab = 'mine';
         closeMobile();
-        $('.nav-drop.open').forEach(drop=>{drop.classList.remove('open');drop.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded','false');});
+        document.querySelectorAll('.nav-drop.open').forEach(drop=>{drop.classList.remove('open');drop.querySelector('[data-nav-toggle]')?.setAttribute('aria-expanded','false');});
         const paint=()=>{render();window.scrollTo({top:0,behavior:'auto'});};
         if(document.startViewTransition&&document.documentElement.dataset.motion!=='reduced')document.startViewTransition(paint);
         else paint();
         document.title = routeTitle(next) + ' · ' + (state.data.site.church_name || 'Galilea');
-        $('[data-route]').forEach(button => button.classList.toggle('active', button.dataset.route === next));
+        document.querySelectorAll('[data-route]').forEach(button => button.classList.toggle('active', button.dataset.route === next));
         track('page_view',{page_title:routeTitle(next),page_location:location.href});
       }
 
