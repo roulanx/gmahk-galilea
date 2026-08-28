@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-1-0" data-ui-revision="GALILEA-DYNAMIC-ISLAND-17-2-0">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-1-0" data-ui-revision="GALILEA-DYNAMIC-ISLAND-17-2-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2333,7 +2333,7 @@
           '<div class="film-hero-bottom"><div class="film-greeting"><strong>' + esc(formatGreeting()) + ', ' + esc(site.greeting_audience || 'Jemaat Galilea') + '.</strong><span>' + esc(currentDateLabel()) + '</span></div></div></div></section>' +
           '<section class="service-reel" aria-label="Informasi ibadah"><div class="service-reel-item"><small>Ibadah Sabat</small><strong>' + esc(site.sabbath_service) + '</strong></div><div class="service-reel-item"><small>Permintaan Doa</small><strong>' + esc(site.wednesday_service) + '</strong></div><div class="service-reel-item"><small>Lokasi</small><strong>' + esc(site.address) + '</strong></div></section>' +
           '<section class="cinema-chapter"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Jadwal minggu ini.</h2><p>Seluruh nama dan pembagian tugas tersedia langsung dari spreadsheet jemaat.</p></div>' + renderNotices() + '<button class="schedule-cue" type="button" data-route="schedule"><span class="schedule-cue-icon">' + icon('calendar') + '</span><span class="schedule-cue-copy"><small>Ibadah terdekat</small><strong>Buka pembagian pelayanan</strong><span>' + esc(scheduleDate) + '</span></span><span class="schedule-cue-arrow">' + icon('arrow') + '</span></button></div></div></section>' +
-          '<section class="word-stage"><div class="word-stage-heading"><p class="eyebrow">Renungan Pagi</p><h2>Mulai hari bersama firman.</h2><p>Bacaan teks harian yang dicocokkan dengan tanggal WITA dan dapat dibagikan lengkap.</p></div><div id="home-devotional">' + loadingBox('Menyiapkan renungan pagi','Mencocokkan bacaan dengan tanggal hari ini…') + '</div></section>' +
+          '<section class="word-stage"><div class="word-stage-heading"><p class="eyebrow">Renungan Pagi</p><h2>Mulai hari bersama firman.</h2><p>Bacaan teks harian dari sumber resmi Advent, dicocokkan dengan tanggal WITA, tanpa video.</p></div><div id="home-devotional">' + loadingBox('Menyiapkan renungan pagi','Mencocokkan bacaan dengan tanggal hari ini…') + '</div></section>' +
           '<section class="cinema-chapter broadcast-stage"><div class="shell cinema-chapter-grid"><div class="broadcast-stack"><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">AWR Borneo</p><h2>Tiga video terbaru.</h2></div><a class="link-arrow" href="' + attr(site.awr_youtube_channel_url || 'https://www.youtube.com/@AWRBorneo') + '" target="_blank" rel="noopener">Buka kanal YouTube' + icon('external') + '</a></div><div id="home-video">' + loadingBox('Menghubungkan AWR Borneo','Menyiapkan tiga video terbaru dari kanal resmi…') + '</div></div><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">Diskusi Sekolah Sabat</p><h2>Pembahasan minggu ini.</h2></div></div><div id="home-sabbath-video">' + loadingBox('Menyiapkan pembahasan mingguan','Mencari materi pelajaran terbaru…') + '</div></div></div></div></section>' +
           '<section class="faith-interlude"><div class="shell faith-interlude-grid"><article class="faith-verse"><p class="eyebrow">' + esc(site.bible_reference) + '</p><p class="quote">“' + esc(site.bible_verse) + '”</p><button class="btn ghost" type="button" data-route="bible">Baca Alkitab' + icon('arrow') + '</button></article><div class="faith-theme"><article class="card card-pad" id="advent-theme">' + loadingBox('Menyiapkan tema Advent','Membaca tema untuk tahun berjalan…') + '</article></div></div></section>' +
           '<section class="cinema-chapter journal-stage"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Kabar dari Galilea.</h2><p>Kegiatan ditampilkan sebagai cerita visual dan dapat memuat beberapa foto dalam satu postingan.</p></div><div class="journal-grid">' + (journal || emptyText('Belum ada kabar yang dipublikasikan.')) + '</div><div class="button-row" style="margin-top:36px"><button class="btn primary" type="button" data-route="activities">Seluruh kegiatan' + icon('arrow') + '</button><button class="btn" type="button" data-route="announcements">Pengumuman</button></div></div></div></section>';
@@ -2354,7 +2354,27 @@
             }
             item = item || await server('getDailyDevotional',[todayKey]);
             if (!item || item.requestedDate !== todayKey) throw new Error('Tanggal Renungan Pagi belum cocok dengan hari ini. Silakan muat ulang.');
-            cacheSet(cacheKey,item,item.isPending || item.isArchive ? 240000 : 900000);
+            const hasOfficialText = item.format === 'text' && String(item.contentHtml || '').trim() && !item.videoId && !item.embedUrl && !item.watchUrl;
+            if (hasOfficialText) {
+              item = Object.assign({},item,{format:'text',videoId:'',thumbnailUrl:'',embedUrl:'',watchUrl:''});
+            } else {
+              item = {
+                id:'official-text-pending-' + todayKey,
+                format:'pending',
+                requestedDate:todayKey,
+                contentDate:todayKey,
+                todayLabel:item.todayLabel || currentDateLabel(),
+                title:'Renungan Pagi teks sedang diperbarui',
+                scripture:'',
+                summary:'Website hanya menampilkan bacaan teks dari sumber resmi Advent. Video tidak digunakan untuk Renungan Pagi.',
+                contentHtml:'',
+                videoId:'',thumbnailUrl:'',embedUrl:'',watchUrl:'',
+                isArchive:false,isPending:true,
+                source:'Materi resmi Advent · Bahasa Indonesia',
+                attribution:'Dibagikan melalui Website Gereja Galilea'
+              };
+            }
+            cacheSet(cacheKey,item,item.isPending ? 120000 : 900000);
             if ($('#home-devotional')) $('#home-devotional').innerHTML = devotionalCardHtml(item);
             state.async.devotional = item;
           } catch (error) { if ($('#home-devotional')) $('#home-devotional').innerHTML = errorBox(error.message); }
@@ -2365,7 +2385,7 @@
         if (item.isPending || item.format === 'pending') {
           return '<article class="devotional-pending cinematic-pending"><div class="pending-halo" aria-hidden="true"></div><div><span class="chip brand">' + esc(item.todayLabel) + '</span><h3>' + esc(item.title) + '</h3><p>' + esc(item.summary) + '</p></div></article>';
         }
-        return '<article class="devotional-cinema"><div class="devotional-orbit" aria-hidden="true"><span></span><span></span><span></span></div><div class="devotional-date"><small>BACAAN HARI INI</small><strong>' + esc(item.todayLabel) + '</strong><span>' + esc(item.source || 'Materi Advent Bahasa Indonesia') + '</span></div><div class="devotional-body"><div class="devotional-meta"><span class="chip brand">TANGGAL WITA TERKONFIRMASI</span>' + (item.lessonNumber?'<span class="chip">PELAJARAN ' + esc(item.lessonNumber) + '</span>':'') + '</div><p class="eyebrow">Renungan Pagi</p><h3 class="devotional-title">' + esc(item.title) + '</h3>' + (item.scripture?'<blockquote class="devotional-verse">' + esc(item.scripture) + '</blockquote>':'') + '<p class="devotional-summary">' + esc(item.summary) + '</p><div class="button-row"><button class="btn primary" type="button" data-read-devotional>Baca selengkapnya' + icon('arrow') + '</button><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div><p class="small faint">' + esc(item.attribution || 'Dibagikan melalui Website Gereja Galilea') + '</p></div></article>';
+        return '<article class="devotional-cinema"><div class="devotional-orbit" aria-hidden="true"><span></span><span></span><span></span></div><div class="devotional-date"><small>BACAAN HARI INI</small><strong>' + esc(item.todayLabel) + '</strong><span>' + esc(item.source || 'Materi resmi Advent · Bahasa Indonesia') + '</span></div><div class="devotional-body"><div class="devotional-meta"><span class="chip brand">SUMBER RESMI · TEKS</span><span class="chip">TANGGAL WITA TERKONFIRMASI</span>' + (item.lessonNumber?'<span class="chip">PELAJARAN ' + esc(item.lessonNumber) + '</span>':'') + '</div><p class="eyebrow">Renungan Pagi</p><h3 class="devotional-title">' + esc(item.title) + '</h3>' + (item.scripture?'<blockquote class="devotional-verse">' + esc(item.scripture) + '</blockquote>':'') + '<p class="devotional-summary">' + esc(item.summary) + '</p><div class="button-row"><button class="btn primary" type="button" data-read-devotional>Baca selengkapnya' + icon('arrow') + '</button><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div><p class="small faint">' + esc(item.attribution || 'Dibagikan melalui Website Gereja Galilea') + '</p></div></article>';
       }
       async function loadAwrHome() {
         const videoBox = $('#home-video');
@@ -2926,13 +2946,11 @@
         return lines.filter((line,index) => line !== '' || lines[index - 1] !== '').join('\n');
       }
       function openDevotional(item) {
-        if (!item) return;
-        const shareBar = '<div class="download-bar"><div><span class="chip brand">' + esc(item.todayLabel) + '</span><strong style="margin-top:10px">Renungan Pagi untuk dibagikan</strong><span>Diunduh melalui Website Gereja Galilea</span></div><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div>';
-        if (item.format === 'video' && item.videoId) {
-          return openReader(item.title,shareBar + '<div class="reader-video"><iframe src="https://www.youtube-nocookie.com/embed/' + attr(item.videoId) + '?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="' + attr(item.title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="reader-content"><p>' + esc(item.summary || '') + '</p></div>');
+        if (!item || item.format !== 'text' || !String(item.contentHtml || '').trim()) {
+          return toast('Teks Renungan Pagi dari sumber resmi sedang belum tersedia.');
         }
-        if (item.contentHtml) return openReader(item.title,shareBar + '<div class="reader-content">' + cleanHtml(item.contentHtml) + '</div>');
-        if (item.sourceUrl) window.open(item.sourceUrl,'_blank','noopener');
+        const shareBar = '<div class="download-bar"><div><span class="chip brand">' + esc(item.todayLabel) + '</span><strong style="margin-top:10px">Renungan Pagi teks untuk dibagikan</strong><span>Sumber resmi Advent · Tanpa video</span></div><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div>';
+        return openReader(item.title,shareBar + '<div class="reader-content">' + cleanHtml(item.contentHtml) + '</div>');
       }
       function scheduleJson(card) {
         try { return JSON.parse($('.schedule-json',card).textContent); } catch (_) { return null; }
@@ -3147,7 +3165,7 @@
         if (event.target.closest('[data-download-member-schedule]')) return downloadMemberSchedulePoster();
         if (event.target.closest('[data-download-quarterly]')) return downloadQuarterlySchedule();
         if (event.target.closest('[data-whatsapp-devotional]') && state.async.devotional) return shareWhatsApp(devotionalShareText(state.async.devotional),location.href.split('#')[0] + '#home');
-        if ((event.target.closest('[data-read-devotional]') || event.target.closest('[data-watch-devotional]')) && state.async.devotional) return openDevotional(state.async.devotional);
+        if (event.target.closest('[data-read-devotional]') && state.async.devotional) return openDevotional(state.async.devotional);
         if (event.target.closest('[data-read-personal]') && state.async.personal) return openReader(state.async.personal.title,'<div class="reader-content">' + state.async.personal.contentHtml + '</div>');
       }
 
