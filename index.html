@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-1-0" data-ui-revision="GALILEA-DYNAMIC-ISLAND-17-2-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-3-0" data-ui-revision="GALILEA-THEME-CONTRACT-17-3-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -1732,7 +1732,115 @@
     }
     [data-motion="reduced"] body,[data-motion="reduced"] .view,[data-motion="reduced"] .section,[data-motion="reduced"] .card,[data-motion="reduced"] .toolbar,[data-motion="reduced"] .notice,[data-motion="reduced"] dialog .modal,[data-motion="reduced"] input,[data-motion="reduced"] select,[data-motion="reduced"] textarea{transition:none!important}
 
-  </style>
+  
+    /* ====================================================================== */
+    /* GALILEA V17.3 · THEME CONTRAST CONTRACT                                 */
+    /* Satu aturan final untuk seluruh komponen terang/gelap.                  */
+    /* ====================================================================== */
+    :root{
+      --on-cinema:#fbfcf7;
+      --on-cinema-soft:rgba(251,252,247,.82);
+      --on-cinema-faint:rgba(251,252,247,.68);
+    }
+    [data-theme="dark"]{
+      --on-cinema:#fbfcf7;
+      --on-cinema-soft:rgba(251,252,247,.84);
+      --on-cinema-faint:rgba(251,252,247,.7);
+    }
+    .skip-link{
+      color:#07120b!important;
+      border-color:var(--brand-strong)!important;
+      background:var(--brand-strong)!important
+    }
+    [data-theme="dark"] .skip-link{
+      color:#07120b!important;
+      border-color:var(--brand-strong)!important;
+      background:var(--brand-strong)!important
+    }
+    :where(.card,.toolbar,.notice,details.faq,dialog .modal,.nav-drop-menu,.language-settings,
+      .bible-sidebar,.bible-content,.bible-reader,.song-reader,.reader-content,.resource-reading,
+      .schedule-card,.service-card,.leader-card,.activity-card,.journal-note,.devotional-card){
+      color:var(--text)!important
+    }
+    :where(.card,.toolbar,.notice,details.faq,dialog .modal,.nav-drop-menu,.language-settings,
+      .bible-sidebar,.bible-content,.bible-reader,.song-reader,.reader-content,.resource-reading,
+      .schedule-card,.service-card,.leader-card,.activity-card,.journal-note,.devotional-card)
+      :where(h1,h2,h3,h4,h5,h6,strong,summary,label,legend,th,dt){
+      color:var(--text)!important
+    }
+    :where(.card,.toolbar,.notice,details.faq,dialog .modal,.nav-drop-menu,.language-settings,
+      .bible-sidebar,.bible-content,.bible-reader,.song-reader,.reader-content,.resource-reading,
+      .schedule-card,.service-card,.leader-card,.activity-card,.journal-note,.devotional-card)
+      :where(p,li,td,dd,.muted,.lead,.section-copy,.faq-answer,.help-text,.meta,.small,.faint){
+      color:var(--text-soft)!important
+    }
+    :where(input,select,textarea){
+      color:var(--text)!important;
+      border-color:var(--line-strong)!important;
+      background:var(--surface)!important
+    }
+    :where(input,textarea)::placeholder{color:var(--text-faint)!important;opacity:1}
+    :where(.chip,.badge,.status-chip){
+      color:var(--text)!important;
+      border-color:var(--line-strong)!important;
+      background:var(--surface-soft)!important
+    }
+    :where(.chip.brand,.badge.brand,.status-chip.brand){
+      color:#fff!important;
+      border-color:var(--brand-strong)!important;
+      background:var(--brand-strong)!important
+    }
+    [data-theme="dark"] :where(.chip.brand,.badge.brand,.status-chip.brand){
+      color:#07120b!important;
+      border-color:var(--brand-strong)!important;
+      background:var(--brand-strong)!important
+    }
+    .view :where(a:not(.btn)){color:var(--brand-strong)}
+    .view :where(.muted,.section-copy,.lead,.faq-answer,.help-text){color:var(--text-soft)}
+    .view :where(.faint,.small.faint,.meta){color:var(--text-faint)}
+    .film-hero,.page-head,.word-stage,.faith-interlude,.site-footer{color:var(--on-cinema)!important}
+    :where(.film-hero,.page-head,.word-stage,.faith-interlude,.site-footer)
+      :where(h1,h2,h3,h4,h5,h6,strong,summary,label,legend,th,dt){
+      color:var(--on-cinema)!important
+    }
+    :where(.film-hero,.page-head,.word-stage,.faith-interlude,.site-footer)
+      :where(p,li,td,dd,.muted,.lead,.section-copy,.faq-answer,.help-text,.meta){
+      color:var(--on-cinema-soft)!important
+    }
+    :where(.film-hero,.page-head,.word-stage,.faith-interlude,.site-footer)
+      :where(.faint,.small.faint){color:var(--on-cinema-faint)!important}
+    :where(.film-hero,.page-head,.faith-interlude,.site-footer) .btn.ghost{
+      color:var(--on-cinema)!important;
+      border-color:rgba(255,255,255,.38)!important;
+      background:rgba(255,255,255,.1)!important
+    }
+    .word-stage .devotional-cinema{
+      color:var(--on-cinema)!important;
+      border-color:rgba(255,255,255,.24)!important;
+      background:rgba(2,8,4,.56)!important
+    }
+    .word-stage .devotional-cinema :where(h1,h2,h3,h4,strong,blockquote){
+      color:var(--on-cinema)!important
+    }
+    .word-stage .devotional-cinema :where(p,.devotional-summary,.small,.faint){
+      color:var(--on-cinema-soft)!important
+    }
+    .word-stage .devotional-cinema :where(.chip){
+      color:var(--on-cinema)!important;
+      border-color:rgba(255,255,255,.34)!important;
+      background:rgba(255,255,255,.1)!important
+    }
+    .site-footer .footer-link{
+      color:var(--on-cinema-soft)!important;
+      border-color:rgba(255,255,255,.2)!important;
+      background:transparent!important
+    }
+    .site-footer .footer-bottom{color:var(--on-cinema-faint)!important}
+    .site-header .nav-drop-menu :where(button,a){color:var(--text-soft)!important}
+    .site-header .nav-drop-menu :where(button,a):hover,
+    .site-header .nav-drop-menu :where(button,a).active{color:var(--text)!important}
+
+</style>
 </head>
 <body>
   <svg class="sr-only" aria-hidden="true">
@@ -2344,7 +2452,8 @@
         if (devotionalBox) {
           try {
             const todayKey = witaDateKey();
-            const cacheKey = 'v1700-devotional-' + todayKey;
+            const cacheKey = 'v1730-devotional-' + todayKey;
+            cacheRemove('v1700-devotional-' + todayKey);
             cacheRemove('v11-devotional-today');
             cacheRemove('v1101-devotional-' + todayKey);
             let item = cacheGet(cacheKey);
