@@ -6,7 +6,7 @@
  */
 
 const GA = Object.freeze({
-  VERSION: '19.0.0',
+  VERSION: '19.0.1',
   SHEETS: Object.freeze({
     admins: 'Website Admin',
     workflow: 'Website Workflow',
