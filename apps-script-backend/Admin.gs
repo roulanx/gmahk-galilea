@@ -6,7 +6,7 @@
  */
 
 const GA = Object.freeze({
-  VERSION: '16.0.0',
+  VERSION: '19.0.0',
   SHEETS: Object.freeze({
     admins: 'Website Admin',
     workflow: 'Website Workflow',
@@ -59,7 +59,7 @@ function gaEntityDefinitions_() {
       ], statusColumn: 5, idColumn: 6
     },
     banners: {
-      label: 'Banner Informasi', icon: 'flag', sheet: GW.SHEETS.banners,
+      label: 'Pengumuman Terjadwal', icon: 'flag', sheet: GW.SHEETS.banners,
       fields: [
         gaField_('startDate', 'Mulai Tampil', 0, 'date', true),
         gaField_('endDate', 'Berakhir', 1, 'date', false),
@@ -89,6 +89,20 @@ function gaEntityDefinitions_() {
         gaField_('imageUrl', 'Foto Tema', 4, 'image', false),
         gaField_('sourceUrl', 'Sumber', 5, 'url', false)
       ], statusColumn: 6, idColumn: 7
+    },
+    worshipPlans: {
+      label: 'Susunan Ibadah', icon: 'calendar', sheet: GW.SHEETS.worshipPlans,
+      fields: [
+        gaField_('date', 'Tanggal Ibadah', 0, 'date', true),
+        gaField_('serviceType', 'Jenis Ibadah', 1, 'select', true, ['IBADAH SABAT', 'RABU MALAM', 'PERMINTAAN DOA', 'PEMUDA ADVENT', 'LAINNYA']),
+        gaField_('time', 'Waktu WITA', 2, 'time', true),
+        gaField_('theme', 'Tema Ibadah', 3, 'text', true),
+        gaField_('scripture', 'Ayat Utama', 4, 'text', false),
+        gaField_('songs', 'Lagu Sion', 5, 'textarea', false),
+        gaField_('agenda', 'Susunan Acara', 6, 'textarea', true),
+        gaField_('note', 'Catatan untuk Jemaat', 7, 'textarea', false),
+        gaField_('livestreamUrl', 'Tautan Siaran', 8, 'url', false)
+      ], statusColumn: 9, idColumn: 10
     }
   };
 }
@@ -167,8 +181,8 @@ function gaEnsureEntityIds_(spreadsheet, onlyKey) {
 
 function gaEnsureServiceColumns_() {
   const sheet = gwServiceSheet_();
-  if (sheet.getMaxColumns() < 11) sheet.insertColumnsAfter(sheet.getMaxColumns(), 11 - sheet.getMaxColumns());
-  sheet.getRange(1, 10, 1, 2).setValues([['Catatan Admin', 'Diperbarui']]);
+  if (sheet.getMaxColumns() < 12) sheet.insertColumnsAfter(sheet.getMaxColumns(), 12 - sheet.getMaxColumns());
+  sheet.getRange(1, 10, 1, 3).setValues([['Catatan Admin', 'Diperbarui', 'Privasi']]);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -677,13 +691,15 @@ function gaSheetValue_(field, value) {
 /* -------------------------------------------------------------------------- */
 
 function adminListServices() {
-  gaRequireRole_('EDITOR');
+  const user = gaRequireRole_('EDITOR');
   gaEnsureServiceColumns_();
   const sheet = gwServiceSheet_();
   if (sheet.getLastRow() < 2) return [];
-  const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, 11).getDisplayValues();
+  const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, 12).getDisplayValues();
   return rows.map(function (row) {
-    return { id: row[0], receivedAt: row[1], type: row[2], name: row[3], phone: row[4], message: row[5], contactMethod: row[6], consent: row[7], status: row[8] || 'BARU', adminNote: row[9], updatedAt: row[10] };
+    const privacy = String(row[11] || 'TIM_PELAYANAN').toUpperCase();
+    const restricted = privacy === 'GEMBALA' && user.level < GA.ROLES.APPROVER;
+    return { id: row[0], receivedAt: row[1], type: row[2], name: restricted ? 'Permohonan privat' : row[3], phone: restricted ? '' : row[4], message: restricted ? 'Isi hanya dapat dibaca oleh Gembala atau reviewer yang ditunjuk.' : row[5], contactMethod: row[6], consent: row[7], status: row[8] || 'BARU', adminNote: restricted ? '' : row[9], updatedAt: row[10], privacy: privacy, restricted: restricted };
   }).reverse();
 }
 
