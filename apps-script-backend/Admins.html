@@ -1,6 +1,10 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-build="GALILEA-ADMIN-WORSHIP-CENTER-19-0-0">
+<html lang="id" data-theme="light" data-build="GALILEA-ADMIN-WORSHIP-CENTER-19-0-1">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
+  <meta name="theme-color" content="#eef0e8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#07110c" media="(prefers-color-scheme: dark)">
   <style>
     :root {
       --bg:#f3f6f1;--surface:#fbfcf9;--surface-2:#e9f0e7;--surface-3:#dfe9dc;
@@ -227,6 +231,92 @@
     .editor-preview-card h3{margin:8px 0 10px}.editor-preview-card dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0 0}.editor-preview-card dl div{min-width:0;padding:10px;border-radius:10px;background:var(--surface-2)}.editor-preview-card dt{color:var(--faint);font-size:.64rem;font-weight:800;text-transform:uppercase}.editor-preview-card dd{margin:5px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}
     .privacy-chip{display:inline-flex;align-items:center;min-height:28px;padding:5px 10px;border-radius:999px;color:var(--text);background:var(--brand-soft);font-size:.62rem;font-weight:850}.service-card.restricted{border-style:dashed}
     @media(max-width:560px){.editor-preview-card dl{grid-template-columns:1fr}}
+
+    /* V19.0.1 · responsive admin lock: iPhone, Android, tablet, dan desktop */
+    html{width:100%;overflow-x:hidden;background:var(--bg);color-scheme:light}
+    html[data-theme="dark"]{color-scheme:dark}
+    body{width:100%;min-width:0;overflow-x:hidden;overscroll-behavior-x:none}
+    .admin-shell,.workspace,.content,.topbar,.sidebar,.page-head,.toolbar,
+    .record-grid,.quick-grid,.grid,.card,.record,.metric,.quick-action,
+    .workflow-item,.approval-card,.service-card,.user-card,.payload,
+    .modal-head,.modal-body,.modal-foot,.form-grid,.field{min-width:0;max-width:100%}
+    h1,h2,h3,p,strong,span,label,small,button,a,dd,dt{overflow-wrap:anywhere}
+    .btn,.icon-btn,.nav-item,input,select,textarea{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+    input,select,textarea{color:var(--text)!important;background:var(--surface)!important;border-color:var(--line)!important}
+    input::placeholder,textarea::placeholder{color:var(--faint);opacity:1}
+    .status,.privacy-chip{max-width:100%;height:auto;white-space:normal;text-align:left;line-height:1.3}
+    .record-top,.section-head,.editor-preview-head{min-width:0;flex-wrap:wrap}
+    .record-summary{overflow-wrap:anywhere}
+    .payload strong{overflow:visible;text-overflow:clip;white-space:normal;overflow-wrap:anywhere}
+    dialog{margin:auto;overflow:hidden}
+    dialog>form{width:100%;min-width:0}
+    .modal-head strong,.modal-head span{min-width:0;overflow-wrap:anywhere}
+    [data-theme="light"] .nav-item{color:#465349}
+    [data-theme="light"] .nav-item.active{color:#fff}
+    [data-theme="light"] .status,[data-theme="light"] .privacy-chip{color:#132019}
+    [data-theme="dark"] .nav-item{color:#c5cec4}
+    [data-theme="dark"] .nav-item.active{color:#07110b}
+    [data-theme="dark"] .status,[data-theme="dark"] .privacy-chip{color:#f5f7ef}
+    @media(min-width:851px){
+      .workspace{margin-left:0}
+      .content{width:min(1420px,calc(100% - clamp(34px,6vw,92px)))}
+      .topbar{max-width:calc(100% - clamp(32px,4.8vw,68px));margin-inline:auto}
+    }
+    @media(max-width:850px){
+      :root{--topbar:72px}
+      .admin-shell{display:block;min-height:100dvh}
+      .workspace{width:100%;min-height:100dvh}
+      .sidebar{inset:0 auto 0 0;width:min(86vw,320px);height:100dvh;padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom));overflow:hidden;transform:translate3d(-105%,0,0)}
+      .sidebar.open{transform:translate3d(0,0,0)}
+      .nav-scroll{overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+      .mobile-overlay{inset:0;width:100vw;height:100dvh}
+      .topbar{top:0;width:calc(100% - 20px);min-height:var(--topbar);margin:calc(8px + env(safe-area-inset-top)) 10px 0;padding:9px 12px;border-radius:18px}
+      .mobile-menu{display:grid;flex:0 0 44px}
+      .crumb{min-width:0}.crumb strong{font-size:.88rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.crumb span{display:none}
+      .top-actions{flex:0 0 auto;flex-wrap:nowrap}.top-actions .icon-btn{flex:0 0 44px}
+      .content{width:calc(100% - 20px);margin-inline:10px;padding:30px 0 calc(48px + env(safe-area-inset-bottom))}
+      .page-head{align-items:stretch;gap:18px;margin-bottom:24px}.page-head h1{font-size:clamp(2.35rem,10vw,4.25rem);line-height:.92}.page-head p{font-size:.92rem;line-height:1.65}
+      .hero-admin{min-height:0;grid-template-columns:1fr;padding:32px 24px;border-radius:24px}.hero-admin h1{font-size:clamp(2.75rem,12vw,5rem);line-height:.9}.hero-admin p{font-size:.92rem}.hero-status{width:100%;padding:18px}
+      .grid-4,.grid-3,.grid-2,.quick-grid,.record-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .toolbar{align-items:stretch;flex-direction:column;padding:10px}.search{width:100%;min-width:0}.filters{width:100%}.filters select{min-width:0;flex:1}
+      .approval-card,.service-card,.user-card{grid-template-columns:1fr}.approval-card>.button-row,.service-card>.button-row,.user-card>.button-row{justify-content:flex-start}
+      .workflow-item{grid-template-columns:auto minmax(0,1fr)}.workflow-item>.button-row{grid-column:1/-1;justify-content:flex-start}
+      dialog{width:calc(100% - 18px);max-height:calc(100dvh - 18px);border-radius:22px}
+      dialog>form{max-height:calc(100dvh - 18px)}
+      .modal-body{padding:22px 18px;-webkit-overflow-scrolling:touch}
+      .modal-head{padding:15px 16px}.modal-foot{padding:13px 16px calc(13px + env(safe-area-inset-bottom))}
+    }
+    @media(max-width:600px){
+      body{font-size:15px}
+      input,select,textarea{min-height:48px;font-size:16px}
+      .content{width:calc(100% - 16px);margin-inline:8px}
+      .topbar{width:calc(100% - 16px);margin-inline:8px}
+      .top-actions .icon-btn:first-child{display:none}
+      .grid-4,.grid-3,.grid-2,.quick-grid,.record-grid,.form-grid,.payload{grid-template-columns:1fr}
+      .hero-admin{padding:28px 20px}.hero-admin h1{font-size:clamp(2.6rem,14vw,4.25rem)}
+      .metric{min-height:145px;padding:20px}.quick-action{min-height:145px;padding:20px}.record{min-height:0;padding:20px}
+      .record-top{align-items:flex-start}.record-actions,.button-row{width:100%}.record-actions .btn{flex:1 1 100%}
+      .section-head{align-items:flex-start;flex-direction:column;margin-top:34px}
+      .page-head>.btn,.section-head>.btn{width:100%}
+      .filters{display:grid;grid-template-columns:minmax(0,1fr) auto}.filters select{width:100%}
+      .workflow-guide{grid-template-columns:1fr 1fr}.workflow-step:after{display:none}
+      .workflow-item{grid-template-columns:1fr}.workflow-item>.button-row{grid-column:auto}.workflow-item .button-row>*{width:100%}
+      .approval-card .button-row>*,.service-card .button-row>*,.user-card .button-row>*{width:100%}
+      .editor-preview{padding:14px}.editor-preview-card{padding:15px}.editor-preview-card dl{grid-template-columns:1fr}
+      .modal-foot{display:grid;grid-template-columns:1fr}.modal-foot .btn{width:100%}
+      .toast-zone{right:8px;bottom:calc(8px + env(safe-area-inset-bottom));left:8px}.toast{width:100%;max-width:none}
+      .gate{padding:calc(14px + env(safe-area-inset-top)) 14px calc(14px + env(safe-area-inset-bottom))}.gate-card{padding:30px 22px;border-radius:22px}.gate-card h1{font-size:clamp(2.7rem,14vw,4.3rem)}
+    }
+    @media(max-width:374px){
+      .top-actions .icon-btn{width:42px;height:42px;flex-basis:42px}.crumb strong{max-width:120px}
+      .hero-admin{padding:25px 18px}.hero-admin h1{font-size:2.45rem}
+      .modal-head{gap:10px}.sidebar{width:92vw}
+      .workflow-guide{grid-template-columns:1fr}
+    }
+    @media(orientation:landscape) and (max-height:520px) and (max-width:950px){
+      .sidebar{width:min(72vw,320px)}.hero-admin{padding:24px}.topbar{position:relative}.content{padding-top:22px}
+      dialog,dialog>form{max-height:calc(100dvh - 10px)}
+    }
   </style>
 </head>
 <body>
@@ -402,7 +492,7 @@
       const eyebrow=access?'VERIFIKASI AKUN':'PEMULIHAN SISTEM';
       const steps=access
         ? '<div class="step"><b>1</b><span>Gunakan deployment admin yang dijalankan sebagai <strong>User accessing the web app</strong>.</span></div><div class="step"><b>2</b><span>Pastikan email Google tercantum dan berstatus <strong>AKTIF</strong> pada sheet <strong>Website Admin</strong>.</span></div><div class="step"><b>3</b><span>Buka alamat Vercel dengan akhiran <strong>/admin</strong>, lalu masuk memakai akun tersebut.</span></div>'
-        : '<div class="step"><b>1</b><span>Akun Google Anda sudah dikenali; ini adalah gangguan kode atau data, bukan masalah login.</span></div><div class="step"><b>2</b><span>Pastikan deployment admin memakai versi <strong>V19.0.0</strong>, bukan versi lama.</span></div><div class="step"><b>3</b><span>Muat ulang setelah deployment selesai diperbarui.</span></div>';
+        : '<div class="step"><b>1</b><span>Akun Google Anda sudah dikenali; ini adalah gangguan kode atau data, bukan masalah login.</span></div><div class="step"><b>2</b><span>Pastikan deployment admin memakai versi <strong>V19.0.1</strong>, bukan versi lama.</span></div><div class="step"><b>3</b><span>Muat ulang setelah deployment selesai diperbarui.</span></div>';
       $('#loader').classList.add('hidden');
       $('#root').innerHTML='<main class="gate"><article class="gate-card">'+logoMark('gate-logo')+'<span class="eyebrow">'+eyebrow+'</span><h1>'+title+'</h1><p class="muted gate-message">'+esc(message)+'</p><div class="steps">'+steps+'</div><button class="btn primary" onclick="location.reload()">Muat ulang portal</button></article></main>';
     }
