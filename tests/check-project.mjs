@@ -9,7 +9,9 @@ const root = path.resolve(here, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 const index = read('index.html');
-assert.match(index, /GALILEA-CREATIVE-CINEMA-18-0-0/);
+assert.match(index, /GALILEA-CREATIVE-CINEMA-18-1-0/);
+assert.match(index, /GALILEA-SAFARI-CONTRAST-18-1-0/);
+assert.match(index, /profile-role/);
 assert.match(index, /fetch\('\/api\/gas'/);
 assert.match(index, /fetch\('\/api\/quarterly-pdf'/);
 assert.match(index, /fetch\('\/api\/weekly-bulletin'/);
