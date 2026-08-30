@@ -7,13 +7,13 @@
  */
 
 const GW = Object.freeze({
-  VERSION: '16.0.0',
-  BUILD_ID: 'GALILEA-20260826-CINEMATIC-SANCTUARY-1600',
+  VERSION: '19.0.0',
+  BUILD_ID: 'GALILEA-20260830-WORSHIP-CENTER-1900',
   TITLE: 'GMAHK Galilea Balikpapan',
   TIMEZONE: 'Asia/Makassar',
   UTC_OFFSET: '+08:00',
   SPREADSHEET_PROPERTY: 'GALILEA_SPREADSHEET_ID',
-  CACHE_REVISION_PROPERTY: 'GALILEA_CACHE_REVISION_V1600',
+  CACHE_REVISION_PROPERTY: 'GALILEA_CACHE_REVISION_V1900',
   YOUTUBE_KEY_PROPERTY: 'GALILEA_YOUTUBE_API_KEY',
   YOUTUBE_CHANNEL_PROPERTY: 'GALILEA_AWR_BORNEO_CHANNEL_ID',
   SERVICE_SPREADSHEET_PROPERTY: 'GALILEA_SERVICE_SPREADSHEET_ID',
@@ -31,7 +31,8 @@ const GW = Object.freeze({
     health: 'Website Pemeriksaan',
     mission: 'API Berita Misi',
     offering: 'API Bacaan Persembahan',
-    adventTheme: 'Website Tema Advent'
+    adventTheme: 'Website Tema Advent',
+    worshipPlans: 'Website Susunan Ibadah'
   }),
   SOURCES: Object.freeze({
     sabbath: 'https://sabbath-school.adventech.io/api/v2',
@@ -378,6 +379,7 @@ function getWebsiteData() {
     sections: sections,
     banners: gwReadBanners_(spreadsheet, now),
     announcements: gwReadAnnouncements_(spreadsheet),
+    worshipPlans: gwReadWorshipPlans_(spreadsheet, now),
     activities: gwReadActivities_(spreadsheet, now),
     gallery: gwReadGallery_(spreadsheet),
     leaders: gwReadLeaders_(spreadsheet, settings),
@@ -442,6 +444,7 @@ function searchWebsite(searchText) {
     ['Halaman', 'Beranda', 'Ringkasan informasi Jemaat Galilea', 'home'],
     ['Halaman', 'Gereja', data.site.about_text, 'church'],
     ['Halaman', 'Pengurus Gereja', 'Daftar pelayan dan pengurus jemaat', 'leaders'],
+    ['Halaman', 'Ibadah Hari Ini', 'Susunan acara, ayat utama, lagu, petugas, dan pengumuman ibadah', 'today'],
     ['Halaman', 'Jadwal Ibadah', 'Ringkasan dan rincian pelayanan', 'schedule'],
     ['Halaman', 'Sekolah Sabat', 'Pelajaran, Berita Misi, Bacaan Persembahan, dan Penginjilan Perorangan', 'sabbath'],
     ['Halaman', 'Alkitab', 'Baca Alkitab berdasarkan kitab dan pasal', 'bible'],
@@ -552,12 +555,14 @@ function submitServiceRequest(form) {
   const message = gwClean_(value.message).slice(0, 1200);
   const contactMethod = gwClean_(value.contactMethod || 'WhatsApp').slice(0, 30);
   const consent = value.consent === true || String(value.consent) === 'true';
+  const privacy = String(value.privacy || 'TIM_PELAYANAN').toUpperCase();
 
   if (allowedTypes.indexOf(type) < 0) throw new Error('Pilih jenis layanan yang tersedia.');
   if (name.length < 2) throw new Error('Nama belum diisi dengan benar.');
   if (phone.replace(/\D/g, '').length < 8) throw new Error('Nomor WhatsApp belum lengkap.');
   if (message.length < 5) throw new Error('Tuliskan permohonan Anda dengan singkat dan jelas.');
   if (!consent) throw new Error('Persetujuan penyimpanan data perlu dicentang.');
+  if (['GEMBALA', 'TIM_PELAYANAN', 'ANONIM'].indexOf(privacy) < 0) throw new Error('Pilihan privasi belum valid.');
 
   const rateKey = 'gw10-submit-' + gwDigest_([phone, type, Utilities.formatDate(new Date(), GW.TIMEZONE, 'yyyyMMddHH')].join('|'));
   const cache = CacheService.getScriptCache();
@@ -568,7 +573,7 @@ function submitServiceRequest(form) {
   try {
     const sheet = gwServiceSheet_();
     const id = 'GL-' + Utilities.formatDate(new Date(), GW.TIMEZONE, 'yyyyMMdd-HHmmss') + '-' + String(Math.floor(Math.random() * 900) + 100);
-    sheet.appendRow([id, new Date(), type, name, phone, message, contactMethod, 'SETUJU', 'BARU']);
+    sheet.appendRow([id, new Date(), type, name, phone, message, contactMethod, 'SETUJU', 'BARU', '', '', privacy]);
     cache.put(rateKey, '1', 3600);
     return { ok: true, reference: id, message: 'Permohonan sudah diterima. Pengurus akan menindaklanjuti melalui kontak yang Anda berikan.' };
   } finally {
@@ -741,6 +746,9 @@ function gwEnsureSheets_(spreadsheet) {
   gwEnsureTable_(spreadsheet, GW.SHEETS.adventTheme,
     ['Tahun', 'Tema', 'Ayat', 'Lagu Tema', 'Foto URL', 'Sumber URL', 'Status'],
     [[2026, 'Mission Reach 2026', 'Yohanes 4:35–36', '', '', GW.SOURCES.adventTheme, 'DRAFT']]);
+  gwEnsureTable_(spreadsheet, GW.SHEETS.worshipPlans,
+    ['Tanggal', 'Jenis Ibadah', 'Waktu', 'Tema', 'Ayat Utama', 'Lagu Sion', 'Susunan Acara', 'Catatan Jemaat', 'Tautan Siaran', 'Status'],
+    [[new Date(), 'IBADAH SABAT', '09:00', 'Tema ibadah', 'Ibrani 10:24–25', '', 'Sekolah Sabat\nKebaktian Khotbah', '', '', 'DRAFT']]);
 }
 
 function gwEnsureSettingsSheet_(spreadsheet) {
@@ -925,6 +933,39 @@ function gwReadAnnouncements_(spreadsheet) {
   }).filter(function (item) {
     return item.status === 'publish' && item.title;
   }).sort(function (a, b) { return b.dateValue - a.dateValue; }).slice(0, 16);
+}
+
+function gwReadWorshipPlans_(spreadsheet, now) {
+  const sheet = spreadsheet.getSheetByName(GW.SHEETS.worshipPlans);
+  if (!sheet || sheet.getLastRow() < 2) return [];
+  const count = sheet.getLastRow() - 1;
+  const width = Math.min(Math.max(sheet.getLastColumn(), 10), 11);
+  const raw = sheet.getRange(2, 1, count, width).getValues();
+  const display = sheet.getRange(2, 1, count, width).getDisplayValues();
+  const todayKey = Utilities.formatDate(now, GW.TIMEZONE, 'yyyy-MM-dd');
+  return raw.map(function (row, index) {
+    const date = gwParseDate_(row[0], display[index][0]);
+    const isoDate = date ? Utilities.formatDate(date, GW.TIMEZONE, 'yyyy-MM-dd') : '';
+    const agenda = String(display[index][6] || '').split(/\n+/).map(gwClean_).filter(Boolean).slice(0, 30);
+    const songs = String(display[index][5] || '').split(/[,;\n]+/).map(gwClean_).filter(Boolean).slice(0, 20);
+    return {
+      id: gwClean_(display[index][10]) || ('WOR-' + (index + 2)),
+      isoDate: isoDate,
+      dateLabel: date ? gwFormatLongDate_(date) : gwClean_(display[index][0]),
+      serviceType: gwClean_(display[index][1] || 'Ibadah'),
+      time: gwClean_(display[index][2] || '09:00'),
+      theme: gwClean_(display[index][3]),
+      scripture: gwClean_(display[index][4]),
+      songs: songs,
+      agenda: agenda,
+      note: gwClean_(display[index][7]),
+      livestreamUrl: gwSafeUrl_(display[index][8]),
+      status: gwNormalize_(display[index][9]),
+      isToday: isoDate === todayKey
+    };
+  }).filter(function (item) {
+    return item.status === 'publish' && item.isoDate && item.theme;
+  }).sort(function (a, b) { return a.isoDate.localeCompare(b.isoDate) || a.time.localeCompare(b.time); }).slice(-40);
 }
 
 function gwReadActivities_(spreadsheet, now) {
@@ -2410,8 +2451,8 @@ function gwEnsureServiceStore_() {
   const store = SpreadsheetApp.create('GMAHK Galilea - Layanan Jemaat (PRIVAT)');
   const sheet = store.getSheets()[0];
   sheet.setName(GW.SHEETS.services);
-  sheet.getRange(1, 1, 1, 9).setValues([['ID', 'Waktu Masuk', 'Jenis Layanan', 'Nama', 'WhatsApp', 'Pesan', 'Cara Dihubungi', 'Persetujuan', 'Status']]);
-  gwFormatAdminSheet_(sheet, [185, 165, 190, 180, 155, 420, 150, 120, 110]);
+  sheet.getRange(1, 1, 1, 12).setValues([['ID', 'Waktu Masuk', 'Jenis Layanan', 'Nama', 'WhatsApp', 'Pesan', 'Cara Dihubungi', 'Persetujuan', 'Status', 'Catatan Admin', 'Diperbarui', 'Privasi']]);
+  gwFormatAdminSheet_(sheet, [185, 165, 190, 180, 155, 420, 150, 120, 110, 320, 165, 150]);
   properties.setProperty(GW.SERVICE_SPREADSHEET_PROPERTY, store.getId());
   return store;
 }
@@ -2421,9 +2462,11 @@ function gwServiceSheet_() {
   let sheet = store.getSheetByName(GW.SHEETS.services);
   if (!sheet) {
     sheet = store.insertSheet(GW.SHEETS.services);
-    sheet.getRange(1, 1, 1, 9).setValues([['ID', 'Waktu Masuk', 'Jenis Layanan', 'Nama', 'WhatsApp', 'Pesan', 'Cara Dihubungi', 'Persetujuan', 'Status']]);
-    gwFormatAdminSheet_(sheet, [185, 165, 190, 180, 155, 420, 150, 120, 110]);
+    sheet.getRange(1, 1, 1, 12).setValues([['ID', 'Waktu Masuk', 'Jenis Layanan', 'Nama', 'WhatsApp', 'Pesan', 'Cara Dihubungi', 'Persetujuan', 'Status', 'Catatan Admin', 'Diperbarui', 'Privasi']]);
+    gwFormatAdminSheet_(sheet, [185, 165, 190, 180, 155, 420, 150, 120, 110, 320, 165, 150]);
   }
+  if (sheet.getMaxColumns() < 12) sheet.insertColumnsAfter(sheet.getMaxColumns(), 12 - sheet.getMaxColumns());
+  sheet.getRange(1, 10, 1, 3).setValues([['Catatan Admin', 'Diperbarui', 'Privasi']]);
   return sheet;
 }
 
