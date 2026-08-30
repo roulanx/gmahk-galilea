@@ -11,6 +11,7 @@
   "theme_color": "#294b37",
   "categories": ["lifestyle", "education", "books"],
   "shortcuts": [
+    {"name":"Ibadah Hari Ini","short_name":"Ibadah","url":"/#today"},
     {"name":"Jadwal Ibadah","short_name":"Jadwal","url":"/#schedule"},
     {"name":"Warta Digital","short_name":"Warta","url":"/#bulletin"},
     {"name":"Renungan Pagi","short_name":"Renungan","url":"/#home"}
