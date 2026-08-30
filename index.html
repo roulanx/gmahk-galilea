@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-17-5-0" data-ui-revision="GALILEA-ALL-PAGE-CONTRAST-17-5-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-CREATIVE-CINEMA-18-0-0" data-ui-revision="GALILEA-UNIFIED-RESPONSIVE-18-0-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2217,6 +2217,30 @@
       .service-block>.chip{font-size:.68rem!important;padding:8px 10px!important}
     }
 
+    /* V18 — komponen baru terisolasi agar tidak bertabrakan dengan gaya lama. */
+    .v18-network{position:fixed;z-index:140;left:50%;bottom:max(16px,env(safe-area-inset-bottom));display:none;align-items:center;gap:8px;max-width:calc(100% - 28px);padding:10px 16px;border:1px solid var(--line);border-radius:999px;color:var(--text);background:var(--surface);box-shadow:var(--shadow);transform:translateX(-50%)}
+    .v18-network.show{display:flex}.v18-network .icon{width:17px;height:17px}
+    .v18-today-hub{padding:clamp(52px,7vw,96px) 0;background:var(--bg)}
+    .v18-today-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:22px}
+    .v18-today-card{min-width:0;padding:clamp(24px,4vw,44px);border:1px solid var(--line);border-radius:30px;color:var(--text);background:var(--surface)}
+    .v18-today-card.primary{color:#f7fbf5;border-color:rgba(255,255,255,.14);background:linear-gradient(135deg,#082217,#174c31)}
+    .v18-today-card.primary :where(h2,h3,strong){color:#fff}.v18-today-card.primary :where(p,span,small){color:rgba(247,251,245,.78)}
+    .v18-status{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;padding:8px 12px;border:1px solid currentColor;border-radius:999px;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+    .v18-status::before{width:8px;height:8px;border-radius:50%;content:"";background:#e4c871;box-shadow:0 0 0 5px rgba(228,200,113,.15)}
+    .v18-today-card h2{margin:0 0 14px;font-size:clamp(2.1rem,5vw,4.6rem);line-height:.92;letter-spacing:-.055em}.v18-today-card p{margin:0 0 24px}
+    .v18-quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v18-quick{min-height:110px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:18px;border:1px solid var(--line);border-radius:20px;color:var(--text);background:var(--surface-2);text-align:left}.v18-quick .icon{width:23px;height:23px;color:var(--brand)}
+    .v18-more{border-block:1px solid var(--line);background:var(--bg)}.v18-more summary{width:var(--shell);min-height:84px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin:auto;color:var(--text);font-weight:800;cursor:pointer;list-style:none}.v18-more summary::-webkit-details-marker{display:none}.v18-more summary::after{font-size:1.5rem;content:"+"}.v18-more[open] summary::after{content:"−"}.v18-more-body{padding-bottom:clamp(44px,7vw,88px)}
+    .v18-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;margin-bottom:28px}.v18-filter{display:flex;flex-wrap:wrap;gap:8px}.v18-filter .tab{min-height:44px}
+    .v18-bulletin-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.55fr);gap:24px}.v18-bulletin-sheet{overflow:hidden;border-top:8px solid var(--brand)}.v18-bulletin-section{padding:26px;border-top:1px solid var(--line)}.v18-bulletin-section:first-child{border-top:0}.v18-bulletin-section h3{margin:0 0 15px}.v18-bulletin-section .field-grid{margin:0}
+    .v18-side-stack{display:grid;align-content:start;gap:18px}.v18-action-card{border-left:5px solid var(--gold)}
+    .v18-guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.v18-guide-card{position:relative;min-height:260px;overflow:hidden}.v18-guide-card:nth-child(3n+1){border-top:6px solid var(--brand)}.v18-guide-card:nth-child(3n+2){border-top:6px solid var(--gold)}.v18-guide-card:nth-child(3n){border-top:6px solid #73907a}
+    .v18-favorite-list{display:grid;gap:14px}.v18-favorite{display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;gap:14px;padding:18px;border:1px solid var(--line);border-radius:20px;background:var(--surface)}.v18-favorite .icon{color:var(--gold)}
+    .v18-fav-button.active{color:#3b2a00!important;border-color:#e2bd55!important;background:#f1d987!important}.v18-reader-tools{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 22px}
+    .v18-gallery-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.v18-empty{padding:48px 24px;border:1px dashed var(--line);border-radius:24px;text-align:center;color:var(--text-soft)}
+    [data-theme="dark"] .v18-today-card:not(.primary),[data-theme="dark"] .v18-quick,[data-theme="dark"] .v18-favorite{color:var(--text);background:var(--surface)}
+    [data-theme="dark"] .v18-action-card{border-left-color:#e6c973}
+    @media(max-width:900px){.v18-today-grid,.v18-bulletin-grid{grid-template-columns:1fr}.v18-guide{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:620px){.v18-today-hub{padding:38px 0}.v18-today-card{border-radius:22px}.v18-quick-grid,.v18-guide{grid-template-columns:1fr}.v18-quick{min-height:84px}.v18-toolbar{align-items:stretch;flex-direction:column}.v18-filter{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.v18-filter .tab{width:100%}.v18-favorite{grid-template-columns:40px minmax(0,1fr)}.v18-favorite>.btn{grid-column:1/-1;width:100%}.v18-more summary{min-height:72px}.modal-body{padding-bottom:max(34px,calc(env(safe-area-inset-bottom) + 24px))}.site-footer{padding-bottom:env(safe-area-inset-bottom)}}
 </style>
 </head>
 <body>
@@ -2256,6 +2280,9 @@
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.3 4.2L17 9l-3.7 1.8L12 15l-1.3-4.2L7 9l3.7-1.8Z"></path><path d="m19 15 .7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7Z"></path></symbol>
     <symbol id="i-access" viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"></circle><path d="M5 8h14M12 6v15M8 21l4-7 4 7"></path></symbol>
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9Z"></path></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"></path><path d="M14 2v5h5M9 12h6M9 16h6"></path></symbol>
+    <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0"></path><circle cx="12" cy="20" r="1"></circle></symbol>
   </svg>
 
   <a class="skip-link" href="#main">Lewati ke isi utama</a>
@@ -2286,7 +2313,7 @@
         <button class="nav-link" type="button" data-route="sabbath">Sekolah Sabat</button>
         <button class="nav-link" type="button" data-route="bible">Alkitab</button>
         <button class="nav-link" type="button" data-route="hymnal">Lagu Sion</button>
-        <span class="nav-drop"><button type="button" data-nav-toggle aria-expanded="false">Lainnya <svg class="icon"><use href="#i-down"></use></svg></button><span class="nav-drop-menu"><button type="button" data-route="activities"><svg class="icon"><use href="#i-calendar"></use></svg>Kegiatan</button><button type="button" data-route="announcements"><svg class="icon"><use href="#i-bell"></use></svg>Pengumuman</button><button type="button" data-route="gallery"><svg class="icon"><use href="#i-image"></use></svg>Galeri</button><button type="button" data-route="services"><svg class="icon"><use href="#i-heart"></use></svg>Layanan Jemaat</button><button type="button" data-route="faq"><svg class="icon"><use href="#i-help"></use></svg>FAQ</button></span></span>
+        <span class="nav-drop"><button type="button" data-nav-toggle aria-expanded="false">Lainnya <svg class="icon"><use href="#i-down"></use></svg></button><span class="nav-drop-menu"><button type="button" data-route="bulletin"><svg class="icon"><use href="#i-file"></use></svg>Warta Digital</button><button type="button" data-route="visitor"><svg class="icon"><use href="#i-map"></use></svg>Panduan Pengunjung</button><button type="button" data-route="favorites"><svg class="icon"><use href="#i-star"></use></svg>Tersimpan</button><button type="button" data-route="activities"><svg class="icon"><use href="#i-calendar"></use></svg>Kegiatan</button><button type="button" data-route="announcements"><svg class="icon"><use href="#i-bell"></use></svg>Pengumuman</button><button type="button" data-route="gallery"><svg class="icon"><use href="#i-image"></use></svg>Galeri</button><button type="button" data-route="services"><svg class="icon"><use href="#i-heart"></use></svg>Layanan Jemaat</button><button type="button" data-route="faq"><svg class="icon"><use href="#i-help"></use></svg>FAQ</button></span></span>
       </nav>
       <div class="header-actions">
         <label class="language-switcher" translate="no" title="Bahasa"><svg class="icon"><use href="#i-globe"></use></svg><select id="language-select" aria-label="Bahasa website"><option value="id">ID</option><option value="en">EN</option><option value="ms">MS</option><option value="zh-CN">中文</option><option value="es">ES</option></select></label>
@@ -2306,8 +2333,8 @@
     <div class="footer-closing"><div class="footer-closing-copy"><small>Closing scene · Hidupkan firman</small><strong>Iman tidak berhenti di layar.</strong></div></div>
     <div class="shell footer-main">
       <div class="footer-brand"><span class="eyebrow">GMAHK Galilea Balikpapan</span><h2>Mari beribadah dan bertumbuh bersama.</h2><p id="footer-address">Balikpapan, Kalimantan Timur</p><div class="button-row"><a class="btn primary" id="footer-whatsapp" target="_blank" rel="noopener"><svg class="brand-svg whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.76 9.76 0 0 0-8.47 14.64L2 22l5.5-1.44A9.98 9.98 0 1 0 12.04 2Zm0 17.73a7.8 7.8 0 0 1-3.98-1.09l-.29-.17-3.26.85.87-3.17-.19-.31a7.74 7.74 0 1 1 6.85 3.89Zm4.27-5.81c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.52.12-.16.23-.6.76-.74.92-.13.16-.27.18-.5.06-.23-.12-.99-.36-1.88-1.16a7.05 7.05 0 0 1-1.3-1.62c-.14-.23-.02-.36.1-.48.1-.1.23-.27.35-.41.12-.14.16-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.52-1.27-.72-1.74-.19-.46-.38-.4-.52-.4h-.45c-.15 0-.4.06-.62.3-.21.23-.81.8-.81 1.94s.83 2.25.95 2.4c.11.16 1.63 2.5 3.96 3.5.55.24.98.38 1.32.49.55.17 1.05.15 1.45.09.44-.07 1.38-.57 1.57-1.12.2-.55.2-1.03.14-1.12-.06-.1-.21-.16-.45-.28Z"/></svg>WhatsApp</a><a class="btn" id="footer-maps" target="_blank" rel="noopener"><svg class="brand-svg maps-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M12 22s7-6.13 7-13A7 7 0 0 0 5.2 7.32L12 22Z"/><path fill="#4285F4" d="M5.2 7.32A7 7 0 0 1 12 2v7L5.2 7.32Z"/><path fill="#EA4335" d="M12 2a7 7 0 0 1 6.08 3.53L12 9V2Z"/><path fill="#FBBC04" d="m12 9 6.08-3.47A7 7 0 0 1 19 9c0 1.57-.4 3.05-1.03 4.4L12 9Z"/><circle cx="12" cy="9" r="2.45" fill="#fff"/></svg>Google Maps</a></div></div>
-      <div class="footer-group"><strong>Jelajahi</strong><button class="footer-link" data-route="schedule">Jadwal ibadah</button><button class="footer-link" data-route="sabbath">Sekolah Sabat</button><button class="footer-link" data-route="bible">Alkitab</button><button class="footer-link" data-route="hymnal">Lagu Sion</button><button class="footer-link" data-route="services">Layanan jemaat</button></div>
-      <div class="footer-group"><strong>Bantuan</strong><button class="footer-link" data-route="faq">Pertanyaan umum</button><button class="footer-link" data-open="search">Cari di website</button><button class="footer-link" data-open="settings">Aksesibilitas</button><button class="footer-link" id="install-app">Simpan di HP</button><button class="footer-link" data-route="contact">Kontak gereja</button></div>
+      <div class="footer-group"><strong>Jelajahi</strong><button class="footer-link" data-route="bulletin">Warta Digital</button><button class="footer-link" data-route="schedule">Jadwal ibadah</button><button class="footer-link" data-route="sabbath">Sekolah Sabat</button><button class="footer-link" data-route="bible">Alkitab</button><button class="footer-link" data-route="hymnal">Lagu Sion</button><button class="footer-link" data-route="favorites">Tersimpan</button></div>
+      <div class="footer-group"><strong>Bantuan</strong><button class="footer-link" data-route="visitor">Panduan pengunjung</button><button class="footer-link" data-route="faq">Pertanyaan umum</button><button class="footer-link" data-open="search">Cari di website</button><button class="footer-link" data-open="settings">Aksesibilitas</button><button class="footer-link" id="install-app">Simpan di HP</button><button class="footer-link" data-route="contact">Kontak gereja</button></div>
     </div>
     <div class="shell footer-bottom"><span id="footer-copy">© Sekretaris Jemaat Galilea</span><span id="footer-updated">Memuat pembaruan…</span></div>
   </footer>
@@ -2317,6 +2344,7 @@
   <dialog id="photo-dialog" class="photo-dialog"><div class="photo-stage"><button class="icon-button photo-close" type="button" data-close aria-label="Tutup foto"><svg class="icon"><use href="#i-close"></use></svg></button><img id="photo-dialog-image" src="" alt="Dokumentasi kegiatan"></div></dialog>
   <dialog id="settings-dialog"><div class="modal"><div class="modal-head"><strong>Tampilan & aksesibilitas</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body settings-grid"><div><p class="small muted">Bahasa viewer</p><label class="language-settings" translate="no"><svg class="icon"><use href="#i-globe"></use></svg><select id="language-settings"><option value="id">Bahasa Indonesia</option><option value="en">English</option><option value="ms">Bahasa Melayu</option><option value="zh-CN">简体中文</option><option value="es">Español</option></select></label><p class="help-text">Bahasa Indonesia adalah tampilan awal. Judul, menu, dan konten yang sedang dibuka ikut diterjemahkan.</p></div><div><p class="small muted">Tema</p><div class="segmented" id="theme-options"><button data-theme-value="light">Terang</button><button data-theme-value="dark">Gelap</button><button data-theme-value="system">Sistem</button></div></div><div><p class="small muted">Ukuran tulisan</p><div class="segmented" id="font-options"><button data-font-value="normal">Normal</button><button data-font-value="large">Besar</button><button data-font-value="xlarge">Sangat besar</button></div></div><div><p class="small muted">Gerakan</p><div class="segmented" id="motion-options"><button data-motion-value="full">Halus</button><button data-motion-value="reduced">Kurangi</button></div></div></div></div></dialog>
   <div class="toast-zone" id="toast-zone" aria-live="polite"></div>
+  <div class="v18-network" id="network-status" role="status" aria-live="polite"><svg class="icon"><use href="#i-wifi"></use></svg><span>Mode offline — menampilkan data tersimpan</span></div>
 
   <script>
     (function () {
@@ -2359,7 +2387,7 @@
       });
 
       const APP_URL = window.location.origin;
-      const ROUTES = ['home','church','leaders','schedule','sabbath','bible','hymnal','activities','announcements','gallery','services','faq','contact'];
+      const ROUTES = ['home','church','leaders','schedule','bulletin','sabbath','bible','hymnal','favorites','visitor','activities','announcements','gallery','services','faq','contact'];
       const MOBILE_GROUPS = [
         {label:'Utama',items:[
           ['home','home','Beranda','Ringkasan hari ini']
@@ -2368,13 +2396,13 @@
           ['church','church','Gereja','Tentang jemaat'],['leaders','users','Pengurus','Pelayan gereja'],['contact','map','Kontak','Alamat & WhatsApp']
         ]},
         {label:'Ibadah',items:[
-          ['schedule','calendar','Jadwal','Pelayanan terdekat'],['services','heart','Layanan Jemaat','Kirim permohonan']
+          ['schedule','calendar','Jadwal','Pelayanan terdekat'],['bulletin','file','Warta Digital','Susunan ibadah & kabar'],['services','heart','Layanan Jemaat','Kirim permohonan']
         ]},
         {label:'Materi Iman',items:[
           ['sabbath','book','Sekolah Sabat','Pelajaran mingguan'],['bible','book','Alkitab','Baca firman'],['hymnal','music','Lagu Sion','Pujian jemaat']
         ]},
         {label:'Informasi Jemaat',items:[
-          ['activities','calendar','Kegiatan','Agenda gereja'],['announcements','bell','Pengumuman','Informasi terbaru'],['gallery','image','Galeri','Dokumentasi'],['faq','help','FAQ','Bantuan website']
+          ['visitor','map','Panduan Pengunjung','Untuk kunjungan pertama'],['favorites','star','Tersimpan','Favorit & terakhir dibaca'],['activities','calendar','Kegiatan','Agenda gereja'],['announcements','bell','Pengumuman','Informasi terbaru'],['gallery','image','Galeri','Dokumentasi'],['faq','help','FAQ','Bantuan website']
         ]}
       ];
       const state = {
@@ -2393,6 +2421,11 @@
         archives: null,
         faqQuery: '',
         faqCategory: 'Semua',
+        activityYear: 'Semua',
+        galleryYear: 'Semua',
+        galleryCategory: 'Semua',
+        favorites: [],
+        recents: [],
         deferredInstall: null,
         witaDayKey: '',
         dayWatcher: null,
@@ -2414,7 +2447,40 @@
       const cleanHtml = value => String(value || '');
       const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '';
       const initials = value => String(value || '').split(/\s+/).filter(Boolean).slice(0,2).map(part => part[0]).join('').toUpperCase();
-      const routeTitle = route => ({home:'Beranda',church:'Gereja',leaders:'Pengurus',schedule:'Jadwal Ibadah',sabbath:'Sekolah Sabat',bible:'Alkitab',hymnal:'Lagu Sion',activities:'Kegiatan',announcements:'Pengumuman',gallery:'Galeri',services:'Layanan Jemaat',faq:'FAQ',contact:'Kontak'})[route] || 'Galilea';
+      const routeTitle = route => ({home:'Beranda',church:'Gereja',leaders:'Pengurus',schedule:'Jadwal Ibadah',bulletin:'Warta Digital',sabbath:'Sekolah Sabat',bible:'Alkitab',hymnal:'Lagu Sion',favorites:'Tersimpan',visitor:'Panduan Pengunjung',activities:'Kegiatan',announcements:'Pengumuman',gallery:'Galeri',services:'Layanan Jemaat',faq:'FAQ',contact:'Kontak'})[route] || 'Galilea';
+
+      function readStoredList(key) {
+        try { const parsed=JSON.parse(safeStorage.get(key,'[]')); return Array.isArray(parsed)?parsed:[]; } catch(_){ return []; }
+      }
+      function savePersonalLists() {
+        safeStorage.set('galilea:favorites',JSON.stringify(state.favorites.slice(0,80)));
+        safeStorage.set('galilea:recents',JSON.stringify(state.recents.slice(0,20)));
+      }
+      function personalId(type,id){return String(type||'item')+':'+String(id||'');}
+      function isFavorite(type,id){return state.favorites.some(item=>item.key===personalId(type,id));}
+      function rememberItem(item) {
+        if(!item||!item.id)return;
+        const entry={key:personalId(item.type,item.id),type:item.type,id:String(item.id),title:String(item.title||'Bacaan'),subtitle:String(item.subtitle||''),route:String(item.route||'home'),savedAt:Date.now()};
+        state.recents=[entry].concat(state.recents.filter(existing=>existing.key!==entry.key)).slice(0,20);savePersonalLists();
+      }
+      function toggleFavorite(item) {
+        if(!item||!item.id)return;
+        const key=personalId(item.type,item.id),index=state.favorites.findIndex(entry=>entry.key===key);
+        if(index>=0){state.favorites.splice(index,1);toast('Dihapus dari tersimpan.');}
+        else{state.favorites.unshift({key,type:item.type,id:String(item.id),title:String(item.title||'Bacaan'),subtitle:String(item.subtitle||''),route:String(item.route||'home'),savedAt:Date.now()});toast('Disimpan di perangkat ini.');}
+        savePersonalLists();
+        $$('[data-favorite-key="'+CSS.escape(key)+'"]').forEach(button=>{button.classList.toggle('active',isFavorite(item.type,item.id));button.innerHTML=icon('star')+(isFavorite(item.type,item.id)?'Tersimpan':'Simpan');});
+      }
+      function favoriteButton(item){const key=personalId(item.type,item.id);return '<button class="btn v18-fav-button '+(isFavorite(item.type,item.id)?'active':'')+'" type="button" data-favorite-key="'+attr(key)+'" data-favorite-item="'+attr(JSON.stringify(item))+'">'+icon('star')+(isFavorite(item.type,item.id)?'Tersimpan':'Simpan')+'</button>';}
+      function eventStatus(summary) {
+        if(!summary||!summary.timestamp)return {label:'Jadwal berikutnya',detail:'Jadwal terbaru tersedia di halaman ibadah'};
+        const start=Number(summary.timestamp),now=Date.now(),diff=start-now;
+        if(diff<=0&&diff>-2.5*3600000)return {label:'Sedang berlangsung',detail:(summary.dateLabel||'Hari ini')+' · '+(summary.time||'')};
+        if(diff>0&&diff<24*3600000){const hours=Math.floor(diff/3600000),minutes=Math.max(1,Math.round((diff%3600000)/60000));return {label:'Dimulai dalam '+(hours?hours+' jam ':'')+minutes+' menit',detail:(summary.dateLabel||'Hari ini')+' · '+(summary.time||'')};}
+        return {label:summary.countdown||'Ibadah berikutnya',detail:(summary.dateLabel||'')+' · '+(summary.time||'')};
+      }
+      function archiveYear(item){const match=String(item.dateLabel||item.date||item.createdAt||'').match(/20\d{2}/);return match?match[0]:'Lainnya';}
+      function archiveCategory(item){return String(item.category||item.location||'Umum').trim()||'Umum';}
 
       async function server(name, args, timeoutMs) {
         const controller = new AbortController();
@@ -2694,7 +2760,7 @@
         $('#footer-maps').href = mapsUrl(site);
         $('#footer-maps').innerHTML = brandIcon('maps') + 'Google Maps';
         $('#footer-copy').textContent = state.data.copyright + ' · ' + (site.footer_text || 'Website resmi GMAHK Galilea Balikpapan');
-        $('#footer-updated').textContent = 'V17.5.0 · Data diperbarui ' + state.data.updatedAt;
+        $('#footer-updated').textContent = 'V18.0.0 · Data diperbarui ' + state.data.updatedAt;
         document.title = routeTitle(state.route) + ' · ' + (site.church_name || 'GMAHK Galilea Balikpapan');
         startAnalytics(site.analytics_id);
       }
@@ -2770,7 +2836,8 @@
       function render() {
         const renderers = {
           home: renderHome, church: renderChurch, leaders: renderLeaders, schedule: renderSchedule,
-          sabbath: renderSabbath, bible: renderBible, hymnal: renderHymnal, activities: renderActivities,
+          bulletin: renderBulletin, sabbath: renderSabbath, bible: renderBible, hymnal: renderHymnal,
+          favorites: renderFavorites, visitor: renderVisitor, activities: renderActivities,
           announcements: renderAnnouncements, gallery: renderGallery, services: renderServices,
           faq: renderFaq, contact: renderContact
         };
@@ -2806,10 +2873,13 @@
 
       function renderHome() {
         const data = state.data, site = data.site;
-        const heroImage = safeUrl(site.hero_image_url);
+        const firstGallery=(data.gallery||[]).find(item=>safeUrl(item.imageUrl));
+        const firstActivity=(data.activities||[]).find(item=>safeUrl(item.coverUrl||(item.photos||[])[0]));
+        const heroImage = safeUrl(site.hero_image_url||(firstGallery&&firstGallery.imageUrl)||(firstActivity&&(firstActivity.coverUrl||(firstActivity.photos||[])[0])));
         const announcements = data.announcements.slice(0,3);
         const activities = data.activities.slice(0,3);
         const scheduleDate = data.nextSabbath ? (data.nextSabbath.dateLabel + ' · ' + (data.nextSabbath.time || '09.00 WITA')) : 'Jadwal terdekat akan tampil dari spreadsheet';
+        const liveStatus=eventStatus(data.nextSabbath);
         const journal = activities.map(item => activityCardHtml(item,true)).join('') + announcements.map(item => '<article class="journal-note"><span class="chip">' + esc(item.dateLabel || 'Pengumuman') + '</span><h3>' + esc(item.title) + '</h3><p>' + esc(item.summary || '') + '</p><button class="link-arrow" type="button" data-route="announcements">Baca pengumuman' + icon('arrow') + '</button></article>').join('');
         return '<section class="film-hero">' +
           '<div class="film-hero-media">' + (heroImage ? '<img src="' + attr(heroImage) + '" alt="">' : '') + '</div><div class="film-hero-shade" aria-hidden="true"></div><div class="film-hero-lines" aria-hidden="true"></div><span class="film-cross-light" aria-hidden="true"></span>' +
@@ -2817,11 +2887,11 @@
           '<div class="film-hero-actions"><button class="btn primary" type="button" data-route="schedule">Lihat jadwal ibadah' + icon('arrow') + '</button><button class="btn ghost" type="button" data-route="services">Layanan jemaat</button></div>' +
           '<div class="film-hero-bottom"><div class="film-greeting"><strong>' + esc(formatGreeting()) + ', ' + esc(site.greeting_audience || 'Jemaat Galilea') + '.</strong><span>' + esc(currentDateLabel()) + '</span></div></div></div></section>' +
           '<section class="service-reel" aria-label="Informasi ibadah"><div class="service-reel-item"><small>Ibadah Sabat</small><strong>' + esc(site.sabbath_service) + '</strong></div><div class="service-reel-item"><small>Permintaan Doa</small><strong>' + esc(site.wednesday_service) + '</strong></div><div class="service-reel-item"><small>Lokasi</small><strong>' + esc(site.address) + '</strong></div></section>' +
+          '<section class="v18-today-hub"><div class="shell v18-today-grid"><article class="v18-today-card primary"><span class="v18-status">'+esc(liveStatus.label)+'</span><h2>'+esc(liveStatus.detail)+'</h2><p>Ringkasan pelayanan, pengumuman, dan agenda minggu ini tersedia dalam satu Warta Digital.</p><div class="button-row"><button class="btn primary" type="button" data-route="bulletin">Buka Warta Digital'+icon('arrow')+'</button><button class="btn ghost" type="button" data-calendar-summary>'+icon('calendar')+'Tambah kalender</button></div></article><article class="v18-today-card"><p class="eyebrow">Akses cepat</p><div class="v18-quick-grid"><button class="v18-quick" type="button" data-route="visitor">'+icon('map')+'<strong>Baru berkunjung?</strong></button><button class="v18-quick" type="button" data-route="favorites">'+icon('star')+'<strong>Tersimpan</strong></button><button class="v18-quick" type="button" data-route="bible">'+icon('book')+'<strong>Baca Alkitab</strong></button><button class="v18-quick" type="button" data-route="services">'+icon('heart')+'<strong>Permohonan doa</strong></button></div></article></div></section>'+
           '<section class="cinema-chapter"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Jadwal minggu ini.</h2><p>Seluruh nama dan pembagian tugas tersedia langsung dari spreadsheet jemaat.</p></div>' + renderNotices() + '<button class="schedule-cue" type="button" data-route="schedule"><span class="schedule-cue-icon">' + icon('calendar') + '</span><span class="schedule-cue-copy"><small>Ibadah terdekat</small><strong>Buka pembagian pelayanan</strong><span>' + esc(scheduleDate) + '</span></span><span class="schedule-cue-arrow">' + icon('arrow') + '</span></button></div></div></section>' +
           '<section class="word-stage"><div class="word-stage-heading"><p class="eyebrow">Renungan Pagi</p><h2>Mulai hari bersama firman.</h2><p>Bacaan teks harian dari sumber resmi Advent, dicocokkan dengan tanggal WITA, tanpa video.</p></div><div id="home-devotional">' + loadingBox('Menyiapkan renungan pagi','Mencocokkan bacaan dengan tanggal hari ini…') + '</div></section>' +
-          '<section class="cinema-chapter broadcast-stage"><div class="shell cinema-chapter-grid"><div class="broadcast-stack"><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">AWR Borneo</p><h2>Tiga video terbaru.</h2></div><a class="link-arrow" href="' + attr(site.awr_youtube_channel_url || 'https://www.youtube.com/@AWRBorneo') + '" target="_blank" rel="noopener">Buka kanal YouTube' + icon('external') + '</a></div><div id="home-video">' + loadingBox('Menghubungkan AWR Borneo','Menyiapkan tiga video terbaru dari kanal resmi…') + '</div></div><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">Diskusi Sekolah Sabat</p><h2>Pembahasan minggu ini.</h2></div></div><div id="home-sabbath-video">' + loadingBox('Menyiapkan pembahasan mingguan','Mencari materi pelajaran terbaru…') + '</div></div></div></div></section>' +
-          '<section class="faith-interlude"><div class="shell faith-interlude-grid"><article class="faith-verse"><p class="eyebrow">' + esc(site.bible_reference) + '</p><p class="quote">“' + esc(site.bible_verse) + '”</p><button class="btn ghost" type="button" data-route="bible">Baca Alkitab' + icon('arrow') + '</button></article><div class="faith-theme"><article class="card card-pad" id="advent-theme">' + loadingBox('Menyiapkan tema Advent','Membaca tema untuk tahun berjalan…') + '</article></div></div></section>' +
-          '<section class="cinema-chapter journal-stage"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Kabar dari Galilea.</h2><p>Kegiatan ditampilkan sebagai cerita visual dan dapat memuat beberapa foto dalam satu postingan.</p></div><div class="journal-grid">' + (journal || emptyText('Belum ada kabar yang dipublikasikan.')) + '</div><div class="button-row" style="margin-top:36px"><button class="btn primary" type="button" data-route="activities">Seluruh kegiatan' + icon('arrow') + '</button><button class="btn" type="button" data-route="announcements">Pengumuman</button></div></div></div></section>';
+          '<details class="v18-more"><summary>Video resmi & pembahasan Sekolah Sabat</summary><div class="v18-more-body"><section class="cinema-chapter broadcast-stage"><div class="shell cinema-chapter-grid"><div class="broadcast-stack"><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">AWR Borneo</p><h2>Tiga video terbaru.</h2></div><a class="link-arrow" href="' + attr(site.awr_youtube_channel_url || 'https://www.youtube.com/@AWRBorneo') + '" target="_blank" rel="noopener">Buka kanal YouTube' + icon('external') + '</a></div><div id="home-video">' + loadingBox('Menghubungkan AWR Borneo','Menyiapkan tiga video terbaru dari kanal resmi…') + '</div></div><div class="broadcast-block"><div class="section-head"><div><p class="eyebrow">Diskusi Sekolah Sabat</p><h2>Pembahasan minggu ini.</h2></div></div><div id="home-sabbath-video">' + loadingBox('Menyiapkan pembahasan mingguan','Mencari materi pelajaran terbaru…') + '</div></div></div></div></section></div></details>' +
+          '<details class="v18-more"><summary>Ayat tema & kabar dari Galilea</summary><div class="v18-more-body"><section class="faith-interlude"><div class="shell faith-interlude-grid"><article class="faith-verse"><p class="eyebrow">' + esc(site.bible_reference) + '</p><p class="quote">“' + esc(site.bible_verse) + '”</p><button class="btn ghost" type="button" data-route="bible">Baca Alkitab' + icon('arrow') + '</button></article><div class="faith-theme"><article class="card card-pad" id="advent-theme">' + loadingBox('Menyiapkan tema Advent','Membaca tema untuk tahun berjalan…') + '</article></div></div></section><section class="cinema-chapter journal-stage"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Kabar dari Galilea.</h2><p>Kegiatan ditampilkan sebagai cerita visual dan dapat memuat beberapa foto dalam satu postingan.</p></div><div class="journal-grid">' + (journal || emptyText('Belum ada kabar yang dipublikasikan.')) + '</div><div class="button-row" style="margin-top:36px"><button class="btn primary" type="button" data-route="activities">Seluruh kegiatan' + icon('arrow') + '</button><button class="btn" type="button" data-route="announcements">Pengumuman</button></div></div></div></section></div></details>';
       }
 
       async function loadDevotionalHome() {
@@ -3155,7 +3225,9 @@
           })).filter(item=>item.text);
           if (!verses.length) throw new Error('Ayat pada pasal ini belum tersedia.');
           heading.innerHTML = '<p class="eyebrow">' + esc(safeSource) + '</p><h2>' + esc(safeBook) + ' ' + esc(safeChapter) + '</h2>';
-          content.innerHTML = '<div class="verse-list">' + verses.map(item => '<div class="verse ' + (Number(item.number)===verse?'is-target':'') + '" id="verse-' + attr(item.number) + '"><span class="verse-number">' + esc(item.number) + '</span><span class="verse-text">' + esc(item.text) + '</span></div>').join('') + '</div><footer class="card-pad small faint">' + esc(safeSource) + ' · Pilih “Unduh kitab ini” untuk menyimpan satu kitab.</footer>';
+          const savedItem={type:'bible',id:book+'-'+safeChapter,title:safeBook+' '+safeChapter,subtitle:safeSource,route:'bible'};
+          rememberItem(savedItem);
+          content.innerHTML = '<div class="v18-reader-tools">'+favoriteButton(savedItem)+'</div><div class="verse-list">' + verses.map(item => '<div class="verse ' + (Number(item.number)===verse?'is-target':'') + '" id="verse-' + attr(item.number) + '"><span class="verse-number">' + esc(item.number) + '</span><span class="verse-text">' + esc(item.text) + '</span></div>').join('') + '</div><footer class="card-pad small faint">' + esc(safeSource) + ' · Pilih “Unduh kitab ini” untuk menyimpan satu kitab.</footer>';
           requestAnimationFrame(()=>document.getElementById('verse-' + String(verse))?.scrollIntoView({behavior:document.documentElement.dataset.motion==='reduced'?'auto':'smooth',block:'center'}));
         } catch (error) { if ($('#bible-content')) $('#bible-content').innerHTML = errorBox(error.message); }
       }
@@ -3210,7 +3282,9 @@
         state.hymnalReader.verseIndex=index;
         const verse=verses[index] || song.lyrics[0] || {index:1,lines:[]};
         $('#reader-title').textContent='Lagu Sion No. ' + song.number;
-        $('#reader-body').innerHTML='<div class="song-reader-shell"><header class="song-reader-hero"><span class="song-reader-number">Lagu Sion · Nomor ' + esc(song.number) + '</span><h2>' + esc(song.title) + '</h2></header><section class="song-stage"><span class="chip brand">BAIT ' + esc(verse.index || index+1) + '</span><div class="song-verse">' + verse.lines.map(esc).join('<br>') + '</div>' + (chorus?'<div class="song-chorus"><strong>REFF</strong><br>' + chorus.lines.map(esc).join('<br>') + '</div>':'') + '</section><nav class="song-reader-nav" aria-label="Pilih bait"><button class="icon-button" type="button" data-song-prev aria-label="Bait sebelumnya" ' + (index===0?'disabled':'') + '>' + icon('arrow-left') + '</button><strong>Bait ' + (index+1) + ' dari ' + Math.max(1,verses.length) + '</strong><button class="icon-button" type="button" data-song-next aria-label="Bait berikutnya" ' + (index>=verses.length-1?'disabled':'') + '>' + icon('arrow') + '</button></nav><p class="small faint">Gunakan pengaturan ukuran tulisan untuk pembacaan dari jarak jauh.</p></div>';
+        const savedItem={type:'hymnal',id:song.number,title:'Lagu Sion No. '+song.number+' · '+song.title,subtitle:'Lagu Sion',route:'hymnal'};
+        rememberItem(savedItem);
+        $('#reader-body').innerHTML='<div class="song-reader-shell"><div class="v18-reader-tools">'+favoriteButton(savedItem)+'</div><header class="song-reader-hero"><span class="song-reader-number">Lagu Sion · Nomor ' + esc(song.number) + '</span><h2>' + esc(song.title) + '</h2></header><section class="song-stage"><span class="chip brand">BAIT ' + esc(verse.index || index+1) + '</span><div class="song-verse">' + verse.lines.map(esc).join('<br>') + '</div>' + (chorus?'<div class="song-chorus"><strong>REFF</strong><br>' + chorus.lines.map(esc).join('<br>') + '</div>':'') + '</section><nav class="song-reader-nav" aria-label="Pilih bait"><button class="icon-button" type="button" data-song-prev aria-label="Bait sebelumnya" ' + (index===0?'disabled':'') + '>' + icon('arrow-left') + '</button><strong>Bait ' + (index+1) + ' dari ' + Math.max(1,verses.length) + '</strong><button class="icon-button" type="button" data-song-next aria-label="Bait berikutnya" ' + (index>=verses.length-1?'disabled':'') + '>' + icon('arrow') + '</button></nav><p class="small faint">Gunakan pengaturan ukuran tulisan untuk pembacaan dari jarak jauh.</p></div>';
       }
 
       async function loadDownloadArchives() {
@@ -3225,9 +3299,36 @@
         toast('PDF lengkap belum disiapkan. Admin dapat membuatnya dari menu Sistem pada portal admin.');
       }
 
+      function renderBulletin() {
+        const data=state.data, sabbath=data.nextSabbath, wednesday=data.nextWednesday;
+        const serviceHtml=record=>record?'<div class="v18-bulletin-section"><span class="chip brand">'+esc(record.dateLabel||'Jadwal')+' · '+esc(record.time||'')+'</span><h3>'+esc(record.title||record.sectionTitle||'Ibadah')+'</h3>'+fieldsHtml(record.fields||(record.services||[]).flatMap(item=>item.fields||[]))+'</div>':'';
+        const announcements=(data.announcements||[]).slice(0,5).map(item=>'<li><strong>'+esc(item.title)+'</strong><br><span class="muted">'+esc(item.dateLabel||'')+(item.summary?' · '+esc(item.summary):'')+'</span></li>').join('');
+        const activities=(data.activities||[]).slice(0,5).map(item=>'<li><strong>'+esc(item.title)+'</strong><br><span class="muted">'+esc(item.dateLabel||'')+(item.location?' · '+esc(item.location):'')+'</span></li>').join('');
+        return pageHead('Informasi Mingguan','Warta Jemaat Digital','Susunan pelayanan, pengumuman, dan kegiatan terbaru dalam satu halaman yang mudah dibagikan.')+'<section class="section"><div class="shell v18-bulletin-grid"><article class="card v18-bulletin-sheet"><div class="card-pad"><p class="eyebrow">GMAHK Galilea Balikpapan</p><h2>Warta minggu ini.</h2><p class="muted">Data ditarik langsung dari sumber jadwal dan informasi jemaat terbaru.</p></div>'+serviceHtml(sabbath)+serviceHtml(wednesday)+'<div class="v18-bulletin-section"><h3>Pengumuman</h3><ul class="prose-list">'+(announcements||'<li>Belum ada pengumuman.</li>')+'</ul></div><div class="v18-bulletin-section"><h3>Kegiatan mendatang</h3><ul class="prose-list">'+(activities||'<li>Belum ada kegiatan.</li>')+'</ul></div></article><aside class="v18-side-stack"><article class="card card-pad v18-action-card"><p class="eyebrow">Bagikan</p><h3>Satu warta, seluruh informasi.</h3><div class="grid"><button class="btn whatsapp" type="button" data-share-bulletin>'+brandIcon('whatsapp')+'Bagikan ke WhatsApp</button><button class="btn primary" type="button" data-download-bulletin>'+icon('download')+'Unduh PDF</button></div></article><article class="card card-pad"><p class="eyebrow">Kalender</p><h3>Jangan lewatkan ibadah.</h3><button class="btn" type="button" data-calendar-summary>'+icon('calendar')+'Tambah ke kalender</button></article></aside></div></section>';
+      }
+
+      function renderVisitor() {
+        const site=state.data.site;
+        const guides=[
+          ['calendar','Waktu ibadah','Ibadah Sabat '+(site.sabbath_service||'Sabtu pagi')+'. Datang 10–15 menit lebih awal agar lebih nyaman.'],
+          ['map','Lokasi & parkir',site.address||'GMAHK Galilea Balikpapan. Gunakan tombol peta untuk petunjuk arah.'],
+          ['users','Saat tiba','Sapa penerima tamu. Anda bebas memilih tempat duduk dan mengikuti ibadah dengan nyaman.'],
+          ['book','Sekolah Sabat','Tersedia kelas pendalaman Alkitab. Pengunjung baru akan dibantu memilih kelas.'],
+          ['heart','Anak & keluarga','Tanyakan kepada penerima tamu mengenai kelas anak dan ruang yang tersedia.'],
+          ['phone','Perlu bantuan?','Hubungi jemaat melalui WhatsApp sebelum berkunjung bila memiliki kebutuhan akses khusus.']
+        ];
+        return pageHead('Selamat Datang','Panduan Pengunjung','Informasi singkat untuk kunjungan pertama ke GMAHK Galilea Balikpapan.')+'<section class="section"><div class="shell"><div class="v18-guide">'+guides.map(item=>'<article class="card card-pad v18-guide-card">'+icon(item[0])+'<h3>'+esc(item[1])+'</h3><p class="muted">'+esc(item[2])+'</p></article>').join('')+'</div><div class="button-row" style="margin-top:28px"><a class="btn primary" href="'+attr(mapsUrl(site))+'" target="_blank" rel="noopener">'+brandIcon('maps')+'Buka Google Maps</a><a class="btn whatsapp" href="'+attr(whatsappUrl(site))+'" target="_blank" rel="noopener">'+brandIcon('whatsapp')+'Tanya lewat WhatsApp</a><button class="btn" type="button" data-route="schedule">'+icon('calendar')+'Lihat jadwal</button></div></div></section>';
+      }
+
+      function renderFavorites() {
+        const renderList=items=>items.length?'<div class="v18-favorite-list">'+items.map(item=>'<article class="v18-favorite">'+icon('star')+'<div><strong>'+esc(item.title)+'</strong><br><span class="small muted">'+esc(item.subtitle||routeTitle(item.route))+'</span></div><button class="btn" type="button" data-open-saved="'+attr(item.key)+'">Buka'+icon('arrow')+'</button></article>').join('')+'</div>':'<div class="v18-empty">Belum ada bacaan tersimpan di perangkat ini.</div>';
+        return pageHead('Bacaan Pribadi','Tersimpan & terakhir dibaca','Favorit disimpan hanya pada perangkat ini—tanpa akun dan tanpa mengirim data pribadi.')+'<section class="section"><div class="shell grid"><div><div class="section-head"><div><p class="eyebrow">Favorit</p><h2>Tersimpan</h2></div></div>'+renderList(state.favorites)+'</div><div><div class="section-head"><div><p class="eyebrow">Riwayat lokal</p><h2>Terakhir dibaca</h2></div></div>'+renderList(state.recents)+'</div></div></section>';
+      }
+
       function renderActivities() {
-        const items = state.data.activities;
-        return pageHead('Kehidupan Jemaat', 'Kegiatan', 'Cerita, pelayanan, dan momen kebersamaan dalam satu ruang visual.') + '<section class="section activity-archive"><div class="shell"><div class="activity-cinema-grid">' + (items.length ? items.map((item,index) => activityCardHtml(item,index===0)).join('') : emptyText('Belum ada kegiatan yang dipublikasikan.')) + '</div></div></section>';
+        const all = state.data.activities, years=['Semua'].concat(Array.from(new Set(all.map(archiveYear))).sort().reverse());
+        const items=state.activityYear==='Semua'?all:all.filter(item=>archiveYear(item)===state.activityYear);
+        return pageHead('Kehidupan Jemaat', 'Kegiatan', 'Cerita, pelayanan, dan momen kebersamaan dalam satu ruang visual.') + '<section class="section activity-archive"><div class="shell"><div class="v18-toolbar"><strong>'+esc(items.length)+' kegiatan</strong><div class="v18-filter">'+years.map(year=>'<button class="tab '+(state.activityYear===year?'active':'')+'" type="button" data-activity-year="'+attr(year)+'">'+esc(year)+'</button>').join('')+'</div></div><div class="activity-cinema-grid">' + (items.length ? items.map((item,index) => activityCardHtml(item,index===0)).join('') : '<div class="v18-empty">Belum ada kegiatan pada tahun ini.</div>') + '</div></div></section>';
       }
 
       function activityCardHtml(item, featured) {
@@ -3251,8 +3352,9 @@
         return pageHead('Informasi Jemaat', 'Pengumuman', 'Kabar terbaru dari GMAHK Galilea Balikpapan.') + '<section class="section"><div class="shell"><div class="grid grid-2">' + (items.length ? items.map(item => '<article class="card card-pad lift"><span class="chip">' + esc(item.dateLabel) + '</span><h3 style="margin-top:19px">' + esc(item.title) + '</h3><p class="muted">' + esc(item.summary || '') + '</p>' + (item.url ? '<a class="link-arrow" href="' + attr(item.url) + '" target="_blank" rel="noopener">Selengkapnya' + icon('external') + '</a>' : '') + '</article>').join('') : emptyText('Belum ada pengumuman yang dipublikasikan.')) + '</div></div></section>';
       }
       function renderGallery() {
-        const items = state.data.gallery;
-        return pageHead('Galilea dalam Gambar', 'Galeri', 'Momen ibadah, persekutuan, dan pelayanan jemaat.') + '<section class="section"><div class="shell">' + (items.length ? '<div class="gallery-grid">' + items.map(item => '<figure class="card gallery-item lift"><img src="' + attr(item.imageUrl) + '" alt="' + attr(item.title || 'Galeri Galilea') + '" loading="lazy"><figcaption><strong>' + esc(item.title || '') + '</strong><br>' + esc(item.caption || '') + '</figcaption></figure>').join('') + '</div>' : emptyText('Belum ada foto yang dipublikasikan.')) + '</div></section>';
+        const all=state.data.gallery,years=['Semua'].concat(Array.from(new Set(all.map(archiveYear))).sort().reverse()),categories=['Semua'].concat(Array.from(new Set(all.map(archiveCategory))).sort());
+        const items=all.filter(item=>(state.galleryYear==='Semua'||archiveYear(item)===state.galleryYear)&&(state.galleryCategory==='Semua'||archiveCategory(item)===state.galleryCategory));
+        return pageHead('Galilea dalam Gambar', 'Galeri', 'Momen ibadah, persekutuan, dan pelayanan jemaat.') + '<section class="section"><div class="shell"><div class="v18-toolbar"><div class="v18-filter">'+years.map(year=>'<button class="tab '+(state.galleryYear===year?'active':'')+'" type="button" data-gallery-year="'+attr(year)+'">'+esc(year)+'</button>').join('')+'</div><div class="v18-filter">'+categories.map(category=>'<button class="tab '+(state.galleryCategory===category?'active':'')+'" type="button" data-gallery-category="'+attr(category)+'">'+esc(category)+'</button>').join('')+'</div></div>' + (items.length ? '<div class="gallery-grid">' + items.map(item => '<figure class="card gallery-item lift"><button type="button" class="activity-film-hit" data-story-photo="'+attr(item.imageUrl)+'" aria-label="Perbesar '+attr(item.title||'foto')+'"></button><img src="' + attr(item.imageUrl) + '" alt="' + attr(item.title || 'Galeri Galilea') + '" loading="lazy"><figcaption><strong>' + esc(item.title || '') + '</strong><br>' + esc(item.caption || '') + '<span class="v18-gallery-meta"><span class="chip">'+esc(archiveYear(item))+'</span><span class="chip">'+esc(archiveCategory(item))+'</span></span></figcaption></figure>').join('') + '</div>' : '<div class="v18-empty">Belum ada foto pada filter ini.</div>') + '</div></section>';
       }
 
       function renderServices() {
@@ -3435,7 +3537,9 @@
         if (!item || item.format !== 'text' || !String(item.contentHtml || '').trim()) {
           return toast('Teks Renungan Pagi dari sumber resmi sedang belum tersedia.');
         }
-        const shareBar = '<div class="download-bar devotional-share-bar"><div><span class="chip brand">' + esc(item.todayLabel) + '</span><strong>Renungan Pagi teks untuk dibagikan</strong><span>Sumber resmi Advent · Tanpa video</span></div><button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div>';
+        const savedItem={type:'devotional',id:item.requestedDate||item.todayLabel,title:item.title||'Renungan Pagi',subtitle:item.todayLabel||'Sumber resmi Advent',route:'home'};
+        rememberItem(savedItem);
+        const shareBar = '<div class="download-bar devotional-share-bar"><div><span class="chip brand">' + esc(item.todayLabel) + '</span><strong>Renungan Pagi teks untuk dibagikan</strong><span>Sumber resmi Advent · Tanpa video</span></div><div class="button-row">'+favoriteButton(savedItem)+'<button class="btn whatsapp" type="button" data-whatsapp-devotional>' + brandIcon('whatsapp') + 'Bagikan ke WhatsApp</button></div></div>';
         return openReader(item.title,shareBar + '<div class="reader-content">' + cleanHtml(item.contentHtml) + '</div>');
       }
       function scheduleJson(card) {
@@ -3455,7 +3559,23 @@
         const end = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Makassar',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).formatToParts(endDate).reduce((a,p)=>(a[p.type]=p.value,a),{});
         const endString = end.year + end.month + end.day + 'T' + end.hour + end.minute + end.second;
         const url = 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(payload.sectionTitle + ' · GMAHK Galilea') + '&dates=' + start + '/' + endString + '&ctz=Asia%2FMakassar&details=' + encodeURIComponent(scheduleText(payload)) + '&location=' + encodeURIComponent(state.data.site.address || 'GMAHK Galilea Balikpapan');
-        window.open(url,'_blank','noopener');
+        state.async.calendar={payload,start,endString,url};
+        openReader('Tambah ke kalender','<div class="grid grid-2"><article class="card card-pad"><p class="eyebrow">Google Calendar</p><h3>Buka dan simpan di akun Google.</h3><button class="btn primary" type="button" data-calendar-google>'+icon('external')+'Buka Google Calendar</button></article><article class="card card-pad"><p class="eyebrow">Apple, Outlook & lainnya</p><h3>Unduh file kalender universal.</h3><button class="btn" type="button" data-calendar-ics>'+icon('download')+'Unduh .ics</button></article></div>');
+      }
+      function summaryCalendarPayload() {
+        const source=state.data.nextSabbath;
+        if(!source)return null;
+        const record=source.record||source;
+        if(!record.isoDate&&record.timestamp)record.isoDate=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Makassar',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(record.timestamp));
+        record.fields=record.fields||(source.services||[]).flatMap(service=>service.fields||[]);
+        return {sectionTitle:source.sectionTitle||source.title||'Ibadah Sabat',record};
+      }
+      function downloadCalendarIcs() {
+        const item=state.async.calendar;if(!item)return;
+        const payload=item.payload,record=payload.record,stamp=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
+        const escapeIcs=value=>String(value||'').replace(/\\/g,'\\\\').replace(/\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');
+        const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//GMAHK Galilea//Website V18//ID','CALSCALE:GREGORIAN','BEGIN:VEVENT','UID:'+escapeIcs(record.isoDate+'-'+record.time+'@gmahk-galilea.vercel.app'),'DTSTAMP:'+stamp,'DTSTART;TZID=Asia/Makassar:'+item.start,'DTEND;TZID=Asia/Makassar:'+item.endString,'SUMMARY:'+escapeIcs(payload.sectionTitle+' · GMAHK Galilea'),'DESCRIPTION:'+escapeIcs(scheduleText(payload)),'LOCATION:'+escapeIcs(state.data.site.address||'GMAHK Galilea Balikpapan'),'END:VEVENT','END:VCALENDAR'];
+        const blob=new Blob([lines.join('\r\n')],{type:'text/calendar;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='Ibadah-Galilea-'+record.isoDate+'.ics';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('File kalender berhasil diunduh.');
       }
 
       function downloadPoster(payload) {
@@ -3551,6 +3671,17 @@
         } catch(error){toast(error.message);} finally{if(button)button.disabled=false;}
       }
 
+      function bulletinShareText() {
+        const data=state.data,lines=['WARTA JEMAAT DIGITAL','GMAHK Galilea Balikpapan',''];
+        [data.nextSabbath,data.nextWednesday].filter(Boolean).forEach(item=>{lines.push((item.title||item.sectionTitle||'Ibadah').toUpperCase(),(item.dateLabel||'')+' · '+(item.time||''));(item.fields||(item.services||[]).flatMap(service=>service.fields||[])).forEach(field=>lines.push(field.label+': '+field.value));lines.push('');});
+        if((data.announcements||[]).length){lines.push('PENGUMUMAN');data.announcements.slice(0,5).forEach(item=>lines.push('• '+item.title+(item.summary?' — '+item.summary:'')));lines.push('');}
+        lines.push('Selengkapnya: '+location.href.split('#')[0]+'#bulletin');return lines.join('\n');
+      }
+      async function downloadBulletinPdf() {
+        const button=$('[data-download-bulletin]');if(button)button.disabled=true;toast('Menyusun Warta Digital…');
+        try{const response=await fetch('/api/weekly-bulletin',{headers:{Accept:'application/pdf'},cache:'no-store'});if(!response.ok){let message='PDF Warta belum dapat dibuat.';try{const body=await response.json();message=body.error||message}catch(_){}throw new Error(message)}const blob=await response.blob(),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='Warta-Jemaat-Galilea.pdf';link.click();setTimeout(()=>URL.revokeObjectURL(url),2000);toast('Warta PDF berhasil diunduh.');}catch(error){toast(error.message);}finally{if(button)button.disabled=false;}
+      }
+
       async function performSearch(event) {
         event.preventDefault();
         const query = $('#search-input').value.trim();
@@ -3571,6 +3702,7 @@
         }
         openReader('Simpan di layar utama','<p class="lead">Simpan website agar lebih cepat dibuka.</p><div class="grid grid-2"><article class="card card-pad"><h3>Android · Chrome</h3><p class="muted">Buka menu browser <strong>⋮</strong>, lalu pilih <strong>Tambahkan ke layar utama</strong> atau <strong>Instal aplikasi</strong>.</p></article><article class="card card-pad"><h3>iPhone · Safari</h3><p class="muted">Tekan tombol <strong>Bagikan</strong>, lalu pilih <strong>Tambahkan ke Layar Utama</strong>.</p></article></div>');
       }
+      function updateNetworkStatus(){const box=$('#network-status');if(box)box.classList.toggle('show',navigator.onLine===false);}
 
       function handleClick(event) {
         const navToggle = event.target.closest('[data-nav-toggle]');
@@ -3601,6 +3733,11 @@
         if(storyPhoto){const image=$('#photo-dialog-image');image.src=storyPhoto.dataset.storyPhoto;$('#photo-dialog').showModal();return;}
         const activityShare=event.target.closest('[data-share-activity]');
         if(activityShare){const item=(state.data.activities||[]).find(activity=>String(activity.id)===String(activityShare.dataset.shareActivity));if(item)return shareText(item.title,[item.dateLabel,item.location,item.description].filter(Boolean).join('\n'),location.href.split('#')[0]+'#activities');}
+        const activityYear=event.target.closest('[data-activity-year]');if(activityYear){state.activityYear=activityYear.dataset.activityYear;render();return;}
+        const galleryYear=event.target.closest('[data-gallery-year]');if(galleryYear){state.galleryYear=galleryYear.dataset.galleryYear;render();return;}
+        const galleryCategory=event.target.closest('[data-gallery-category]');if(galleryCategory){state.galleryCategory=galleryCategory.dataset.galleryCategory;render();return;}
+        const favorite=event.target.closest('[data-favorite-item]');if(favorite){try{return toggleFavorite(JSON.parse(favorite.dataset.favoriteItem));}catch(_){return toast('Item belum dapat disimpan.');}}
+        const saved=event.target.closest('[data-open-saved]');if(saved){const item=state.favorites.concat(state.recents).find(entry=>entry.key===saved.dataset.openSaved);if(!item)return;if(item.type==='hymnal'){navigate('hymnal');return setTimeout(()=>openSong(item.id),350);}if(item.type==='bible'){const parts=item.id.split('-');navigate('bible');return setTimeout(()=>{if($('#bible-book')){$('#bible-book').value=parts[0];fillBibleChapters();$('#bible-chapter').value=parts[1]||'1';openBibleChapter();}},500);}return navigate(item.route||'home');}
         const scheduleTab = event.target.closest('[data-schedule-tab]');
         if (scheduleTab) { state.scheduleTab = scheduleTab.dataset.scheduleTab; render(); return; }
         const scheduleFilter = event.target.closest('[data-schedule-filter]');
@@ -3647,9 +3784,14 @@
         if (card && event.target.closest('[data-share-card]')) return shareText('Jadwal Ibadah Galilea',scheduleText(scheduleJson(card)),location.href.split('#')[0] + '#schedule');
         if (card && event.target.closest('[data-whatsapp-card]')) return shareWhatsApp(scheduleText(scheduleJson(card)),location.href.split('#')[0] + '#schedule');
         if (card && event.target.closest('[data-calendar]')) return addCalendar(scheduleJson(card));
+        if (event.target.closest('[data-calendar-summary]')) {const payload=summaryCalendarPayload();return payload?addCalendar(payload):toast('Jadwal terdekat belum tersedia.');}
+        if (event.target.closest('[data-calendar-google]')&&state.async.calendar)return window.open(state.async.calendar.url,'_blank','noopener');
+        if (event.target.closest('[data-calendar-ics]'))return downloadCalendarIcs();
         if (card && event.target.closest('[data-poster]')) return downloadPoster(scheduleJson(card));
         if (event.target.closest('[data-download-member-schedule]')) return downloadMemberSchedulePoster();
         if (event.target.closest('[data-download-quarterly]')) return downloadQuarterlySchedule();
+        if (event.target.closest('[data-share-bulletin]')) return shareWhatsApp(bulletinShareText(),location.href.split('#')[0]+'#bulletin');
+        if (event.target.closest('[data-download-bulletin]')) return downloadBulletinPdf();
         if (event.target.closest('[data-whatsapp-devotional]') && state.async.devotional) return shareWhatsApp(devotionalShareText(state.async.devotional),location.href.split('#')[0] + '#home');
         if (event.target.closest('[data-read-devotional]') && state.async.devotional) return openDevotional(state.async.devotional);
         if (event.target.closest('[data-read-personal]') && state.async.personal) return openReader(state.async.personal.title,'<div class="reader-content">' + state.async.personal.contentHtml + '</div>');
@@ -3658,6 +3800,7 @@
       async function boot() {
         try {
           initPreferences(); buildMobileNav();
+          state.favorites=readStoredList('galilea:favorites');state.recents=readStoredList('galilea:recents');
           if ($('#language-select')) $('#language-select').value = VIEWER_LANGUAGES.includes(state.language) ? state.language : 'id';
           if ($('#language-settings')) $('#language-settings').value = VIEWER_LANGUAGES.includes(state.language) ? state.language : 'id';
           state.witaDayKey = witaDateKey();
@@ -3665,10 +3808,10 @@
           const initialRoute = location.hash.replace('#','');
           state.route = ROUTES.includes(initialRoute) ? initialRoute : 'home';
           history.replaceState({route:state.route},'','#' + state.route);
-          const cached = cacheGet('v1700-bootstrap');
+          const cached = cacheGet('v1800-bootstrap') || cacheGet('v1700-bootstrap');
           if (cached) { state.data = cached; setShellData(); render(); releaseStartupLoader(); }
           const fresh = await server('getWebsiteData',[]);
-          state.data = fresh; cacheSet('v1700-bootstrap',fresh,60000); setShellData(); render();
+          state.data = fresh; cacheSet('v1800-bootstrap',fresh,60000); setShellData(); render();
           if (!state.translationObserver) {
             state.translationObserver = new MutationObserver(() => scheduleTranslation(260));
             state.translationObserver.observe(document.body,{subtree:true,childList:true});
@@ -3686,6 +3829,8 @@
           }
           clearTimeout(startupGuard);
           releaseStartupLoader();
+          if('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js').catch(()=>{});
+          updateNetworkStatus();
         }
       }
 
@@ -3696,6 +3841,8 @@
           if (currentKey === state.witaDayKey) return;
           const previousKey = state.witaDayKey;
           state.witaDayKey = currentKey;
+          const witaNow=new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Makassar'}));
+          state.sabbathYear=witaNow.getFullYear();state.sabbathQuarter=Math.floor(witaNow.getMonth()/3)+1;
           cacheRemove('v11-devotional-today');
           cacheRemove('v1101-devotional-' + previousKey);
           cacheRemove('v1110-devotional-' + previousKey);
@@ -3711,10 +3858,11 @@
           cacheRemove('v1401-bootstrap');
           cacheRemove('v1500-bootstrap');
           cacheRemove('v1700-bootstrap');
+          cacheRemove('v1800-bootstrap');
           try {
             const fresh = await server('getWebsiteData',[]);
             state.data = fresh;
-            cacheSet('v1700-bootstrap',fresh,60000);
+            cacheSet('v1800-bootstrap',fresh,60000);
             setShellData();
             render();
             toast('Konten hari ini sudah diperbarui otomatis.');
@@ -3741,6 +3889,8 @@
       $('#language-settings').addEventListener('change',event => setLanguage(event.target.value));
       $('#install-app').addEventListener('click',openInstallHelp);
       window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); state.deferredInstall=event; });
+      window.addEventListener('online',()=>{updateNetworkStatus();toast('Koneksi kembali tersedia.');});
+      window.addEventListener('offline',updateNetworkStatus);
       window.addEventListener('popstate',() => {
         const route = location.hash.replace('#','');
         navigate(ROUTES.includes(route) ? route : 'home',{history:false});

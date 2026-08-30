@@ -9,17 +9,23 @@ const root = path.resolve(here, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 const index = read('index.html');
-assert.match(index, /GALILEA-CREATIVE-CINEMA-17-1-0/);
+assert.match(index, /GALILEA-CREATIVE-CINEMA-18-0-0/);
 assert.match(index, /fetch\('\/api\/gas'/);
 assert.match(index, /fetch\('\/api\/quarterly-pdf'/);
+assert.match(index, /fetch\('\/api\/weekly-bulletin'/);
 assert.match(index, /property="og:image" content="https:\/\/gmahk-galilea\.vercel\.app\/api\/og/);
 assert.doesNotMatch(index, /google\.script\.run/);
 assert.doesNotMatch(index, /<\?(?:=|!=|\s)/);
 assert.match(index, /data-open-activity/);
 assert.match(index, /activity-story-gallery/);
 assert.match(index, /devotional-cinema/);
-assert.match(index, /v1700-bootstrap/);
-assert.match(index, /cacheSet\('v1700-bootstrap',fresh,60000\)/);
+assert.match(index, /v1800-bootstrap/);
+assert.match(index, /cacheSet\('v1800-bootstrap',fresh,60000\)/);
+assert.match(index, /renderBulletin/);
+assert.match(index, /renderVisitor/);
+assert.match(index, /renderFavorites/);
+assert.match(index, /downloadCalendarIcs/);
+assert.match(index, /serviceWorker\.register\('\/sw\.js'\)/);
 assert.match(index, /opening-sanctuary/);
 assert.match(index, /Jelajahi ruang digital Galilea/);
 assert.match(index, /htmlToShareText/);
@@ -33,6 +39,7 @@ for (const [position, source] of scriptBlocks.entries()) {
 
 const proxy = read('api/gas.js');
 const quarterlyPdf = read('api/quarterly-pdf.js');
+const weeklyPdf = read('api/weekly-bulletin.js');
 const bridge = read('apps-script-backend/VercelApi.gs');
 const website = read('apps-script-backend/Website.gs');
 const admin = read('apps-script-backend/Admin.gs');
@@ -69,7 +76,7 @@ assert.deepEqual(vercel.regions, ['sin1']);
 assert.ok(vercel.headers.some(item => item.source === '/api/og'));
 
 const manifest = JSON.parse(read('manifest.webmanifest'));
-assert.equal(manifest.start_url, '/');
+assert.equal(manifest.start_url, '/#home');
 assert.equal(manifest.lang, 'id');
 
 const envExample = read('.env.example');
@@ -149,6 +156,11 @@ assert.equal(response.statusCode, 200);
 assert.ok(Buffer.isBuffer(response.body));
 assert.equal(response.body.subarray(0, 4).toString(), '%PDF');
 assert.match(response.headers['Content-Disposition'], /Jadwal-Ibadah-Galilea/);
+const {buildPdf:buildWeeklyPdf} = await import('../api/weekly-bulletin.js');
+const weeklyBuffer=buildWeeklyPdf({updatedAt:'Uji',nextSabbath:{title:'Ibadah Sabat',dateLabel:'Sabat',time:'09.00',fields:[]},announcements:[],activities:[]});
+assert.ok(Buffer.isBuffer(weeklyBuffer));
+assert.equal(weeklyBuffer.subarray(0,4).toString(),'%PDF');
+assert.match(weeklyPdf,/GALILEA-WEEKLY-BULLETIN-18\.0\.0/);
 if (process.env.WRITE_SAMPLE_PDF === '1') fs.writeFileSync('/tmp/galilea-quarterly-sample.pdf', response.body);
 
 console.log(`OK · ${new Set(calls).size} fungsi viewer terhubung ke proxy dan bridge Apps Script.`);

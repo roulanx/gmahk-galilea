@@ -1,6 +1,6 @@
 {
-  "name": "galilea-vercel-v17-creative-cinema",
-  "version": "17.1.0",
+  "name": "galilea-vercel-v18-unified",
+  "version": "18.0.0",
   "private": true,
   "type": "module",
   "description": "Viewer Vercel GMAHK Galilea Balikpapan dengan backend Google Apps Script.",
