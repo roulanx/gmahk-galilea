@@ -7,8 +7,8 @@
  */
 
 const GW = Object.freeze({
-  VERSION: '19.0.0',
-  BUILD_ID: 'GALILEA-20260830-WORSHIP-CENTER-1900',
+  VERSION: '19.0.1',
+  BUILD_ID: 'GALILEA-20260830-WORSHIP-CENTER-1901',
   TITLE: 'GMAHK Galilea Balikpapan',
   TIMEZONE: 'Asia/Makassar',
   UTC_OFFSET: '+08:00',
