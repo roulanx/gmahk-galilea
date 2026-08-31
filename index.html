@@ -2306,6 +2306,10 @@
     @media(max-height:620px) and (orientation:landscape){.presentation-main{padding:20px 84px 72px}.presentation-brand{right:18px;top:10px}.presentation-brand span{max-width:128px;font-size:.58rem}.presentation-logo{width:46px;height:52px}.presentation-head{padding-right:220px}.presentation-title{font-size:clamp(.8rem,3.2vh,1.15rem)}.presentation-stage{padding:8px 0}.presentation-copy{font-size:calc(clamp(1.55rem,6.4vh,3.2rem) * var(--present-scale))}.presentation-copy.bible{font-size:calc(clamp(1.45rem,5.8vh,2.8rem) * var(--present-scale))}.presentation-refrain{margin-top:14px;padding:12px 18px;font-size:calc(clamp(1.2rem,5.4vh,2.4rem) * var(--present-scale))}.presentation-footer{bottom:22px}.presentation-controls{bottom:12px}}
     .presentation-head{display:flex;align-items:center;gap:10px;overflow:hidden}.presentation-kicker{flex:0 1 auto;max-width:58%;text-overflow:ellipsis}.presentation-title{flex:1 1 auto;min-width:0;max-width:none;margin:0;font-size:clamp(.78rem,1vw,.95rem);font-weight:800;line-height:1.2;letter-spacing:.025em}.presentation-title::before{margin-right:10px;color:#d8bd72;content:"—"}.presentation-controls{gap:3px;padding:5px}.presentation-controls button{width:clamp(34px,2.5vw,40px);height:clamp(34px,2.5vw,40px);font-size:.78rem}.presentation-controls .icon{width:17px;height:17px}.presentation-counter{min-width:76px;font-size:.68rem}
     @media(max-width:520px){.presentation-head{gap:7px}.presentation-kicker{max-width:54%;font-size:.56rem}.presentation-title{font-size:.7rem}.presentation-title::before{margin-right:7px}.presentation-controls{right:8px;bottom:8px}.presentation-counter{min-width:62px}}
+    /* GALILEA-PRESENTATION-SUITE-21-0-0 · satu controller untuk Lagu Sion dan Alkitab */
+    .presentation-shell{background:#020704;touch-action:pan-y pinch-zoom}.presentation-shell::before,.presentation-shell::after{display:none}.presentation-frame{position:absolute;inset:0;overflow:hidden;color:#fff;background:radial-gradient(circle at 12% 8%,rgba(187,211,179,.2),transparent 30%),radial-gradient(circle at 88% 82%,rgba(215,189,115,.15),transparent 28%),linear-gradient(135deg,#041209 0%,#0a2c19 48%,#183f28 100%);isolation:isolate;transition:width .28s ease,height .28s ease,opacity .2s ease}.presentation-frame::before{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:72px 72px;content:"";mask-image:linear-gradient(to bottom,rgba(0,0,0,.65),transparent 86%);pointer-events:none}.presentation-frame::after{position:absolute;right:-14vw;top:-28vw;width:min(68vw,920px);height:min(68vw,920px);border:1px solid rgba(230,207,145,.2);border-radius:50%;box-shadow:0 0 0 7vw rgba(255,255,255,.018),0 0 0 14vw rgba(255,255,255,.012);content:"";pointer-events:none}.presentation-shell.is-projector .presentation-frame{inset:50% auto auto 50%;width:min(100vw,177.7778vh);height:min(100vh,56.25vw);transform:translate(-50%,-50%);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 30px 100px rgba(0,0,0,.55)}.presentation-shell.is-projector .presentation-main{padding:clamp(16px,3vw,48px) clamp(18px,5vw,72px) clamp(70px,10vh,104px)}.presentation-shell.is-projector .presentation-brand{right:clamp(14px,3vw,38px);top:clamp(10px,2vw,24px)}.presentation-shell.is-projector .presentation-brand span{max-width:140px;font-size:clamp(.5rem,.75vw,.7rem)}.presentation-shell.is-projector .presentation-logo{width:clamp(34px,5vw,72px);height:clamp(38px,5.5vw,78px)}.presentation-shell.is-projector .presentation-footer{left:clamp(14px,3vw,38px);bottom:clamp(12px,2vw,26px);font-size:clamp(.52rem,.75vw,.7rem)}.presentation-main,.presentation-brand,.presentation-footer{transition:opacity .18s ease}.presentation-shell.is-blackout .presentation-frame{background:#000}.presentation-shell.is-blackout .presentation-frame::before,.presentation-shell.is-blackout .presentation-frame::after{display:none}.presentation-shell.is-blackout :is(.presentation-main,.presentation-brand,.presentation-footer){opacity:0;pointer-events:none}.presentation-shell.is-blackout .presentation-offline{opacity:0}.presentation-controls{transition:opacity .22s ease,transform .22s ease}.presentation-shell.presentation-controls-hidden .presentation-controls:not(:focus-within){opacity:0;transform:translateY(14px);pointer-events:none}.presentation-controls button[aria-pressed="true"]{color:#102016;background:#ead597}.presentation-controls .presentation-ratio{width:auto;min-width:44px;padding:0 8px;border-radius:999px;font-size:.62rem;font-weight:850;letter-spacing:.04em}.presentation-offline{position:absolute;z-index:7;left:50%;top:14px;display:flex;align-items:center;gap:7px;max-width:calc(100% - 32px);padding:7px 11px;border:1px solid rgba(255,255,255,.24);border-radius:999px;color:#102016;background:#f0d994;box-shadow:0 10px 32px rgba(0,0,0,.25);font-size:.68rem;font-weight:850;letter-spacing:.06em;line-height:1;opacity:0;pointer-events:none;transform:translate(-50%,-12px);transition:opacity .2s ease,transform .2s ease;white-space:nowrap}.presentation-offline.show{opacity:1;transform:translate(-50%,0)}.presentation-offline .icon{width:15px;height:15px}.presentation-stage{touch-action:pan-y pinch-zoom}.presentation-stage.is-fitting{overflow:hidden}.presentation-a11y-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);clip-path:inset(50%);white-space:nowrap}
+    @media(max-width:360px){.presentation-controls{gap:1px;padding:4px}.presentation-controls button{width:30px;height:30px}.presentation-controls .presentation-ratio{min-width:36px;padding:0 5px}.presentation-counter{min-width:48px;font-size:.6rem}}
+    @media(prefers-reduced-motion:reduce){.presentation-frame,.presentation-controls,.presentation-offline,.presentation-main,.presentation-brand,.presentation-footer{transition:none}}
 </style>
 </head>
 <body>
@@ -2406,7 +2410,7 @@
 
   <dialog id="search-dialog"><div class="modal"><div class="modal-head"><strong>Pencarian</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body"><form class="search-box" id="search-form"><input id="search-input" type="search" minlength="2" autocomplete="off" placeholder="Cari jadwal, nama, lagu, atau halaman…"><button class="btn primary" type="submit"><svg class="icon"><use href="#i-search"></use></svg>Cari</button></form><div class="search-results" id="search-results"><p class="muted">Ketik sedikitnya dua huruf.</p></div></div></div></dialog>
   <dialog id="reader-dialog"><div class="modal wide"><div class="modal-head"><strong id="reader-title">Bacaan</strong><button class="icon-button" type="button" data-close aria-label="Tutup bacaan"><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body" id="reader-body"></div></div></dialog>
-  <dialog id="presentation-dialog" class="presentation-dialog" aria-label="Mode layar ibadah"><div class="presentation-shell" id="presentation-shell"><div class="presentation-brand"><span>Website GMAHK Galilea</span><img class="presentation-logo" id="presentation-logo" src="https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png" alt="Logo Advent"></div><main class="presentation-main"><header class="presentation-head"><div class="presentation-kicker" id="presentation-kicker">GMAHK GALILEA BALIKPAPAN</div><h1 class="presentation-title" id="presentation-title"></h1></header><section class="presentation-stage" id="presentation-stage"></section></main><footer class="presentation-footer"><span class="copyright-mark">©</span><span>Sekretaris Galilea 2026</span></footer><nav class="presentation-controls" aria-label="Kontrol mode layar"><button type="button" data-presentation-prev aria-label="Ayat sebelumnya"><svg class="icon"><use href="#i-arrow-left"></use></svg></button><span class="presentation-counter" id="presentation-counter">Ayat</span><button type="button" data-presentation-next aria-label="Ayat berikutnya"><svg class="icon"><use href="#i-arrow"></use></svg></button><button type="button" data-presentation-smaller aria-label="Perkecil teks">A−</button><button type="button" data-presentation-larger aria-label="Perbesar teks">A+</button><button class="presentation-close" type="button" data-presentation-close aria-label="Tutup mode layar"><svg class="icon"><use href="#i-close"></use></svg></button></nav></div></dialog>
+  <dialog id="presentation-dialog" class="presentation-dialog" aria-label="Mode layar ibadah"><div class="presentation-shell" id="presentation-shell"><div class="presentation-frame" id="presentation-frame"><div class="presentation-brand"><span>Website GMAHK Galilea</span><img class="presentation-logo" id="presentation-logo" src="https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png" alt="Logo Advent"></div><main class="presentation-main"><header class="presentation-head"><div class="presentation-kicker" id="presentation-kicker">GMAHK GALILEA BALIKPAPAN</div><h1 class="presentation-title" id="presentation-title"></h1></header><section class="presentation-stage" id="presentation-stage"></section></main><footer class="presentation-footer"><span class="copyright-mark">©</span><span>Sekretaris Galilea 2026</span></footer></div><div class="presentation-offline" id="presentation-offline" role="status" aria-live="polite"><svg class="icon"><use href="#i-wifi"></use></svg><span>OFFLINE · DATA TERSIMPAN</span></div><span class="presentation-a11y-status" id="presentation-a11y-status" aria-live="polite"></span><nav class="presentation-controls" aria-label="Kontrol mode layar"><button type="button" data-presentation-prev aria-label="Ayat sebelumnya" title="Ayat sebelumnya"><svg class="icon"><use href="#i-arrow-left"></use></svg></button><span class="presentation-counter" id="presentation-counter">Ayat</span><button type="button" data-presentation-next aria-label="Ayat berikutnya" title="Ayat berikutnya"><svg class="icon"><use href="#i-arrow"></use></svg></button><button type="button" data-presentation-smaller aria-label="Perkecil teks" title="Perkecil teks">A−</button><button type="button" data-presentation-larger aria-label="Perbesar teks" title="Perbesar teks">A+</button><button type="button" data-presentation-blackout aria-label="Kosongkan layar" aria-pressed="false" title="Blackout layar"><svg class="icon"><use href="#i-moon"></use></svg></button><button class="presentation-ratio" type="button" data-presentation-projector aria-label="Aktifkan mode proyektor 16 banding 9" aria-pressed="false" title="Mode proyektor 16:9">16:9</button><button class="presentation-close" type="button" data-presentation-close aria-label="Tutup mode layar" title="Tutup"><svg class="icon"><use href="#i-close"></use></svg></button></nav></div></dialog>
   <dialog id="photo-dialog" class="photo-dialog"><div class="photo-stage"><button class="icon-button photo-close" type="button" data-close aria-label="Tutup foto"><svg class="icon"><use href="#i-close"></use></svg></button><img id="photo-dialog-image" src="" alt="Dokumentasi kegiatan"></div></dialog>
   <dialog id="settings-dialog"><div class="modal"><div class="modal-head"><strong>Tampilan & aksesibilitas</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body settings-grid"><div><p class="small muted">Bahasa viewer</p><label class="language-settings" translate="no"><svg class="icon"><use href="#i-globe"></use></svg><select id="language-settings"><option value="id">Bahasa Indonesia</option><option value="en">English</option><option value="ms">Bahasa Melayu</option><option value="zh-CN">简体中文</option><option value="es">Español</option></select></label><p class="help-text">Bahasa Indonesia adalah tampilan awal. Judul, menu, dan konten yang sedang dibuka ikut diterjemahkan.</p></div><div><p class="small muted">Tema</p><div class="segmented" id="theme-options"><button data-theme-value="light">Terang</button><button data-theme-value="dark">Gelap</button><button data-theme-value="system">Sistem</button></div></div><div><p class="small muted">Ukuran tulisan</p><div class="segmented" id="font-options"><button data-font-value="normal">Normal</button><button data-font-value="large">Besar</button><button data-font-value="xlarge">Sangat besar</button></div></div><div><p class="small muted">Gerakan</p><div class="segmented" id="motion-options"><button data-motion-value="full">Halus</button><button data-motion-value="reduced">Kurangi</button></div></div></div></div></dialog>
   <div class="toast-zone" id="toast-zone" aria-live="polite"></div>
@@ -2485,7 +2489,7 @@
         bibleReader: null,
         hymnal: null,
         hymnalReader: {song:null,verseIndex:0},
-        presentation: {type:'',index:0,scale:1,item:null},
+        presentation: {type:'',index:0,scale:1,fittedScale:1,item:null,blackout:false,projector:false},
         archives: null,
         faqQuery: '',
         faqCategory: 'Semua',
@@ -2504,6 +2508,13 @@
         translationObserver: null,
         async: {}
       };
+
+      let presentationControlsTimer = 0;
+      let presentationFitFrame = 0;
+      let presentationFitTimer = 0;
+      let presentationWakeLock = null;
+      let presentationPointer = null;
+      let presentationResizeObserver = null;
 
       const $ = (selector, context) => (context || document).querySelector(selector);
       const $$ = (selector, context) => Array.from((context || document).querySelectorAll(selector));
@@ -2583,6 +2594,25 @@
           const item = JSON.parse(safeStorage.get('galilea:' + key,'null') || 'null');
           return item && Date.now() - item.time < item.ttl ? item.value : null;
         } catch (_) { return null; }
+      }
+      function cachePeek(key) {
+        try {
+          const item = JSON.parse(safeStorage.get('galilea:' + key,'null') || 'null');
+          return item && Object.prototype.hasOwnProperty.call(item,'value') ? item.value : null;
+        } catch (_) { return null; }
+      }
+      async function cachedResource(key, loader, ttl) {
+        const fresh = cacheGet(key);
+        if (fresh != null) return fresh;
+        try {
+          const value = await loader();
+          cacheSet(key,value,ttl);
+          return value;
+        } catch (error) {
+          const stored = cachePeek(key);
+          if (stored != null) return stored;
+          throw error;
+        }
       }
       function cacheSet(key, value, ttl) {
         try { safeStorage.set('galilea:' + key, JSON.stringify({time:Date.now(),ttl:ttl || 900000,value:value})); } catch (_) {}
@@ -3228,7 +3258,7 @@
 
       async function loadBibleBooks() {
         try {
-          const rawBooks = cacheGet('v1700-bible-books') || await server('getBibleBooks',[]);
+          const rawBooks = await cachedResource('v1700-bible-books',()=>server('getBibleBooks',[]),86400000);
           state.bibleBooks = (Array.isArray(rawBooks) ? rawBooks : []).map((book,index) => ({
             id: String(book && book.id || '').toUpperCase(),
             name: String(book && book.name || 'Kitab ' + (index + 1)),
@@ -3273,8 +3303,7 @@
         content.innerHTML = loadingBox('Membuka firman…','Menyiapkan pasal yang dipilih.');
         try {
           const key = 'v1700-bible-' + book + '-' + chapter;
-          const data = cacheGet(key) || await server('getBibleChapter',[book,chapter]);
-          cacheSet(key,data,21600000);
+          const data = await cachedResource(key,()=>server('getBibleChapter',[book,chapter]),21600000);
           if (!$('#bible-content')) return;
           const safeChapter = Math.max(1, Number(data && data.chapter) || chapter);
           const selected = state.bibleBooks.find(item=>item.id===book);
@@ -3321,8 +3350,7 @@
       }
       async function loadHymnal() {
         try {
-          state.hymnal = cacheGet('hymnal-catalog') || await server('getHymnalCatalog',[]);
-          cacheSet('hymnal-catalog',state.hymnal,21600000);
+          state.hymnal = await cachedResource('hymnal-catalog',()=>server('getHymnalCatalog',[]),21600000);
           if (!$('#hymnal-content')) return;
           $('#song-count').textContent = state.hymnal.count + ' lagu';
           const selector=$('#hymnal-select');
@@ -3341,8 +3369,7 @@
         openReader('Memuat lagu…',loadingBox());
         try {
           const key = 'song-' + number;
-          const song = cacheGet(key) || await server('getHymnalSong',[Number(number)]);
-          cacheSet(key,song,21600000);
+          const song = await cachedResource(key,()=>server('getHymnalSong',[Number(number)]),21600000);
           state.hymnalReader = {song:song,verseIndex:0,isTheme:false};
           renderSongReader();
         } catch (error) { $('#reader-body').innerHTML = errorBox(error.message); }
@@ -3367,19 +3394,79 @@
         $('#reader-body').innerHTML='<div class="song-reader-shell"><div class="v18-reader-tools">'+favoriteButton(savedItem)+'<button class="btn primary present-button" type="button" data-present-song>'+icon('external')+'Mode layar</button></div><header class="song-reader-hero"><span class="song-reader-number">' + (isTheme?'Lagu Tema Jemaat':'Lagu Sion · Nomor '+esc(song.number)) + '</span><h2>' + esc(song.title) + '</h2></header><section class="song-stage"><span class="chip brand">AYAT ' + esc(verse.index || index+1) + '</span><div class="song-verse">' + verse.lines.map(esc).join('<br>') + '</div>' + (chorus?'<div class="song-chorus"><strong>REFF</strong><br>' + chorus.lines.map(esc).join('<br>') + '</div>':'') + '</section><nav class="song-reader-nav" aria-label="Pilih ayat"><button class="icon-button" type="button" data-song-prev aria-label="Ayat sebelumnya" ' + (index===0?'disabled':'') + '>' + icon('arrow-left') + '</button><strong>Ayat ' + (index+1) + ' dari ' + Math.max(1,verses.length) + '</strong><button class="icon-button" type="button" data-song-next aria-label="Ayat berikutnya" ' + (index>=verses.length-1?'disabled':'') + '>' + icon('arrow') + '</button></nav><p class="small faint">Gunakan Mode Layar agar teks terlihat jelas dari jarak jauh.</p></div>';
       }
 
+      function clampPresentationScale(value){return Math.max(.7,Math.min(1.35,Number(value)||1));}
+      function presentationScaleKey(type){return 'galilea:presentation-scale:'+(type==='bible'?'bible':'song');}
+      function storedPresentationScale(type){return clampPresentationScale(safeStorage.get(presentationScaleKey(type),'1'));}
+      function announcePresentation(message){const status=$('#presentation-a11y-status');if(status)status.textContent=message||'';}
+      function syncPresentationState(){
+        const shell=$('#presentation-shell'),view=state.presentation;if(!shell||!view)return;
+        shell.classList.toggle('is-blackout',Boolean(view.blackout));
+        shell.classList.toggle('is-projector',Boolean(view.projector));
+        const blackout=$('[data-presentation-blackout]'),projector=$('[data-presentation-projector]');
+        if(blackout)blackout.setAttribute('aria-pressed',String(Boolean(view.blackout)));
+        if(projector)projector.setAttribute('aria-pressed',String(Boolean(view.projector)));
+      }
+      function showPresentationControls(autoHide){
+        const dialog=$('#presentation-dialog'),shell=$('#presentation-shell');if(!dialog||!shell)return;
+        shell.classList.remove('presentation-controls-hidden');
+        window.clearTimeout(presentationControlsTimer);
+        if(!dialog.open||autoHide===false)return;
+        presentationControlsTimer=window.setTimeout(()=>{
+          const controls=$('.presentation-controls');
+          if(controls&&controls.contains(document.activeElement)){showPresentationControls(true);return;}
+          shell.classList.add('presentation-controls-hidden');
+        },4000);
+      }
+      function fitPresentationText(){
+        const dialog=$('#presentation-dialog'),shell=$('#presentation-shell'),stage=$('#presentation-stage'),view=state.presentation;
+        if(!dialog||!dialog.open||!shell||!stage||!view||!view.type)return;
+        let fitted=clampPresentationScale(view.scale);stage.classList.add('is-fitting');shell.style.setProperty('--present-scale',String(fitted));
+        for(let attempt=0;attempt<8;attempt++){
+          const available=Math.max(1,stage.clientHeight),needed=Math.max(1,stage.scrollHeight);
+          if(needed<=available+2)break;
+          const ratio=Math.max(.55,Math.min(.96,(available/needed)*.96));
+          const next=Math.max(.52,fitted*ratio);
+          if(Math.abs(next-fitted)<.006)break;
+          fitted=next;shell.style.setProperty('--present-scale',String(fitted));
+        }
+        stage.classList.remove('is-fitting');stage.scrollTop=0;view.fittedScale=fitted;
+        shell.dataset.fit=fitted<clampPresentationScale(view.scale)-.015?'fitted':'preferred';
+      }
+      function schedulePresentationFit(){
+        window.cancelAnimationFrame(presentationFitFrame);window.clearTimeout(presentationFitTimer);
+        presentationFitFrame=window.requestAnimationFrame(()=>{presentationFitFrame=window.requestAnimationFrame(fitPresentationText);});
+        presentationFitTimer=window.setTimeout(fitPresentationText,260);
+      }
+      function updatePresentationNetworkStatus(){
+        const badge=$('#presentation-offline'),label=badge&&$('span',badge);if(!badge||!label)return;
+        const offline=navigator.onLine===false;badge.classList.toggle('show',offline);
+        if(offline)label.textContent=state.presentation&&state.presentation.type==='song'?'OFFLINE · LAGU TERSIMPAN':'OFFLINE · BACAAN TERSIMPAN';
+      }
+      async function requestPresentationWakeLock(){
+        if(!navigator.wakeLock||!navigator.wakeLock.request||document.visibilityState!=='visible'||presentationWakeLock)return;
+        try{
+          const lock=await navigator.wakeLock.request('screen');presentationWakeLock=lock;
+          lock.addEventListener('release',()=>{if(presentationWakeLock===lock)presentationWakeLock=null;});
+        }catch(_){}
+      }
+      async function releasePresentationWakeLock(){
+        const lock=presentationWakeLock;presentationWakeLock=null;if(!lock)return;
+        try{await lock.release();}catch(_){}
+      }
+      function finishPresentationRender(){syncPresentationState();updatePresentationNetworkStatus();schedulePresentationFit();showPresentationControls(true);}
       function openPresentation(type){
         const dialog=$('#presentation-dialog'),shell=$('#presentation-shell');if(!dialog||!shell)return;
         if(type==='bible'&&!state.bibleReader)return toast('Pilih ayat Alkitab terlebih dahulu.');
         if(type==='song'&&!(state.hymnalReader&&state.hymnalReader.song))return toast('Pilih lagu terlebih dahulu.');
-        state.presentation={type:type,index:type==='bible'?Number(state.bibleReader.index||0):Number(state.hymnalReader.verseIndex||0),scale:1,item:type==='bible'?state.bibleReader:state.hymnalReader.song};
+        state.presentation={type:type,index:type==='bible'?Number(state.bibleReader.index||0):Number(state.hymnalReader.verseIndex||0),scale:storedPresentationScale(type),fittedScale:1,item:type==='bible'?state.bibleReader:state.hymnalReader.song,blackout:false,projector:safeStorage.get('galilea:presentation-projector','0')==='1'};
         const logo=safeUrl(state.data&&state.data.site&&state.data.site.logo_url);if(logo)$('#presentation-logo').src=logo;
-        renderPresentation();dialog.showModal();
-        if(shell.requestFullscreen)shell.requestFullscreen().catch(()=>{});
+        renderPresentation();dialog.showModal();syncPresentationState();showPresentationControls(true);schedulePresentationFit();requestPresentationWakeLock();
+        if(shell.requestFullscreen)shell.requestFullscreen().then(schedulePresentationFit).catch(()=>{});
       }
       function renderPresentation(){
         const view=state.presentation,stage=$('#presentation-stage'),title=$('#presentation-title'),kicker=$('#presentation-kicker'),counter=$('#presentation-counter'),shell=$('#presentation-shell');
         if(!view||!stage||!title||!kicker||!counter||!shell)return;
-        shell.style.setProperty('--present-scale',String(view.scale||1));
+        shell.style.setProperty('--present-scale',String(clampPresentationScale(view.scale)));
         if(view.type==='bible'){
           const item=state.bibleReader,verses=item&&item.verses||[];if(!verses.length)return;
           view.index=Math.max(0,Math.min(verses.length-1,Number(view.index)||0));const verse=verses[view.index];
@@ -3387,7 +3474,7 @@
           stage.innerHTML='<span class="presentation-verse-label">AYAT '+esc(verse.number)+'</span><div class="presentation-copy bible">'+esc(verse.text)+'</div>';
           counter.textContent=(view.index+1)+' / '+verses.length;
           $('[data-presentation-prev]').disabled=view.index===0;$('[data-presentation-next]').disabled=view.index>=verses.length-1;
-          return;
+          finishPresentationRender();return;
         }
         const song=state.hymnalReader&&state.hymnalReader.song,parts=song&&song.lyrics||[];
         const verses=parts.filter(part=>!/(chorus|refrain)/i.test(part.type)),chorus=parts.find(part=>/(chorus|refrain)/i.test(part.type));if(!verses.length)return;
@@ -3396,6 +3483,7 @@
         stage.innerHTML='<span class="presentation-verse-label">AYAT '+esc(verse.index||view.index+1)+'</span><div class="presentation-copy">'+verse.lines.map(esc).join('<br>')+'</div>'+(chorus?'<div class="presentation-refrain"><strong>REFF</strong>'+chorus.lines.map(esc).join('<br>')+'</div>':'');
         counter.textContent='Ayat '+(view.index+1)+' / '+verses.length;
         $('[data-presentation-prev]').disabled=view.index===0;$('[data-presentation-next]').disabled=view.index>=verses.length-1;
+        finishPresentationRender();
       }
       function movePresentation(direction){
         if(!state.presentation||!state.presentation.type)return;
@@ -3405,10 +3493,35 @@
         renderPresentation();
       }
       function resizePresentation(delta){
-        state.presentation.scale=Math.max(.7,Math.min(1.35,Number(state.presentation.scale||1)+delta));renderPresentation();
+        const view=state.presentation;if(!view||!view.type)return;
+        view.scale=clampPresentationScale(Number(view.scale||1)+delta);safeStorage.set(presentationScaleKey(view.type),view.scale.toFixed(2));
+        renderPresentation();announcePresentation('Ukuran teks '+Math.round(view.scale*100)+' persen');
+      }
+      function togglePresentationBlackout(){
+        const view=state.presentation;if(!view||!view.type)return;view.blackout=!view.blackout;syncPresentationState();showPresentationControls(true);
+        announcePresentation(view.blackout?'Layar dikosongkan':'Teks ditampilkan kembali');
+      }
+      function togglePresentationProjector(){
+        const view=state.presentation;if(!view||!view.type)return;view.projector=!view.projector;safeStorage.set('galilea:presentation-projector',view.projector?'1':'0');
+        syncPresentationState();schedulePresentationFit();showPresentationControls(true);announcePresentation(view.projector?'Mode proyektor 16 banding 9 aktif':'Mode layar penuh aktif');
+      }
+      function handlePresentationPointerDown(event){
+        const dialog=$('#presentation-dialog');if(!dialog||!dialog.open)return;showPresentationControls(true);
+        if(event.target.closest('.presentation-controls')){presentationPointer=null;return;}
+        presentationPointer={id:event.pointerId,x:event.clientX,y:event.clientY,time:Date.now()};
+      }
+      function handlePresentationPointerUp(event){
+        const start=presentationPointer;presentationPointer=null;if(!start||start.id!==event.pointerId)return;
+        const dx=event.clientX-start.x,dy=event.clientY-start.y,elapsed=Date.now()-start.time;
+        if(elapsed<900&&Math.abs(dx)>=56&&Math.abs(dx)>Math.abs(dy)*1.2)movePresentation(dx<0?1:-1);
+      }
+      function cleanupPresentation(){
+        window.clearTimeout(presentationControlsTimer);window.clearTimeout(presentationFitTimer);window.cancelAnimationFrame(presentationFitFrame);presentationPointer=null;
+        const shell=$('#presentation-shell');if(shell){shell.classList.remove('presentation-controls-hidden','is-blackout');delete shell.dataset.fit;}
+        releasePresentationWakeLock();
       }
       function closePresentation(){
-        const dialog=$('#presentation-dialog');if(dialog&&dialog.open)dialog.close();
+        const dialog=$('#presentation-dialog');if(dialog&&dialog.open)dialog.close();cleanupPresentation();
         if(document.fullscreenElement&&document.exitFullscreen)document.exitFullscreen().catch(()=>{});
       }
 
@@ -3914,7 +4027,7 @@
         }
         openReader('Simpan di layar utama','<p class="lead">Simpan website agar lebih cepat dibuka.</p><div class="grid grid-2"><article class="card card-pad"><h3>Android · Chrome</h3><p class="muted">Buka menu browser <strong>⋮</strong>, lalu pilih <strong>Tambahkan ke layar utama</strong> atau <strong>Instal aplikasi</strong>.</p></article><article class="card card-pad"><h3>iPhone · Safari</h3><p class="muted">Tekan tombol <strong>Bagikan</strong>, lalu pilih <strong>Tambahkan ke Layar Utama</strong>.</p></article></div>');
       }
-      function updateNetworkStatus(){const box=$('#network-status');if(box)box.classList.toggle('show',navigator.onLine===false);}
+      function updateNetworkStatus(){const box=$('#network-status');if(box)box.classList.toggle('show',navigator.onLine===false);updatePresentationNetworkStatus();}
 
       function handleClick(event) {
         const navToggle = event.target.closest('[data-nav-toggle]');
@@ -3984,6 +4097,8 @@
         if (event.target.closest('[data-presentation-next]')) return movePresentation(1);
         if (event.target.closest('[data-presentation-smaller]')) return resizePresentation(-.1);
         if (event.target.closest('[data-presentation-larger]')) return resizePresentation(.1);
+        if (event.target.closest('[data-presentation-blackout]')) return togglePresentationBlackout();
+        if (event.target.closest('[data-presentation-projector]')) return togglePresentationProjector();
         if (event.target.closest('[data-presentation-close]')) return closePresentation();
         const testament = event.target.closest('[data-bible-testament]');
         if (testament) {
@@ -4022,8 +4137,13 @@
 
       document.addEventListener('keydown',event=>{
         const dialog=$('#presentation-dialog');if(!dialog||!dialog.open)return;
-        if(event.key==='ArrowLeft'){event.preventDefault();movePresentation(-1);}
-        else if(event.key==='ArrowRight'){event.preventDefault();movePresentation(1);}
+        showPresentationControls(true);
+        if(event.key==='ArrowLeft'||event.key==='PageUp'){event.preventDefault();movePresentation(-1);}
+        else if(event.key==='ArrowRight'||event.key==='PageDown'||event.key===' '){event.preventDefault();movePresentation(event.shiftKey?-1:1);}
+        else if(event.key==='+'||event.key==='='){event.preventDefault();resizePresentation(.1);}
+        else if(event.key==='-'||event.key==='_'){event.preventDefault();resizePresentation(-.1);}
+        else if(event.key.toLowerCase()==='b'){event.preventDefault();togglePresentationBlackout();}
+        else if(event.key.toLowerCase()==='p'){event.preventDefault();togglePresentationProjector();}
         else if(event.key==='Escape'){event.preventDefault();closePresentation();}
       });
 
@@ -4038,7 +4158,7 @@
           const initialRoute = location.hash.replace('#','');
           state.route = ROUTES.includes(initialRoute) ? initialRoute : 'home';
           history.replaceState({route:state.route},'','#' + state.route);
-          const cached = cacheGet('v1800-bootstrap') || cacheGet('v1700-bootstrap');
+          const cached = cacheGet('v1800-bootstrap') || cacheGet('v1700-bootstrap') || cachePeek('v1800-bootstrap') || cachePeek('v1700-bootstrap');
           if (cached) { state.data = cached; setShellData(); render(); releaseStartupLoader(); }
           const fresh = await server('getWebsiteData',[]);
           state.data = fresh; cacheSet('v1800-bootstrap',fresh,60000); setShellData(); render();
@@ -4118,6 +4238,17 @@
       $('#language-select').addEventListener('change',event => setLanguage(event.target.value));
       $('#language-settings').addEventListener('change',event => setLanguage(event.target.value));
       $('#install-app').addEventListener('click',openInstallHelp);
+      const presentationShellElement=$('#presentation-shell');
+      if(presentationShellElement){
+        presentationShellElement.addEventListener('pointerdown',handlePresentationPointerDown,{passive:true});
+        presentationShellElement.addEventListener('pointerup',handlePresentationPointerUp,{passive:true});
+        presentationShellElement.addEventListener('pointercancel',()=>{presentationPointer=null;},{passive:true});
+        presentationShellElement.addEventListener('pointermove',()=>showPresentationControls(true),{passive:true});
+      }
+      $('#presentation-dialog')?.addEventListener('close',cleanupPresentation);
+      if('ResizeObserver' in window){presentationResizeObserver=new ResizeObserver(()=>{if($('#presentation-dialog')?.open)schedulePresentationFit();});const frame=$('#presentation-frame');if(frame)presentationResizeObserver.observe(frame);}
+      document.addEventListener('fullscreenchange',()=>{if($('#presentation-dialog')?.open)schedulePresentationFit();});
+      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&$('#presentation-dialog')?.open){requestPresentationWakeLock();schedulePresentationFit();}else if(document.visibilityState!=='visible')releasePresentationWakeLock();});
       window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); state.deferredInstall=event; });
       window.addEventListener('online',()=>{updateNetworkStatus();toast('Koneksi kembali tersedia.');});
       window.addEventListener('offline',updateNetworkStatus);
@@ -4126,7 +4257,7 @@
         navigate(ROUTES.includes(route) ? route : 'home',{history:false});
       });
       window.addEventListener('scroll',updateCinemaHeader,{passive:true});
-      window.addEventListener('resize',updateCinemaHeader,{passive:true});
+      window.addEventListener('resize',()=>{updateCinemaHeader();if($('#presentation-dialog')?.open)schedulePresentationFit();},{passive:true});
       $$('dialog').forEach(dialog => dialog.addEventListener('click',event => { if(event.target===dialog) dialog.close(); }));
       boot();
     }());
