@@ -40,6 +40,8 @@ assert.match(index, /Sekretaris Galilea 2026/);
 assert.match(index, /Website GMAHK Galilea/);
 assert.match(index, /hymnal-toolbar/);
 assert.match(index, /presentation-refrain\{[^}]*clamp\(1\.8rem,3\.6vw,4\.8rem\)/);
+assert.match(index, /presentation-title\{[^}]*clamp\(1\.15rem,2vw,2\.15rem\)/);
+assert.match(index, /presentation-stage\{[^}]*scrollbar-gutter:stable/);
 assert.match(index, /data-present-bible/);
 assert.match(index, /data-present-song/);
 assert.match(index, /<option value="">Pilih kitab<\/option>/);
