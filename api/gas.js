@@ -1,3 +1,5 @@
+import {appsScriptApiUrl} from './_apps-script.js';
+
 const PUBLIC_METHODS = new Set([
   'downloadQuarterlySchedulePdf',
   'findMemberSchedule',
@@ -24,7 +26,6 @@ const PUBLIC_METHODS = new Set([
 
 const BUILD = 'GALILEA-VERCEL-BRIDGE-17.3.0';
 const MAX_REQUEST_BYTES = 180000;
-const DEFAULT_API_URL = '';
 
 function reply(response, status, body) {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -224,7 +225,7 @@ export default async function handler(request, response) {
       ok: true,
       service: 'Galilea Vercel API Bridge',
       build: BUILD,
-      configured: Boolean((process.env.GALILEA_APPS_SCRIPT_API_URL || DEFAULT_API_URL) && process.env.GALILEA_API_SECRET)
+      configured: Boolean(appsScriptApiUrl() && process.env.GALILEA_API_SECRET)
     });
   }
 
@@ -259,7 +260,7 @@ export default async function handler(request, response) {
       }
     }
 
-    const configuredUrl = backendUrl(process.env.GALILEA_APPS_SCRIPT_API_URL || DEFAULT_API_URL);
+    const configuredUrl = backendUrl(appsScriptApiUrl());
     const secret = String(process.env.GALILEA_API_SECRET || '');
     if (secret.length < 32) throw new Error('GALILEA_API_SECRET belum dipasang atau terlalu pendek.');
 

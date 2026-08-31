@@ -1,5 +1,6 @@
+import {appsScriptApiUrl} from './_apps-script.js';
+
 const BUILD = 'GALILEA-QUARTERLY-PDF-17.1.0';
-const DEFAULT_API_URL = '';
 const PAGE = Object.freeze({width: 841.89, height: 595.28}); // A4 landscape
 const MARGIN = Object.freeze({left: 36, right: 36, bottom: 38});
 const THEME = Object.freeze({
@@ -291,7 +292,7 @@ function buildPdf(data) {
 }
 
 async function websiteData() {
-  const url = backendUrl(process.env.GALILEA_APPS_SCRIPT_API_URL || DEFAULT_API_URL);
+  const url = backendUrl(appsScriptApiUrl());
   const secret = String(process.env.GALILEA_API_SECRET || '');
   if (secret.length < 32) throw new Error('Secret API Vercel belum tersedia.');
   const controller = new AbortController();
