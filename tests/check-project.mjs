@@ -9,8 +9,8 @@ const root = path.resolve(here, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 const index = read('index.html');
-assert.match(index, /GALILEA-WORSHIP-CENTER-19-0-0/);
-assert.match(index, /GALILEA-RESPONSIVE-CONTRAST-19-0-0/);
+assert.match(index, /GALILEA-WORSHIP-CENTER-19-0-2/);
+assert.match(index, /GALILEA-RESPONSIVE-CONTRAST-19-0-2/);
 assert.match(index, /profile-role/);
 assert.match(index, /fetch\('\/api\/gas'/);
 assert.match(index, /fetch\('\/api\/quarterly-pdf'/);
@@ -65,6 +65,9 @@ assert.match(adminHtml, /name="viewport" content="width=device-width,initial-sca
 assert.match(adminHtml, /responsive admin lock: iPhone, Android, tablet, dan desktop/);
 assert.match(adminHtml, /data-preview-editor/);
 assert.match(website, /gwReadWorshipPlans_/);
+assert.match(index, /function scheduleWorshipFallback\(\)/);
+assert.match(index, /Bagian yang belum diterbitkan tidak diisi dengan perkiraan/);
+assert.match(index, /record\.timestamp\|\|\(record\.isoDate\+'T'\+record\.time\+'\:00\+08\:00'\)/);
 const adminScripts = [...adminHtml.replace(/<\?!=\s*JSON\.stringify\(appUrl\s*\|\|\s*''\)\s*\?>/g, "''").matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(match => match[1]);
 assert.ok(adminScripts.length > 0, 'Tidak ditemukan blok JavaScript pada Admins.html.');
 for (const [position, source] of adminScripts.entries()) {
