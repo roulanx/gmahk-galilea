@@ -24,6 +24,14 @@ const pairs = [
   ['dark soft text / surface','#ced7ce','#0d1811'],
   ['dark faint text / surface','#a7b4a9','#0d1811'],
   ['dark primary button','#07120b','#a7c9a4'],
+  ['presenter dark lyric','#ffffff','#0a2c19'],
+  ['presenter dark gold','#ead597','#0a2c19'],
+  ['presenter light lyric','#07140b','#cadcc9'],
+  ['presenter light kicker','#4d3c0f','#cadcc9'],
+  ['presenter light title','#173620','#cadcc9'],
+  ['presenter light title separator','#735814','#cadcc9'],
+  ['presenter light controls','#12351f','#f8faf4'],
+  ['presenter light active control','#ffffff','#1d5030'],
   ['WhatsApp button','#ffffff','#147c43']
 ];
 
