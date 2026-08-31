@@ -57,6 +57,8 @@ assert.match(index, /data-presentation-blackout/);
 assert.match(index, /galilea:presentation-scale:/);
 assert.match(index, /data-presentation-projector/);
 assert.match(index, /is-projector/);
+assert.match(index, /is-projector \.presentation-main\{position:absolute;inset:0;height:auto/);
+assert.match(index, /document\.activeElement\.blur/);
 assert.match(index, /id="presentation-offline"/);
 assert.match(index, /async function cachedResource/);
 assert.match(worker, /galilea-v21-worship-presenter/);
