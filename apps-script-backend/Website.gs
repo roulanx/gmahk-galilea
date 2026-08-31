@@ -7,13 +7,13 @@
  */
 
 const GW = Object.freeze({
-  VERSION: '19.0.1',
-  BUILD_ID: 'GALILEA-20260830-WORSHIP-CENTER-1901',
+  VERSION: '20.0.0',
+  BUILD_ID: 'GALILEA-20260831-WORSHIP-PRESENTER-2000',
   TITLE: 'GMAHK Galilea Balikpapan',
   TIMEZONE: 'Asia/Makassar',
   UTC_OFFSET: '+08:00',
   SPREADSHEET_PROPERTY: 'GALILEA_SPREADSHEET_ID',
-  CACHE_REVISION_PROPERTY: 'GALILEA_CACHE_REVISION_V1900',
+  CACHE_REVISION_PROPERTY: 'GALILEA_CACHE_REVISION_V2000',
   YOUTUBE_KEY_PROPERTY: 'GALILEA_YOUTUBE_API_KEY',
   YOUTUBE_CHANNEL_PROPERTY: 'GALILEA_AWR_BORNEO_CHANNEL_ID',
   SERVICE_SPREADSHEET_PROPERTY: 'GALILEA_SERVICE_SPREADSHEET_ID',
@@ -32,6 +32,7 @@ const GW = Object.freeze({
     mission: 'API Berita Misi',
     offering: 'API Bacaan Persembahan',
     adventTheme: 'Website Tema Advent',
+    themeSong: 'Website Lagu Tema',
     worshipPlans: 'Website Susunan Ibadah'
   }),
   SOURCES: Object.freeze({
@@ -345,6 +346,7 @@ function getWebsiteData() {
   if (cached) return JSON.parse(cached);
 
   const spreadsheet = gwSpreadsheet_();
+  gwEnsureV200ContentSchemas_(spreadsheet);
   const scheduleSheet = gwChooseScheduleSheet_(spreadsheet);
   if (!scheduleSheet) {
     throw new Error('Sheet jadwal aktif tidak ditemukan. Pastikan A1 berisi “' + GW.TITLE_MARKER + '”.');
@@ -378,7 +380,8 @@ function getWebsiteData() {
     nextWednesday: gwNextWednesday_(sections, now),
     sections: sections,
     banners: gwReadBanners_(spreadsheet, now),
-    announcements: gwReadAnnouncements_(spreadsheet),
+    announcements: gwReadAnnouncements_(spreadsheet, now),
+    themeSong: gwReadThemeSong_(spreadsheet),
     worshipPlans: gwReadWorshipPlans_(spreadsheet, now),
     activities: gwReadActivities_(spreadsheet, now),
     gallery: gwReadGallery_(spreadsheet),
@@ -448,7 +451,7 @@ function searchWebsite(searchText) {
     ['Halaman', 'Jadwal Ibadah', 'Ringkasan dan rincian pelayanan', 'schedule'],
     ['Halaman', 'Sekolah Sabat', 'Pelajaran, Berita Misi, Bacaan Persembahan, dan Penginjilan Perorangan', 'sabbath'],
     ['Halaman', 'Alkitab', 'Baca Alkitab berdasarkan kitab dan pasal', 'bible'],
-    ['Halaman', 'Lagu Sion', 'Cari nomor dan judul Lagu Sion', 'hymnal'],
+    ['Halaman', 'Lagu Sion', 'Buka Lagu Tema atau cari nomor dan judul Lagu Sion', 'hymnal'],
     ['Halaman', 'Layanan Jemaat', 'Permohonan doa, kunjungan, baptisan, dan kelas Alkitab', 'services'],
     ['Halaman', 'Pertanyaan Umum', 'Bantuan menggunakan website', 'faq'],
     ['Halaman', 'Kontak', data.site.address, 'contact']
@@ -461,8 +464,9 @@ function searchWebsite(searchText) {
     });
   });
   data.leaders.forEach(function (leader) { add('Pengurus', leader.name, leader.role + '. ' + leader.description, 'leaders', '', leader.role); });
-  data.announcements.forEach(function (item) { add('Pengumuman', item.title, item.summary, 'announcements', '', item.dateLabel); });
-  data.activities.forEach(function (item) { add('Kegiatan', item.title, item.description, 'activities', '', item.location + ' ' + item.dateLabel); });
+  data.announcements.forEach(function (item) { add('Agenda dan Pengumuman', item.title, item.summary, 'announcements', '', item.dateLabel); });
+  data.activities.forEach(function (item) { add('Berita Jemaat', item.title, item.description, 'activities', '', item.location + ' ' + item.dateLabel); });
+  if (data.themeSong) add('Lagu Tema', data.themeSong.title, 'Lagu tema jemaat aktif', 'hymnal', 'theme', 'Lagu Tema');
   data.faq.forEach(function (item) { add('FAQ', item.question, item.answer, 'faq', '', item.category); });
 
   try {
@@ -716,6 +720,7 @@ function gwEnsureSheets_(spreadsheet) {
   gwEnsureTable_(spreadsheet, GW.SHEETS.announcements,
     ['Tanggal Publikasi', 'Judul', 'Ringkasan', 'Tautan', 'Status'],
     [[new Date(), 'Contoh Pengumuman', 'Ganti isi baris ini, lalu ubah status menjadi PUBLISH.', '', 'DRAFT']]);
+  gwEnsureV200ContentSchemas_(spreadsheet);
   gwEnsureTable_(spreadsheet, GW.SHEETS.activities,
     ['Tanggal', 'Judul', 'Lokasi', 'Deskripsi', 'Tautan', 'Status', 'Foto URL'],
     [[new Date(), 'Contoh Kegiatan', 'Gereja', 'Ganti isi baris ini, tambahkan satu atau beberapa foto, lalu ubah status menjadi PUBLISH.', '', 'DRAFT', '']]);
@@ -746,9 +751,42 @@ function gwEnsureSheets_(spreadsheet) {
   gwEnsureTable_(spreadsheet, GW.SHEETS.adventTheme,
     ['Tahun', 'Tema', 'Ayat', 'Lagu Tema', 'Foto URL', 'Sumber URL', 'Status'],
     [[2026, 'Mission Reach 2026', 'Yohanes 4:35–36', '', '', GW.SOURCES.adventTheme, 'DRAFT']]);
+  gwEnsureTable_(spreadsheet, GW.SHEETS.themeSong,
+    ['Judul Lagu Tema', 'Ayat 1', 'Ayat 2', 'Ayat Tambahan', 'Reff', 'Catatan', 'Status'],
+    [['Lagu Tema Jemaat', '', '', '', '', 'Isi lirik melalui Portal Sekretariat.', 'DRAFT']]);
   gwEnsureTable_(spreadsheet, GW.SHEETS.worshipPlans,
     ['Tanggal', 'Jenis Ibadah', 'Waktu', 'Tema', 'Ayat Utama', 'Lagu Sion', 'Susunan Acara', 'Catatan Jemaat', 'Tautan Siaran', 'Status'],
     [[new Date(), 'IBADAH SABAT', '09:00', 'Tema ibadah', 'Ibrani 10:24–25', '', 'Sekolah Sabat\nKebaktian Khotbah', '', '', 'DRAFT']]);
+}
+
+/**
+ * Menjaga migrasi Website Pengumuman tetap aman untuk sheet lama. Tiga kolom
+ * baru disisipkan sebelum Admin ID agar status dan ID yang sudah ada tidak
+ * bergeser atau tertimpa ketika pengurus menyimpan perubahan.
+ */
+function gwEnsureV200ContentSchemas_(spreadsheet) {
+  if (!spreadsheet.getSheetByName(GW.SHEETS.themeSong)) {
+    gwEnsureTable_(spreadsheet, GW.SHEETS.themeSong,
+      ['Judul Lagu Tema', 'Ayat 1', 'Ayat 2', 'Ayat Tambahan', 'Reff', 'Catatan', 'Status'],
+      [['Lagu Tema Jemaat', '', '', '', '', 'Isi lirik melalui Portal Sekretariat.', 'DRAFT']]);
+  }
+  const sheet = spreadsheet.getSheetByName(GW.SHEETS.announcements);
+  if (!sheet) return;
+  const headers = sheet.getRange(1, 1, 1, Math.max(1, sheet.getLastColumn())).getDisplayValues()[0];
+  const normalized = headers.map(gwNormalize_);
+  if (normalized.indexOf('berakhir tampil') < 0) {
+    let idIndex = normalized.indexOf('admin id');
+    if (idIndex < 0) idIndex = normalized.indexOf('id');
+    const beforeColumn = idIndex >= 0 ? idIndex + 1 : Math.max(6, sheet.getLastColumn() + 1);
+    if (beforeColumn <= sheet.getMaxColumns()) sheet.insertColumnsBefore(beforeColumn, 3);
+    else sheet.insertColumnsAfter(sheet.getMaxColumns(), beforeColumn + 2 - sheet.getMaxColumns());
+    sheet.getRange(1, beforeColumn, 1, 3).setValues([['Berakhir Tampil', 'Prioritas', 'Masuk Warta']]);
+    if (sheet.getLastRow() > 1) {
+      const count = sheet.getLastRow() - 1;
+      sheet.getRange(2, beforeColumn + 1, count, 1).setValues(Array.from({length: count}, function () { return ['NORMAL']; }));
+      sheet.getRange(2, beforeColumn + 2, count, 1).setValues(Array.from({length: count}, function () { return ['YA']; }));
+    }
+  }
 }
 
 function gwEnsureSettingsSheet_(spreadsheet) {
@@ -863,7 +901,7 @@ function gwDefaultFaqRows_() {
     ['Renungan & Video', 'Bagaimana membagikan Renungan Pagi?', 'Pada kartu Renungan Pagi tekan Bagikan Renungan. Pesan WhatsApp berisi judul, tanggal materi, tautan video, dan keterangan bahwa materi dibagikan melalui Website Galilea.', 12, 'PUBLISH'],
     ['Renungan & Video', 'Mengapa video tidak langsung berputar?', 'Untuk menghemat kuota dan mempercepat halaman, video baru dimuat setelah gambar video ditekan. Jika YouTube membatasi pemutaran, gunakan tombol Buka di YouTube.', 13, 'PUBLISH'],
     ['Alkitab & Lagu Sion', 'Bagaimana mencari ayat Alkitab?', 'Pilih Perjanjian Lama atau Baru, pilih kitab sesuai urutan, tentukan pasal dan ayat, lalu tekan Buka Ayat. Ayat tujuan akan ditandai.', 14, 'PUBLISH'],
-    ['Alkitab & Lagu Sion', 'Bagaimana membaca bait dan reff Lagu Sion?', 'Buka sebuah lagu. Bait tampil di bagian atas, Reff tetap di bawah, dan tombol panah digunakan untuk berpindah bait.', 15, 'PUBLISH'],
+    ['Alkitab & Lagu Sion', 'Bagaimana menampilkan ayat dan reff Lagu Sion?', 'Pilih Lagu Tema atau sebuah Lagu Sion, lalu tekan Mode Layar. Ayat tampil besar dan jelas, Reff ditandai khusus, dan tombol panah digunakan untuk berpindah ayat.', 15, 'PUBLISH'],
     ['Unduhan', 'Apa arti watermark pada hasil unduhan?', 'Watermark kecil menunjukkan file dibuat melalui Website Galilea dan membantu jemaat mengetahui sumber pembaruannya tanpa mengganggu isi utama.', 16, 'PUBLISH'],
     ['Tampilan & Bahasa', 'Bagaimana mengganti bahasa?', 'Pilih kode bahasa di kanan atas. Menu umum berubah seketika, sedangkan bagian bacaan yang panjang menyusul di latar belakang.', 17, 'PUBLISH'],
     ['Tampilan & Bahasa', 'Bagaimana mengganti mode terang, gelap, atau ukuran tulisan?', 'Tekan ikon tema untuk perpindahan cepat. Untuk pilihan lengkap, buka menu Aksesibilitas lalu pilih tema, ukuran tulisan, dan tingkat gerakan.', 18, 'PUBLISH'],
@@ -914,25 +952,68 @@ function gwReadLeaders_(spreadsheet, settings) {
   ].filter(function (item) { return gwClean_(item.name); });
 }
 
-function gwReadAnnouncements_(spreadsheet) {
+function gwReadAnnouncements_(spreadsheet, now) {
   const sheet = spreadsheet.getSheetByName(GW.SHEETS.announcements);
   if (!sheet || sheet.getLastRow() < 2) return [];
   const count = sheet.getLastRow() - 1;
-  const raw = sheet.getRange(2, 1, count, 5).getValues();
-  const display = sheet.getRange(2, 1, count, 5).getDisplayValues();
+  const width = Math.min(Math.max(sheet.getLastColumn(), 9), 9);
+  const raw = sheet.getRange(2, 1, count, width).getValues();
+  const display = sheet.getRange(2, 1, count, width).getDisplayValues();
+  const today = new Date(Utilities.formatDate(now || new Date(), GW.TIMEZONE, 'yyyy-MM-dd') + 'T00:00:00' + GW.UTC_OFFSET).getTime();
   return raw.map(function (row, index) {
     const date = gwParseDate_(row[0], display[index][0]);
+    const expires = gwParseDate_(row[5], display[index][5]);
+    const priority = ['PENTING', 'IBADAH', 'NORMAL'].indexOf(String(display[index][6] || '').toUpperCase()) >= 0
+      ? String(display[index][6]).toUpperCase() : 'NORMAL';
+    const bulletinValue = gwNormalize_(display[index][7] || 'YA');
     return {
+      id: gwClean_(display[index][8]) || ('ANN-' + (index + 2)),
       dateValue: date ? date.getTime() : 0,
       dateLabel: date ? gwFormatShortDate_(date) : gwClean_(display[index][0]),
       title: gwClean_(display[index][1]),
       summary: gwClean_(display[index][2]),
       url: gwSafeUrl_(display[index][3]),
-      status: gwNormalize_(display[index][4])
+      status: gwNormalize_(display[index][4]),
+      expiresAt: expires ? Utilities.formatDate(expires, GW.TIMEZONE, 'yyyy-MM-dd') : '',
+      priority: priority,
+      includeInBulletin: ['tidak', 'no', 'false', '0'].indexOf(bulletinValue) < 0
     };
   }).filter(function (item) {
-    return item.status === 'publish' && item.title;
-  }).sort(function (a, b) { return b.dateValue - a.dateValue; }).slice(0, 16);
+    const end = item.expiresAt ? new Date(item.expiresAt + 'T23:59:59' + GW.UTC_OFFSET).getTime() : Infinity;
+    return item.status === 'publish' && item.title && end >= today;
+  }).sort(function (a, b) {
+    const rank = { PENTING: 0, IBADAH: 1, NORMAL: 2 };
+    return rank[a.priority] - rank[b.priority] || a.dateValue - b.dateValue;
+  }).slice(0, 24);
+}
+
+function gwReadThemeSong_(spreadsheet) {
+  const sheet = spreadsheet.getSheetByName(GW.SHEETS.themeSong);
+  if (!sheet || sheet.getLastRow() < 2) return null;
+  const width = Math.min(Math.max(sheet.getLastColumn(), 8), 8);
+  const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, width).getDisplayValues();
+  for (let index = rows.length - 1; index >= 0; index--) {
+    const row = rows[index];
+    if (gwNormalize_(row[6]) !== 'publish' || !gwClean_(row[0])) continue;
+    const lyrics = [];
+    [1, 2, 3].forEach(function (column, verseIndex) {
+      const lines = String(row[column] || '').split(/\n+/).map(gwClean_).filter(Boolean);
+      if (lines.length) lyrics.push({ type: 'verse', index: verseIndex + 1, lines: lines });
+    });
+    const refrain = String(row[4] || '').split(/\n+/).map(gwClean_).filter(Boolean);
+    if (refrain.length) lyrics.push({ type: 'chorus', index: 1, lines: refrain });
+    if (!lyrics.length) continue;
+    return {
+      id: gwClean_(row[7]) || ('THEME-' + (index + 2)),
+      number: 0,
+      isTheme: true,
+      title: gwClean_(row[0]),
+      lyrics: lyrics,
+      note: gwClean_(row[5]),
+      source: 'Lagu Tema GMAHK Galilea Balikpapan'
+    };
+  }
+  return null;
 }
 
 function gwReadWorshipPlans_(spreadsheet, now) {
@@ -993,12 +1074,9 @@ function gwReadActivities_(spreadsheet, now) {
       photoCount: photos.length
     };
   }).filter(function (item) {
-    return item.status === 'publish' && item.title;
+    return item.status === 'publish' && item.title && item.dateValue < today;
   }).sort(function (a, b) {
-    const aPast = a.dateValue < today ? 1 : 0;
-    const bPast = b.dateValue < today ? 1 : 0;
-    if (aPast !== bPast) return aPast - bPast;
-    return aPast ? b.dateValue - a.dateValue : a.dateValue - b.dateValue;
+    return b.dateValue - a.dateValue;
   }).slice(0, 24);
 }
 
@@ -2363,7 +2441,7 @@ function gwBuildHymnalPdf_() {
   const body = songs.map(function (song) {
     return '<article class="song"><h2>' + Number(song.number) + '. ' + gwEscapeHtml_(song.title) + '</h2>' + (song.lyrics || []).map(function (part) {
       const chorus = gwNormalize_(part.type) === 'chorus' || gwNormalize_(part.type) === 'refrain';
-      return '<h3>' + (chorus ? 'Reff' : 'Bait ' + (Number(part.index) || 1)) + '</h3><p>' + (part.lines || []).map(gwEscapeHtml_).join('<br>') + '</p>';
+      return '<h3>' + (chorus ? 'Reff' : 'Ayat ' + (Number(part.index) || 1)) + '</h3><p>' + (part.lines || []).map(gwEscapeHtml_).join('<br>') + '</p>';
     }).join('') + '</article>';
   }).join('');
   const blob = gwHtmlPdfBlob_(gwPdfDocumentHtml_('Lagu Sion · Edisi Lengkap', body + '<p class="source">Sumber digital: LaguSion-indo.</p>'), 'Lagu-Sion-Lengkap-Galilea.pdf');

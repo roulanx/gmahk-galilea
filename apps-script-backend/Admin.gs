@@ -6,7 +6,7 @@
  */
 
 const GA = Object.freeze({
-  VERSION: '19.0.1',
+  VERSION: '20.0.0',
   SHEETS: Object.freeze({
     admins: 'Website Admin',
     workflow: 'Website Workflow',
@@ -21,24 +21,38 @@ const GA = Object.freeze({
 function gaEntityDefinitions_() {
   return {
     announcements: {
-      label: 'Pengumuman', icon: 'bell', sheet: GW.SHEETS.announcements,
+      label: 'Agenda dan Pengumuman', icon: 'bell', sheet: GW.SHEETS.announcements,
       fields: [
-        gaField_('date', 'Tanggal Publikasi', 0, 'date', true),
+        gaField_('date', 'Tanggal Informasi / Acara', 0, 'date', true, [], 'Tanggal yang akan dibaca jemaat pada Agenda dan Pengumuman.'),
         gaField_('title', 'Judul', 1, 'text', true),
-        gaField_('summary', 'Ringkasan', 2, 'textarea', true),
-        gaField_('url', 'Tautan', 3, 'url', false)
-      ], statusColumn: 4, idColumn: 5
+        gaField_('summary', 'Isi Pengumuman', 2, 'textarea', true, [], 'Tulis singkat, jelas, dan siap dimasukkan ke Warta serta WhatsApp.'),
+        gaField_('url', 'Tautan Selengkapnya', 3, 'url', false),
+        gaField_('endDate', 'Berakhir Tampil', 5, 'date', false, [], 'Setelah tanggal ini pengumuman otomatis berhenti tampil.'),
+        gaField_('priority', 'Prioritas', 6, 'select', true, ['NORMAL', 'IBADAH', 'PENTING']),
+        gaField_('includeInBulletin', 'Masukkan ke Warta', 7, 'select', true, ['YA', 'TIDAK'], 'Pilih YA agar pengumuman ikut masuk PDF dan pesan Warta Jemaat.')
+      ], statusColumn: 4, idColumn: 8
     },
     activities: {
-      label: 'Kegiatan Gereja', icon: 'calendar', sheet: GW.SHEETS.activities,
+      label: 'Berita Jemaat', icon: 'calendar', sheet: GW.SHEETS.activities,
       fields: [
-        gaField_('date', 'Tanggal Kegiatan', 0, 'date', true),
-        gaField_('title', 'Nama Kegiatan', 1, 'text', true),
+        gaField_('date', 'Tanggal Kejadian', 0, 'date', true),
+        gaField_('title', 'Judul Berita', 1, 'text', true),
         gaField_('location', 'Lokasi', 2, 'text', false),
-        gaField_('description', 'Deskripsi', 3, 'textarea', true),
+        gaField_('description', 'Isi Berita', 3, 'textarea', true),
         gaField_('url', 'Tautan', 4, 'url', false),
-        gaField_('photos', 'Foto Kegiatan', 6, 'images', false)
+        gaField_('photos', 'Foto Berita', 6, 'images', false)
       ], statusColumn: 5, idColumn: 7
+    },
+    themeSong: {
+      label: 'Lagu Tema', icon: 'music', sheet: GW.SHEETS.themeSong,
+      fields: [
+        gaField_('title', 'Judul Lagu Tema', 0, 'text', true, [], 'Judul ini tampil paling atas pada halaman Lagu Sion.'),
+        gaField_('verse1', 'Ayat 1', 1, 'textarea', true, [], 'Ketik lirik Ayat 1 di sini. Pisahkan setiap baris lirik dengan Enter.'),
+        gaField_('verse2', 'Ayat 2', 2, 'textarea', false, [], 'Ketik lirik Ayat 2 di sini. Kosongkan bila lagu hanya memiliki satu ayat.'),
+        gaField_('verse3', 'Ayat Tambahan', 3, 'textarea', false, [], 'Opsional untuk Ayat 3 atau ayat berikutnya.'),
+        gaField_('refrain', 'Reff', 4, 'textarea', false, [], 'Ketik bagian Reff di sini. Reff akan diberi tanda khusus pada layar.'),
+        gaField_('note', 'Catatan Internal', 5, 'textarea', false, [], 'Opsional, misalnya masa penggunaan lagu tema.')
+      ], statusColumn: 6, idColumn: 7
     },
     gallery: {
       label: 'Galeri', icon: 'image', sheet: GW.SHEETS.gallery,
@@ -107,13 +121,14 @@ function gaEntityDefinitions_() {
   };
 }
 
-function gaField_(key, label, column, type, required, options) {
-  return { key: key, label: label, column: column, type: type, required: Boolean(required), options: options || [] };
+function gaField_(key, label, column, type, required, options, help) {
+  return { key: key, label: label, column: column, type: type, required: Boolean(required), options: options || [], help: help || '' };
 }
 
 /** Jalankan dari editor bila setup utama pernah dijalankan sebelum V11. */
 function setupAdminGalilea() {
   const spreadsheet = gwSpreadsheet_();
+  if (typeof gwEnsureV200ContentSchemas_ === 'function') gwEnsureV200ContentSchemas_(spreadsheet);
   if (typeof gwUpgradeActivityPhotos_ === 'function') gwUpgradeActivityPhotos_(spreadsheet);
   gaEnsureAdminInfrastructure_(spreadsheet, true);
   const email = gaNormalizeEmail_(Session.getEffectiveUser().getEmail());
@@ -236,6 +251,7 @@ function gaPublicUser_(user) {
 function adminGetBootstrap() {
   const user = gaRequireRole_('VIEWER');
   const spreadsheet = gwSpreadsheet_();
+  if (typeof gwEnsureV200ContentSchemas_ === 'function') gwEnsureV200ContentSchemas_(spreadsheet);
   const definitions = gaEntityDefinitions_();
   const entities = Object.keys(definitions).map(function (key) {
     return { key: key, label: definitions[key].label, icon: definitions[key].icon };
@@ -333,6 +349,7 @@ function adminListEntity(entityKey) {
   const user = gaRequireRole_('VIEWER');
   const key = gwClean_(entityKey);
   const spreadsheet = gwSpreadsheet_();
+  if (typeof gwEnsureV200ContentSchemas_ === 'function') gwEnsureV200ContentSchemas_(spreadsheet);
   if (key === 'settings') return gaListSettings_(spreadsheet, user);
   if (key === 'schedule') return gaListSchedule_(spreadsheet, user);
   const definition = gaEntityDefinitions_()[key];

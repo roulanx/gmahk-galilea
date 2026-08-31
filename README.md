@@ -25,7 +25,9 @@ Deployment Apps Script API berjalan sebagai pemilik spreadsheet. Deployment admi
 ## Fitur yang tetap dipertahankan
 
 - Profil, pengurus, kontak, kegiatan, pengumuman, galeri, layanan jemaat, FAQ, dan pencarian.
-- Kegiatan mendukung maksimal 12 foto per posting, cover otomatis, galeri, detail penuh, serta berbagi.
+- Berita Jemaat memuat kegiatan yang sudah berlangsung dengan maksimal 12 foto, cover otomatis, galeri, detail penuh, serta template berbagi WhatsApp.
+- Agenda dan Pengumuman memuat informasi aktif, masa tampil, prioritas, dan pilihan masuk Warta Jemaat.
+- Alkitab, Lagu Sion, dan Lagu Tema memiliki mode layar estetik dengan teks besar untuk ibadah.
 - Jadwal ringkas dan lengkap, filter, poster gambar, kalender, WhatsApp, unduhan sesuai hasil pencarian, dan PDF triwulan.
 - Renungan Pagi berbentuk teks yang mengikuti tanggal WITA dan bersumber dari bacaan harian Advent berbahasa Indonesia.
 - Sekolah Sabat, berita misi, bacaan persembahan, penginjilan perorangan, pembaca materi, dan unduhan.
