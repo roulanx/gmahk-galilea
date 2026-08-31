@@ -9,6 +9,7 @@ const root = path.resolve(here, '..');
 const read = file => fs.readFileSync(path.join(root, file), 'utf8');
 
 const index = read('index.html');
+const worker = read('sw.js');
 assert.match(index, /GALILEA-WORSHIP-PRESENTER-20-0-0/);
 assert.match(index, /GALILEA-RESPONSIVE-CONTRAST-20-0-0/);
 assert.match(index, /profile-role/);
@@ -46,6 +47,19 @@ assert.match(index, /presentation-stage::\-webkit-scrollbar\{[^}]*display:none/)
 assert.match(index, /presentation-head\{[^}]*display:flex/);
 assert.match(index, /presentation-title::before\{[^}]*content:"—"/);
 assert.match(index, /presentation-controls button\{[^}]*clamp\(34px,2\.5vw,40px\)/);
+assert.match(index, /GALILEA-PRESENTATION-SUITE-21-0-0/);
+assert.match(index, /presentation-controls-hidden/);
+assert.match(index, /function fitPresentationText\(\)/);
+assert.match(index, /handlePresentationPointerUp/);
+assert.match(index, /event\.key==='ArrowLeft'\|\|event\.key==='PageUp'/);
+assert.match(index, /navigator\.wakeLock\.request\('screen'\)/);
+assert.match(index, /data-presentation-blackout/);
+assert.match(index, /galilea:presentation-scale:/);
+assert.match(index, /data-presentation-projector/);
+assert.match(index, /is-projector/);
+assert.match(index, /id="presentation-offline"/);
+assert.match(index, /async function cachedResource/);
+assert.match(worker, /galilea-v21-worship-presenter/);
 assert.match(index, /data-present-bible/);
 assert.match(index, /data-present-song/);
 assert.match(index, /<option value="">Pilih kitab<\/option>/);
