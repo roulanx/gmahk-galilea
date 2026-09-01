@@ -1,4 +1,4 @@
-const CACHE='galilea-v24-announcement-presenter-seo';
+const CACHE='galilea-v25-resilient-leader-photos';
 const SHELL=['/','/index.html','/manifest.webmanifest'];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim()));});
