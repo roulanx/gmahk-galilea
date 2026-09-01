@@ -2438,7 +2438,22 @@
     .presentation-shell.presentation-enter-prev :is(.presentation-title,.presentation-stage){animation:presentationEnterPrev .38s cubic-bezier(.22,1,.36,1) both}
     @keyframes presentationEnterNext{from{opacity:.12;transform:translate3d(34px,0,0) scale(.992)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
     @keyframes presentationEnterPrev{from{opacity:.12;transform:translate3d(-34px,0,0) scale(.992)}to{opacity:1;transform:translate3d(0,0,0) scale(1)}}
-    @media(prefers-reduced-motion:reduce){.presentation-frame,.presentation-controls,.presentation-offline,.presentation-main,.presentation-brand,.presentation-footer{transition:none}.presentation-title,.presentation-stage{animation:none!important}}
+    /* V31.1 — pulihkan navbar cinematic "Buka Bab" tanpa mengubah fitur V31. */
+    .site-header .header-row{grid-template-columns:minmax(230px,1fr) auto!important;max-width:1180px!important}
+    .site-header .desktop-nav.nav-pill{display:none!important}
+    .site-header .header-actions{grid-column:2!important}
+    .site-header .mobile-toggle{display:flex!important;min-width:122px!important;padding:0 17px!important;border-radius:2px 18px 2px 18px!important}
+    .site-header .mobile-toggle::before{position:absolute;inset:0;content:"";background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.16),transparent 80%);transform:translateX(-130%);animation:v31-menu-sweep 6.4s ease-in-out infinite}
+    .site-header .mobile-toggle>*{position:relative;z-index:1}
+    @keyframes v31-menu-sweep{0%,60%{transform:translateX(-130%)}85%,100%{transform:translateX(130%)}}
+
+    /* Transisi slide ibadah dibuat lebih halus dan tidak mengejutkan. */
+    .presentation-shell.presentation-enter-next :is(.presentation-title,.presentation-stage){animation:presentationSoftNext .64s cubic-bezier(.22,.78,.22,1) both}
+    .presentation-shell.presentation-enter-prev :is(.presentation-title,.presentation-stage){animation:presentationSoftPrev .64s cubic-bezier(.22,.78,.22,1) both}
+    @keyframes presentationSoftNext{from{opacity:0;filter:blur(4px);transform:translate3d(18px,0,0) scale(.995)}to{opacity:1;filter:none;transform:none}}
+    @keyframes presentationSoftPrev{from{opacity:0;filter:blur(4px);transform:translate3d(-18px,0,0) scale(.995)}to{opacity:1;filter:none;transform:none}}
+    @media(max-width:760px){.site-header .header-row,.site-header.is-scrolled .header-row{grid-template-columns:minmax(0,1fr) auto!important}.site-header .mobile-toggle{min-width:104px!important;padding:0 13px!important;border-radius:2px 14px 2px 14px!important}}
+    @media(prefers-reduced-motion:reduce){.presentation-frame,.presentation-controls,.presentation-offline,.presentation-main,.presentation-brand,.presentation-footer{transition:none}.presentation-title,.presentation-stage,.site-header .mobile-toggle::before{animation:none!important}}
 </style>
 </head>
 <body>
@@ -2518,7 +2533,7 @@
         <button class="icon-button search-trigger" type="button" aria-label="Cari" data-open="search"><svg class="icon"><use href="#i-search"></use></svg></button>
         <button class="icon-button" id="theme-button" type="button" aria-label="Ganti tema" translate="no"><svg class="icon"><use href="#i-moon"></use></svg></button>
         <button class="icon-button a11y-trigger" type="button" aria-label="Aksesibilitas" data-open="settings"><svg class="icon"><use href="#i-access"></use></svg></button>
-        <button class="icon-button mobile-toggle" id="mobile-toggle" type="button" aria-label="Buka menu" aria-expanded="false" translate="no"><span class="menu-label">Menu</span><svg class="icon mobile-menu-glyph" aria-hidden="true"><use href="#i-menu"></use></svg><svg class="icon mobile-close-glyph" aria-hidden="true"><use href="#i-close"></use></svg></button>
+        <button class="icon-button mobile-toggle" id="mobile-toggle" type="button" aria-label="Buka menu" aria-expanded="false" translate="no"><span class="menu-label">Buka Bab</span><svg class="icon mobile-menu-glyph" aria-hidden="true"><use href="#i-menu"></use></svg><svg class="icon mobile-close-glyph" aria-hidden="true"><use href="#i-close"></use></svg></button>
       </div>
     </div>
   </header>
