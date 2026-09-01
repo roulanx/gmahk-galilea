@@ -1895,7 +1895,7 @@ function gwDecorateResources_(items, type) {
 
 function getAwrBorneoMedia(forceRefresh) {
   const cache = CacheService.getScriptCache();
-  const cacheKey = gwCacheKey_('awr-borneo-youtube-v12');
+  const cacheKey = gwCacheKey_('awr-borneo-youtube-v13-unique');
   if (!forceRefresh) {
     const cached = cache.get(cacheKey);
     if (cached) {
@@ -1939,8 +1939,9 @@ function getAwrBorneoMedia(forceRefresh) {
     } catch (ignore) {}
   }
 
-  /* Feed resmi jauh lebih ringan daripada scraping halaman YouTube. */
-  try {
+  /* Feed resmi hanya diminta bila API belum memberi tiga video yang cukup.
+     Ini mengurangi satu permintaan jaringan pada jalur normal. */
+  if (!video || recentVideos.length < 3) try {
     let feed;
     try {
       feed = gwYouTubeFeedMedia_(channelId || 'UC41TOa3S2aC8C-AxRBvH9Xw');
@@ -1968,6 +1969,9 @@ function getAwrBorneoMedia(forceRefresh) {
     video = { id: gwClean_(settings.awr_promo_video_id), title: 'Program AWR Borneo', isLive: false };
   }
 
+  const orderedVideos = gwMergeYouTubeVideos_((video ? [video] : []).concat(recentVideos || []));
+  if (!video || !video.isLive) video = orderedVideos[0] || video;
+  recentVideos = orderedVideos.filter(function (item) { return !video || item.id !== video.id; });
   const result = {
     isLive: Boolean(video && video.isLive),
     mode: video && video.isLive ? 'live' : 'latest',
@@ -1998,7 +2002,7 @@ function getAwrBorneoMedia(forceRefresh) {
 /** Video pembahasan Sekolah Sabat terbaru dari kanal Diskusi Sekolah Sabat. */
 function getSabbathDiscussionVideos(forceRefresh) {
   const cache = CacheService.getScriptCache();
-  const cacheKey = gwCacheKey_('sabbath-discussion-youtube-v12-0-1');
+  const cacheKey = gwCacheKey_('sabbath-discussion-youtube-v13-single');
   if (!forceRefresh) {
     const cached = cache.get(cacheKey);
     if (cached) {
@@ -2019,12 +2023,14 @@ function getSabbathDiscussionVideos(forceRefresh) {
       videos = gwMergeYouTubeVideos_((apiMedia.recent || []).concat(apiMedia.featured || []));
     } catch (ignore) {}
   }
-  try {
-    videos = gwMergeYouTubeVideos_(videos.concat(gwYouTubeFeedEntries_(channelId || fallbackId, 18)));
-  } catch (firstError) {
-    if (channelId !== fallbackId) {
-      try { videos = gwMergeYouTubeVideos_(videos.concat(gwYouTubeFeedEntries_(fallbackId, 18))); }
-      catch (ignore) {}
+  if (!videos.length) {
+    try {
+      videos = gwMergeYouTubeVideos_(videos.concat(gwYouTubeFeedEntries_(channelId || fallbackId, 8)));
+    } catch (firstError) {
+      if (channelId !== fallbackId) {
+        try { videos = gwMergeYouTubeVideos_(videos.concat(gwYouTubeFeedEntries_(fallbackId, 8))); }
+        catch (ignore) {}
+      }
     }
   }
   if (!videos.length) {
