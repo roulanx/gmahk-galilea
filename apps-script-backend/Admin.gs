@@ -29,8 +29,9 @@ function gaEntityDefinitions_() {
         gaField_('url', 'Tautan Selengkapnya', 3, 'url', false),
         gaField_('endDate', 'Berakhir Tampil', 5, 'date', false, [], 'Setelah tanggal ini pengumuman otomatis berhenti tampil.'),
         gaField_('priority', 'Prioritas', 6, 'select', true, ['NORMAL', 'IBADAH', 'PENTING']),
-        gaField_('includeInBulletin', 'Masukkan ke Warta', 7, 'select', true, ['YA', 'TIDAK'], 'Pilih YA agar pengumuman ikut masuk PDF dan pesan Warta Jemaat.')
-      ], statusColumn: 4, idColumn: 8
+        gaField_('includeInBulletin', 'Masukkan ke Warta', 7, 'select', true, ['YA', 'TIDAK'], 'Pilih YA agar pengumuman ikut masuk PDF dan pesan Warta Jemaat.'),
+        gaField_('category', 'Kategori Tampilan', 8, 'select', true, ['RABU MALAM', 'IBADAH KHOTBAH', 'SEKOLAH SABAT', 'PEMUDA ADVENT', 'UMUM'], 'Kategori memisahkan pengumuman dan menentukan kelompok Mode Layar.')
+      ], statusColumn: 4, idColumn: 9
     },
     activities: {
       label: 'Berita Jemaat', icon: 'calendar', sheet: GW.SHEETS.activities,
