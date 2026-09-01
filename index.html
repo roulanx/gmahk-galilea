@@ -2367,7 +2367,9 @@
     /* GALILEA-ANNOUNCEMENT-PRESENTER-24-0-0 */
     .announcement-summary{position:relative;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr);gap:28px;margin-bottom:42px;padding:clamp(26px,5vw,52px);overflow:hidden;border:1px solid color-mix(in srgb,var(--gold) 32%,var(--line));border-radius:30px;background:linear-gradient(135deg,var(--surface) 0%,var(--surface-soft) 100%);box-shadow:var(--shadow-sm);isolation:isolate}.announcement-summary::after{position:absolute;right:-110px;top:-170px;width:380px;height:380px;border:1px solid color-mix(in srgb,var(--gold) 34%,transparent);border-radius:50%;content:"";pointer-events:none}.announcement-summary>*{position:relative;z-index:1}.announcement-summary h2{margin:15px 0 12px;font-size:clamp(2rem,4vw,4.4rem);line-height:1}.announcement-summary p{max-width:760px}.announcement-summary-meta{display:flex;flex-wrap:wrap;align-items:center;gap:9px}.announcement-summary-actions{align-self:end;display:grid;gap:10px}.announcement-groups{display:grid;gap:44px}.announcement-group{scroll-margin-top:110px}.announcement-group-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:18px;padding-bottom:15px;border-bottom:1px solid var(--line)}.announcement-group-head h2{margin:4px 0 0}.announcement-group-head p{max-width:680px;margin:6px 0 0}.announcement-group-count{font-variant-numeric:tabular-nums}.announcement-card{display:flex;flex-direction:column;min-width:0}.announcement-card>p{flex:1}.announcement-card .button-row{margin-top:20px}
     .presentation-announcement{display:grid;align-content:center;max-width:1500px;min-height:100%;padding-right:clamp(6px,1vw,18px)}.presentation-announcement-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.presentation-announcement-meta .presentation-verse-label{margin-bottom:0}.presentation-announcement-priority{display:inline-flex;padding:8px 13px;border:1px solid rgba(234,213,151,.28);border-radius:999px;color:#f5f5ed;background:rgba(4,20,11,.46);font-size:clamp(.7rem,.9vw,.88rem);font-weight:850;letter-spacing:.13em;text-transform:uppercase}.presentation-announcement-title{max-width:1500px;margin:clamp(18px,3vh,34px) 0 0;color:#fff;font-size:calc(clamp(2.5rem,5.5vw,6.7rem) * var(--present-scale));font-weight:820;line-height:1.02;letter-spacing:-.04em;text-wrap:balance}.presentation-announcement-copy{max-width:1400px;margin:clamp(18px,3vh,34px) 0 0;color:rgba(255,255,255,.84);font-size:calc(clamp(1.45rem,2.7vw,3.5rem) * var(--present-scale));font-weight:520;line-height:1.35;white-space:pre-line;text-wrap:balance}.presentation-shell.is-light .presentation-announcement-priority{color:#173620;background:rgba(255,255,255,.76);border-color:rgba(28,77,44,.3)}.presentation-shell.is-light .presentation-announcement-title{color:#07140b}.presentation-shell.is-light .presentation-announcement-copy{color:#294b37}
-    @media(max-width:760px){.announcement-summary{grid-template-columns:1fr;border-radius:24px}.announcement-summary-actions{grid-template-columns:1fr 1fr}.announcement-group-head{align-items:flex-start;flex-direction:column}.announcement-group-head .btn{width:100%}.presentation-announcement-title{font-size:calc(clamp(2rem,10vw,4.2rem) * var(--present-scale))}.presentation-announcement-copy{font-size:calc(clamp(1.25rem,6vw,2.45rem) * var(--present-scale))}}
+    /* GALILEA-SCHEDULE-SUMMARY-PRESENTER-26-0-0 */
+    .presentation-schedule{display:grid;align-content:center;max-width:1500px;min-height:100%;padding-right:clamp(6px,1vw,18px)}.presentation-schedule-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px}.presentation-schedule-meta .presentation-verse-label{margin:0}.presentation-schedule-countdown{display:inline-flex;padding:8px 13px;border:1px solid rgba(234,213,151,.28);border-radius:999px;color:#f5f5ed;background:rgba(4,20,11,.46);font-size:clamp(.7rem,.9vw,.88rem);font-weight:850;letter-spacing:.12em;text-transform:uppercase}.presentation-schedule-date{max-width:1450px;margin:clamp(18px,3vh,34px) 0 0;color:#fff;font-size:calc(clamp(2.7rem,6.1vw,7.2rem) * var(--present-scale));font-weight:820;line-height:.98;letter-spacing:-.045em;text-wrap:balance}.presentation-schedule-time{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:clamp(18px,3vh,34px);color:rgba(255,255,255,.84);font-size:calc(clamp(1.35rem,2.4vw,3rem) * var(--present-scale));font-weight:650}.presentation-schedule-time .icon{width:1em;height:1em;color:#efd994}.presentation-schedule-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(10px,1.5vw,20px);margin-top:clamp(18px,3vh,30px)}.presentation-schedule-field{min-width:0;padding:clamp(15px,1.8vw,24px);border:1px solid rgba(255,255,255,.12);border-radius:18px;background:rgba(3,19,10,.42)}.presentation-schedule-field dt{margin:0 0 8px;color:#efd994;font-size:calc(clamp(.68rem,.9vw,.92rem) * var(--present-scale));font-weight:850;letter-spacing:.13em;text-transform:uppercase}.presentation-schedule-field dd{margin:0;overflow-wrap:anywhere;color:#fff;font-size:calc(clamp(1.25rem,2.2vw,2.75rem) * var(--present-scale));font-weight:690;line-height:1.15;text-wrap:balance}.presentation-shell.is-light .presentation-schedule-countdown{color:#173620;background:rgba(255,255,255,.76);border-color:rgba(28,77,44,.3)}.presentation-shell.is-light .presentation-schedule-date,.presentation-shell.is-light .presentation-schedule-field dd{color:#07140b}.presentation-shell.is-light .presentation-schedule-time{color:#294b37}.presentation-shell.is-light .presentation-schedule-time .icon,.presentation-shell.is-light .presentation-schedule-field dt{color:#5f4810}.presentation-shell.is-light .presentation-schedule-field{border-color:rgba(28,77,44,.2);background:rgba(255,255,255,.62)}
+    @media(max-width:760px){.announcement-summary{grid-template-columns:1fr;border-radius:24px}.announcement-summary-actions{grid-template-columns:1fr 1fr}.announcement-group-head{align-items:flex-start;flex-direction:column}.announcement-group-head .btn{width:100%}.presentation-announcement-title{font-size:calc(clamp(2rem,10vw,4.2rem) * var(--present-scale))}.presentation-announcement-copy{font-size:calc(clamp(1.25rem,6vw,2.45rem) * var(--present-scale))}.presentation-schedule-grid{grid-template-columns:1fr}.presentation-schedule-date{font-size:calc(clamp(2.15rem,10vw,4.4rem) * var(--present-scale))}.presentation-schedule-time{font-size:calc(clamp(1.2rem,6vw,2.3rem) * var(--present-scale))}.presentation-schedule-field{padding:14px 16px;border-radius:15px}.presentation-schedule-field dd{font-size:calc(clamp(1.15rem,5.8vw,2.15rem) * var(--present-scale))}}
     @media(max-width:420px){.announcement-summary-actions{grid-template-columns:1fr}}
     /* GALILEA-PRESENTATION-MOTION-23-0-0 · perpindahan ayat halus dan terarah */
     .presentation-shell.presentation-enter-next :is(.presentation-title,.presentation-stage){animation:presentationEnterNext .38s cubic-bezier(.22,1,.36,1) both}
@@ -3073,7 +3075,8 @@
       function nextScheduleHtml(summary, compact) {
         if (!summary) return emptyText('Jadwal ibadah terdekat belum tersedia.');
         const serviceBlocks = (summary.services || []).map(service => '<section class="service-block"><span class="chip brand">' + esc(service.title) + '</span>' + fieldsHtml(service.fields) + '</section>').join('');
-        return '<article class="card next-card"><div class="next-cover"><span class="chip">' + esc(summary.countdown || 'MENDATANG') + '</span><h3>' + esc(summary.dateLabel) + '</h3><div class="meta"><span>' + icon('clock') + esc(summary.time || '09.00 WITA') + '</span></div></div><div class="next-details"><p class="eyebrow">Ringkasan ibadah terdekat</p>' + serviceBlocks + '<div class="button-row" style="margin-top:26px"><button class="btn primary" type="button" data-route="schedule">Lihat seluruh jadwal' + icon('arrow') + '</button><button class="btn whatsapp" type="button" data-whatsapp-summary>' + brandIcon('whatsapp') + 'WhatsApp</button><button class="btn" type="button" data-share-summary>' + icon('share') + 'Bagikan lainnya</button></div></div></article>';
+        const serviceCount=(summary.services||[]).length;
+        return '<article class="card next-card"><div class="next-cover"><span class="chip">' + esc(summary.countdown || 'MENDATANG') + '</span><h3>' + esc(summary.dateLabel) + '</h3><div class="meta"><span>' + icon('clock') + esc(summary.time || '09.00 WITA') + '</span></div></div><div class="next-details"><p class="eyebrow">Ringkasan ibadah terdekat' + (serviceCount?' · '+serviceCount+' bagian':'') + '</p>' + serviceBlocks + '<div class="button-row" style="margin-top:26px"><button class="btn primary" type="button" data-present-schedule-summary>' + icon('external') + 'Tampilkan ringkasan</button><button class="btn whatsapp" type="button" data-whatsapp-summary>' + brandIcon('whatsapp') + 'WhatsApp</button><button class="btn" type="button" data-share-summary>' + icon('share') + 'Bagikan lainnya</button></div></div></article>';
       }
 
       function homeSummaryStrip(summary) {
@@ -3227,11 +3230,23 @@
           '<section class="section"><div class="shell"><div class="grid grid-3">' + (leaders.length ? leaders.map(leader => '<article class="card profile-card lift">' + leaderAvatar(leader) + '<span class="chip brand profile-role">' + esc(leader.role) + '</span><h3>' + esc(leader.name) + '</h3><p class="muted">' + esc(leader.description || 'Melayani Jemaat Galilea Balikpapan.') + '</p></article>').join('') : emptyText('Data pengurus belum dipublikasikan.')) + '</div></div></section>';
       }
 
+      function scheduleSummaryEntries() {
+        const data=state.data||{};
+        return [
+          data.nextWednesday?{label:'Permintaan Doa Rabu Malam',source:data.nextWednesday}:null,
+          data.nextSabbath?{label:'Ibadah Sabat',source:data.nextSabbath}:null
+        ].filter(Boolean).sort((a,b)=>new Date(a.source.timestamp||a.source.isoDate||0)-new Date(b.source.timestamp||b.source.isoDate||0));
+      }
+
       function scheduleSummaryText() {
-        const item = state.data.nextSabbath;
-        if (!item) return whatsappTemplate('JADWAL IBADAH','Jadwal belum diterbitkan','','');
-        const sections=(item.services||[]).map(service=>({title:service.title,lines:(service.fields||[]).map(field=>'• '+field.label+': '+field.value)}));
-        return whatsappTemplate('JADWAL IBADAH',item.dateLabel,String(item.time||'').replace(':','.')+' WITA',sections);
+        const entries=scheduleSummaryEntries();
+        if (!entries.length) return whatsappTemplate('JADWAL IBADAH','Jadwal belum diterbitkan','','');
+        const sections=[];
+        entries.forEach(entry=>{
+          const item=entry.source,services=(item.services||[]).length?item.services:[{title:entry.label,fields:item.fields||[]}];
+          services.forEach(service=>sections.push({title:(entry.label===service.title?entry.label:entry.label+' · '+service.title),lines:[(item.dateLabel||'')+' · '+String(item.time||'').replace(':','.')+(String(item.time||'').toUpperCase().includes('WITA')?'':' WITA')].concat((service.fields||[]).map(field=>'• '+field.label+': '+field.value))}));
+        });
+        return whatsappTemplate('JADWAL IBADAH TERDEKAT',entries[0].source.dateLabel,state.data.periodLabel||'',sections);
       }
 
       function renderSchedule() {
@@ -3507,7 +3522,7 @@
       }
 
       function clampPresentationScale(value){return Math.max(.7,Math.min(1.35,Number(value)||1));}
-      function presentationScaleKey(type){return 'galilea:presentation-scale:'+(type==='bible'?'bible':type==='announcement'?'announcement':'song');}
+      function presentationScaleKey(type){return 'galilea:presentation-scale:'+(type==='bible'?'bible':type==='announcement'?'announcement':type==='schedule'?'schedule':'song');}
       function storedPresentationScale(type){return clampPresentationScale(safeStorage.get(presentationScaleKey(type),'1'));}
       function storedPresentationTheme(){
         const saved=safeStorage.get('galilea:presentation-theme','');
@@ -3563,7 +3578,7 @@
       function updatePresentationNetworkStatus(){
         const badge=$('#presentation-offline'),label=badge&&$('span',badge);if(!badge||!label)return;
         const offline=navigator.onLine===false;badge.classList.toggle('show',offline);
-        if(offline){const type=state.presentation&&state.presentation.type;label.textContent=type==='song'?'OFFLINE · LAGU TERSIMPAN':type==='announcement'?'OFFLINE · PENGUMUMAN TERSIMPAN':'OFFLINE · BACAAN TERSIMPAN';}
+        if(offline){const type=state.presentation&&state.presentation.type;label.textContent=type==='song'?'OFFLINE · LAGU TERSIMPAN':type==='announcement'?'OFFLINE · PENGUMUMAN TERSIMPAN':type==='schedule'?'OFFLINE · JADWAL TERSIMPAN':'OFFLINE · BACAAN TERSIMPAN';}
       }
       async function requestPresentationWakeLock(){
         if(!navigator.wakeLock||!navigator.wakeLock.request||document.visibilityState!=='visible'||presentationWakeLock)return;
@@ -3600,10 +3615,35 @@
         if(!items.length)return toast('Belum ada pengumuman pada kategori ini.');
         launchPresentation({type:'announcement',index:0,scale:storedPresentationScale('announcement'),fittedScale:1,item:items,announcementCategory:normalized,blackout:false,projector:safeStorage.get('galilea:presentation-projector','0')==='1',theme:storedPresentationTheme()});
       }
+      function scheduleSummarySlides(){
+        const slides=[];
+        scheduleSummaryEntries().forEach(entry=>{
+          const item=entry.source,time=String(item.time||'').replace(':','.')+(String(item.time||'').toUpperCase().includes('WITA')?'':' WITA');
+          slides.push({kind:'overview',title:entry.label,dateLabel:item.dateLabel||'Jadwal terdekat',time:time,countdown:item.countdown||'MENDATANG',fields:[]});
+          const services=(item.services||[]).length?item.services:[{title:entry.label,fields:item.fields||[]}];
+          services.filter(service=>(service.fields||[]).length).forEach(service=>slides.push({kind:'service',title:service.title,dateLabel:item.dateLabel||'',time:time,countdown:item.countdown||'',fields:service.fields||[]}));
+        });
+        return slides;
+      }
+      function openScheduleSummaryPresentation(){
+        const slides=scheduleSummarySlides();
+        if(!slides.length)return toast('Ringkasan jadwal terdekat belum tersedia.');
+        launchPresentation({type:'schedule',index:0,scale:storedPresentationScale('schedule'),fittedScale:1,item:slides,blackout:false,projector:safeStorage.get('galilea:presentation-projector','0')==='1',theme:storedPresentationTheme()});
+      }
       function renderPresentation(){
         const view=state.presentation,stage=$('#presentation-stage'),title=$('#presentation-title'),kicker=$('#presentation-kicker'),counter=$('#presentation-counter'),shell=$('#presentation-shell');
         if(!view||!stage||!title||!kicker||!counter||!shell)return;
         shell.style.setProperty('--present-scale',String(clampPresentationScale(view.scale)));
+        if(view.type==='schedule'){
+          const slides=Array.isArray(view.item)?view.item:[];if(!slides.length)return;
+          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index],isOverview=slide.kind==='overview';
+          kicker.textContent='RINGKASAN IBADAH TERDEKAT';title.textContent=slide.title||'Jadwal Ibadah';setPresentationNavigationLabels('Bagian');
+          const meta='<div class="presentation-schedule-meta"><span class="presentation-verse-label">'+esc(isOverview?slide.title:slide.dateLabel)+'</span>'+(slide.countdown?'<span class="presentation-schedule-countdown">'+esc(slide.countdown)+'</span>':'')+'</div>';
+          stage.innerHTML='<article class="presentation-schedule">'+meta+(isOverview?'<h2 class="presentation-schedule-date">'+esc(slide.dateLabel)+'</h2><div class="presentation-schedule-time">'+icon('clock')+'<span>'+esc(slide.time)+'</span></div>':'<dl class="presentation-schedule-grid">'+(slide.fields||[]).map(field=>'<div class="presentation-schedule-field"><dt>'+esc(field.label)+'</dt><dd>'+esc(field.value||'—')+'</dd></div>').join('')+'</dl>')+'</article>';
+          counter.textContent='Bagian '+(view.index+1)+' / '+slides.length;counter.setAttribute('aria-label','Bagian '+(view.index+1)+' dari '+slides.length);
+          $('[data-presentation-prev]').disabled=view.index===0;$('[data-presentation-next]').disabled=view.index>=slides.length-1;
+          finishPresentationRender();return;
+        }
         if(view.type==='announcement'){
           const items=Array.isArray(view.item)?view.item:[];if(!items.length)return;
           view.index=Math.max(0,Math.min(items.length-1,Number(view.index)||0));const item=items[view.index],meta=announcementGroupMeta(view.announcementCategory||announcementCategory(item));
@@ -4251,6 +4291,7 @@
         if(activityShare){const item=(state.data.activities||[]).find(activity=>String(activity.id)===String(activityShare.dataset.shareActivity));if(item)return shareWhatsApp(activityShareText(item),location.href.split('#')[0]+'#activities');}
         const announcementPresentation=event.target.closest('[data-present-announcements]');
         if(announcementPresentation)return openAnnouncementPresentation(announcementPresentation.dataset.presentAnnouncements);
+        if(event.target.closest('[data-present-schedule-summary]'))return openScheduleSummaryPresentation();
         const announcementShare=event.target.closest('[data-share-announcement]');
         if(announcementShare){const item=(state.data.announcements||[]).find(entry=>String(entry.id)===String(announcementShare.dataset.shareAnnouncement));if(item)return shareWhatsApp(announcementShareText(item),location.href.split('#')[0]+'#announcements');}
         const activityYear=event.target.closest('[data-activity-year]');if(activityYear){state.activityYear=activityYear.dataset.activityYear;render();return;}
