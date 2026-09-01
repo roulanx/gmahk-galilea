@@ -81,7 +81,10 @@ assert.doesNotMatch(index, /Siap ditampilkan/i);
 assert.doesNotMatch(index, /theme-song-preview/);
 assert.match(index, /id="presentation-offline"/);
 assert.match(index, /async function cachedResource/);
-assert.match(worker, /galilea-v24-announcement-presenter-seo/);
+assert.match(worker, /galilea-v25-resilient-leader-photos/);
+assert.match(index, /function leaderPhotoSources\(value\)/);
+assert.match(index, /data-avatar-fallback/);
+assert.match(index, /\/api\/media\?id=/);
 assert.match(index, /GALILEA-ANNOUNCEMENT-PRESENTER-24-0-0/);
 assert.match(index, /data-present-announcements/);
 assert.match(index, /function openAnnouncementPresentation\(category\)/);
@@ -108,6 +111,7 @@ assert.ok(structuredData, 'Data terstruktur SEO belum tersedia.');
 assert.equal(JSON.parse(structuredData[1])['@graph'][0]['@type'], 'Church');
 
 const proxy = read('api/gas.js');
+const mediaProxy = read('api/media.js');
 const quarterlyPdf = read('api/quarterly-pdf.js');
 const weeklyPdf = read('api/weekly-bulletin.js');
 const bridge = read('apps-script-backend/VercelApi.gs');
@@ -260,6 +264,28 @@ assert.equal(weeklyBuffer.subarray(0,4).toString(),'%PDF');
 assert.match(weeklyPdf,/GALILEA-WEEKLY-BULLETIN-20\.0\.0/);
 assert.match(weeklyPdf,/AGENDA DAN PENGUMUMAN/);
 assert.doesNotMatch(weeklyPdf,/KEGIATAN MENDATANG/);
+assert.match(mediaProxy, /DRIVE_ID_PATTERN/);
+assert.match(mediaProxy, /lh3\.googleusercontent\.com/);
+assert.match(mediaProxy, /drive\.google\.com\/thumbnail/);
+assert.match(mediaProxy, /stale-while-revalidate=2592000/);
+
+const {default: mediaHandler} = await import('../api/media.js');
+response = mockResponse();
+await mediaHandler({method:'GET',query:{id:'tidak-valid'}},response);
+assert.equal(response.statusCode,400);
+
+globalThis.fetch = async () => ({
+  ok:true,
+  status:200,
+  headers:new Headers({'content-type':'image/png','content-length':'12'}),
+  async arrayBuffer(){return Uint8Array.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a,0,0,0,0]).buffer;}
+});
+response = mockResponse();
+await mediaHandler({method:'GET',query:{id:'1FYa4YRhPNm5YbLf96plDA8nQpKc44h8o'}},response);
+globalThis.fetch = nativeFetch;
+assert.equal(response.statusCode,200);
+assert.equal(response.headers['Content-Type'],'image/png');
+assert.ok(Buffer.isBuffer(response.body));
 if (process.env.WRITE_SAMPLE_PDF === '1') fs.writeFileSync('/tmp/galilea-quarterly-sample.pdf', response.body);
 
 console.log(`OK · ${new Set(calls).size} fungsi viewer terhubung ke proxy dan bridge Apps Script.`);
