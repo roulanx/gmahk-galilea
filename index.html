@@ -321,8 +321,10 @@
     .empty { padding: 56px 22px; border: 1px dashed var(--line-strong); border-radius: var(--radius); color: var(--text-soft); text-align: center; }
 
     .profile-card { padding: 27px; }
-    .avatar { width: 72px; height: 72px; display: grid; place-items: center; overflow: hidden; margin-bottom: 24px; border: 1px solid var(--line); border-radius: 22px; color: var(--brand-strong); background: var(--brand-soft); font-size: 1.4rem; font-weight: 800; }
-    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar { position: relative; isolation: isolate; width: 72px; height: 72px; display: grid; place-items: center; overflow: hidden; margin-bottom: 24px; border: 1px solid var(--line); border-radius: 22px; color: var(--brand-strong); background: var(--brand-soft); font-size: 1.4rem; font-weight: 800; }
+    .avatar-fallback { grid-area: 1 / 1; display: grid; width: 100%; height: 100%; place-items: center; line-height: 1; }
+    .avatar img { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; object-fit: cover; color: transparent; background: var(--brand-soft); }
+    .avatar img[hidden] { display: none; }
     .gallery-grid { columns: 3 260px; column-gap: 18px; }
     .gallery-item { break-inside: avoid; margin: 0 0 18px; }
     .gallery-item img { width: 100%; border-radius: 16px; }
@@ -2591,6 +2593,32 @@
       const cleanHtml = value => String(value || '');
       const safeUrl = value => /^https:\/\//i.test(String(value || '')) ? String(value) : '';
       const initials = value => String(value || '').split(/\s+/).filter(Boolean).slice(0,2).map(part => part[0]).join('').toUpperCase();
+      function googleDriveFileId(value) {
+        const source = safeUrl(value);
+        if (!source) return '';
+        try {
+          const url = new URL(source);
+          const host = url.hostname.toLowerCase();
+          if (host !== 'drive.google.com' && host !== 'drive.usercontent.google.com') return '';
+          const pathMatch = url.pathname.match(/\/file\/d\/([A-Za-z0-9_-]{10,128})/);
+          const id = url.searchParams.get('id') || (pathMatch && pathMatch[1]) || '';
+          return /^[A-Za-z0-9_-]{10,128}$/.test(id) ? id : '';
+        } catch (_) { return ''; }
+      }
+      function leaderPhotoSources(value) {
+        const source = safeUrl(value);
+        const driveId = googleDriveFileId(source);
+        return driveId ? {
+          primary: 'https://lh3.googleusercontent.com/d/' + encodeURIComponent(driveId) + '=w800',
+          fallback: '/api/media?id=' + encodeURIComponent(driveId)
+        } : {primary: source, fallback: ''};
+      }
+      function leaderAvatar(leader) {
+        const label = String(leader && leader.name || 'Pengurus Galilea');
+        const letters = initials(label) || 'GG';
+        const photo = leaderPhotoSources(leader && leader.photoUrl);
+        return '<div class="avatar" role="img" aria-label="Foto ' + attr(label) + '"><span class="avatar-fallback" aria-hidden="true">' + esc(letters) + '</span>' + (photo.primary ? '<img src="' + attr(photo.primary) + '"' + (photo.fallback ? ' data-avatar-fallback="' + attr(photo.fallback) + '"' : '') + ' data-avatar-image alt="" loading="lazy" decoding="async">' : '') + '</div>';
+      }
       const routeTitle = route => ({home:'Beranda',today:'Ibadah Hari Ini',church:'Gereja',leaders:'Pengurus',schedule:'Jadwal Ibadah',bulletin:'Warta Digital',sabbath:'Sekolah Sabat',bible:'Alkitab',hymnal:'Lagu Sion',favorites:'Tersimpan',visitor:'Panduan Pengunjung',activities:'Berita Jemaat',announcements:'Agenda dan Pengumuman',gallery:'Galeri',services:'Layanan Jemaat',faq:'FAQ',contact:'Kontak'})[route] || 'Galilea';
       const ROUTE_DESCRIPTIONS = {
         home:'Website resmi GMAHK Galilea Balikpapan untuk jadwal ibadah, Sekolah Sabat, Alkitab, Lagu Sion, warta, dan informasi pelayanan jemaat.',
@@ -3196,7 +3224,7 @@
       function renderLeaders() {
         const leaders = state.data.leaders;
         return pageHead('Pelayanan', 'Pengurus Gereja', 'Kenali para pelayan yang mendampingi kehidupan dan pelayanan jemaat.') +
-          '<section class="section"><div class="shell"><div class="grid grid-3">' + (leaders.length ? leaders.map(leader => '<article class="card profile-card lift"><div class="avatar">' + (leader.photoUrl ? '<img src="' + attr(leader.photoUrl) + '" alt="' + attr(leader.name) + '" loading="lazy">' : esc(initials(leader.name))) + '</div><span class="chip brand profile-role">' + esc(leader.role) + '</span><h3>' + esc(leader.name) + '</h3><p class="muted">' + esc(leader.description || 'Melayani Jemaat Galilea Balikpapan.') + '</p></article>').join('') : emptyText('Data pengurus belum dipublikasikan.')) + '</div></div></section>';
+          '<section class="section"><div class="shell"><div class="grid grid-3">' + (leaders.length ? leaders.map(leader => '<article class="card profile-card lift">' + leaderAvatar(leader) + '<span class="chip brand profile-role">' + esc(leader.role) + '</span><h3>' + esc(leader.name) + '</h3><p class="muted">' + esc(leader.description || 'Melayani Jemaat Galilea Balikpapan.') + '</p></article>').join('') : emptyText('Data pengurus belum dipublikasikan.')) + '</div></div></section>';
       }
 
       function scheduleSummaryText() {
@@ -4393,6 +4421,19 @@
       }
 
       document.addEventListener('click',handleClick);
+      document.addEventListener('error',event => {
+        const image = event.target;
+        if (!(image instanceof HTMLImageElement) || !image.matches('[data-avatar-image]')) return;
+        const fallback = image.dataset.avatarFallback;
+        if (fallback) {
+          delete image.dataset.avatarFallback;
+          image.src = fallback;
+          return;
+        }
+        image.hidden = true;
+        image.removeAttribute('src');
+        image.closest('.avatar')?.classList.add('is-fallback');
+      },true);
       $('#search-form').addEventListener('submit',performSearch);
       $('#theme-button').addEventListener('click',() => applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'));
       $('#mobile-toggle').addEventListener('click',() => {
