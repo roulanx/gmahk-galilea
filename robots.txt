@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /api/admin
+Disallow: /api/gas
+Allow: /api/og
+
+Sitemap: https://gmahk-galilea.vercel.app/sitemap.xml
