@@ -30,6 +30,7 @@ const pairs = [
   ['presenter light kicker','#4d3c0f','#cadcc9'],
   ['presenter light title','#173620','#cadcc9'],
   ['presenter light title separator','#735814','#cadcc9'],
+  ['presenter light announcement copy','#294b37','#cadcc9'],
   ['presenter light controls','#12351f','#f8faf4'],
   ['presenter light active control','#ffffff','#1d5030'],
   ['WhatsApp button','#ffffff','#147c43']
