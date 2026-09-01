@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-build="GALILEA-ADMIN-OPERATIONS-29-0-0">
+<html lang="id" data-theme="light" data-build="GALILEA-ADMIN-DUAL-BRAND-31-0-0">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5,viewport-fit=cover">
@@ -318,6 +318,14 @@
       .sidebar{width:min(72vw,320px)}.hero-admin{padding:24px}.topbar{position:relative}.content{padding-top:22px}
       dialog,dialog>form{max-height:calc(100dvh - 10px)}
     }
+    /* GALILEA-ADMIN-DUAL-BRAND-31-0-0 · logo Galilea otomatis mengikuti tema */
+    .theme-logo-pair{position:relative;display:grid;flex:0 0 auto;place-items:center;overflow:hidden;border:1px solid var(--line);border-radius:13px;box-shadow:0 9px 24px rgba(13,49,29,.14);isolation:isolate}
+    .theme-logo-pair>img{grid-area:1/1;width:100%;height:100%;object-fit:cover;filter:none!important;opacity:1;transition:opacity .22s var(--ease),transform .3s var(--ease)}
+    .theme-logo-pair .logo-dark{display:none}[data-theme="dark"] .theme-logo-pair .logo-light{display:none}[data-theme="dark"] .theme-logo-pair .logo-dark{display:block}
+    .brand-logo{width:44px;height:44px;filter:none!important}.gate-logo{width:72px;height:72px;margin-bottom:28px;filter:none!important}.loader-advent{width:62px;height:62px;filter:none!important}
+    .brand:hover .theme-logo-pair>img{transform:scale(1.045)}
+    @media(max-width:600px){.brand-logo{width:39px;height:39px}.gate-logo{width:62px;height:62px}.loader-advent{width:54px;height:54px}}
+    @media(prefers-reduced-motion:reduce){.theme-logo-pair>img{transition:none}}
   </style>
 </head>
 <body>
@@ -351,7 +359,7 @@
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
   </svg>
 
-  <div class="loader" id="loader"><div><div class="loader-mark"><span class="orbit"></span><img class="loader-advent official-advent-logo" src="https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png" alt=""></div><p>Menyiapkan ruang kerja Galilea</p><span class="loader-note">Konten · Persetujuan · Pelayanan</span></div></div>
+  <div class="loader" id="loader"><div><div class="loader-mark"><span class="orbit"></span><span class="theme-logo-pair loader-advent" aria-hidden="true"><img class="logo-light" src="https://gmahk-galilea.vercel.app/assets/logo-galilea-light.webp" alt=""><img class="logo-dark" src="https://gmahk-galilea.vercel.app/assets/logo-galilea-dark.webp" alt=""></span></div><p>Menyiapkan ruang kerja Galilea</p><span class="loader-note">Konten · Persetujuan · Pelayanan</span></div></div>
   <div id="root"></div>
   <div class="toast-zone" id="toasts" aria-live="polite"></div>
 
@@ -373,7 +381,7 @@
     const $=(s,c)=>(c||document).querySelector(s), $$=(s,c)=>Array.from((c||document).querySelectorAll(s));
     const state={boot:null,route:'dashboard',entity:null,entityData:null,search:'',status:'ALL',approvalStatus:'PENDING',approvals:[],approvalCache:{},currentEdit:null,currentReview:null,reviewMode:'',currentService:null,users:[],services:[],activity:null,searchTimer:null};
     const icon=name=>'<svg class="icon"><use href="#i-'+name+'"/></svg>';
-    const logoMark=className=>'<img class="official-advent-logo '+attr(className||'brand-logo')+'" src="https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png" alt="">';
+    const logoMark=className=>'<span class="theme-logo-pair '+attr(className||'brand-logo')+'" role="img" aria-label="Logo GMAHK Galilea"><img class="logo-light" src="https://gmahk-galilea.vercel.app/assets/logo-galilea-light.webp" alt=""><img class="logo-dark" src="https://gmahk-galilea.vercel.app/assets/logo-galilea-dark.webp" alt=""></span>';
     const esc=value=>String(value==null?'':value).replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
     const attr=esc;
     function server(name,args,timeoutMs){return new Promise((resolve,reject)=>{let done=false;const timer=setTimeout(()=>{if(!done){done=true;reject(new Error('Permintaan terlalu lama. Periksa koneksi lalu coba kembali.'))}},Math.max(6000,Number(timeoutMs)||12000));const finish=fn=>value=>{if(done)return;done=true;clearTimeout(timer);fn(value)};const runner=google.script.run.withSuccessHandler(finish(resolve)).withFailureHandler(finish(error=>reject(new Error(error&&error.message?error.message:String(error)))));runner[name].apply(runner,args||[])})}

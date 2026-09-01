@@ -47,7 +47,7 @@ const GW = Object.freeze({
     hymnal: 'https://raw.githubusercontent.com/PaulTitto/LaguSion-indo/main/sda-hymnal-db-in.json',
     hymnalProject: 'https://github.com/PaulTitto/LaguSion-indo',
     adventTheme: 'https://news.adventist.asia/all/ssd-launches-mission-reaps',
-    adventLogo: 'https://www.adventist.design/wp-content/uploads/2017/04/adventist_logo.png',
+    adventLogo: 'https://gmahk-galilea.vercel.app/assets/logo-galilea-icon-192.png',
     devotionalYoutubeChannel: '',
     devotionalYoutubeHandle: '@HopeChannelIndonesiaTV',
     devotionalYoutubeUrl: 'https://www.youtube.com/@HopeChannelIndonesiaTV'
@@ -664,7 +664,7 @@ function gwSettingDefinitions_() {
     ['Identitas', 'church_name', 'GMAHK Galilea Balikpapan', 'Nama resmi gereja'],
     ['Identitas', 'short_name', 'Galilea Balikpapan', 'Nama singkat di header'],
     ['Identitas', 'tagline', 'Bertumbuh dalam Iman • Bersatu dalam Kasih • Melayani dengan Sukacita', 'Moto jemaat'],
-    ['Identitas', 'logo_url', GW.SOURCES.adventLogo, 'URL logo Advent atau logo jemaat'],
+    ['Identitas', 'logo_url', GW.SOURCES.adventLogo, 'URL logo resmi GMAHK Galilea'],
     ['Beranda', 'hero_title', 'Iman yang hidup. Kasih yang bergerak.', 'Judul utama beranda'],
     ['Beranda', 'hero_description', 'Jadwal ibadah, pelayanan, dan informasi Jemaat Galilea dalam satu tempat.', 'Kalimat singkat di beranda'],
     ['Beranda', 'hero_image_url', '', 'Opsional: URL foto gereja untuk hero'],
