@@ -760,8 +760,8 @@ function gwEnsureSheets_(spreadsheet) {
 }
 
 /**
- * Menjaga migrasi Website Pengumuman tetap aman untuk sheet lama. Tiga kolom
- * baru disisipkan sebelum Admin ID agar status dan ID yang sudah ada tidak
+ * Menjaga migrasi Website Pengumuman tetap aman untuk sheet lama. Kolom baru
+ * disisipkan sebelum Admin ID agar status dan ID yang sudah ada tidak
  * bergeser atau tertimpa ketika pengurus menyimpan perubahan.
  */
 function gwEnsureV200ContentSchemas_(spreadsheet) {
@@ -785,6 +785,20 @@ function gwEnsureV200ContentSchemas_(spreadsheet) {
       const count = sheet.getLastRow() - 1;
       sheet.getRange(2, beforeColumn + 1, count, 1).setValues(Array.from({length: count}, function () { return ['NORMAL']; }));
       sheet.getRange(2, beforeColumn + 2, count, 1).setValues(Array.from({length: count}, function () { return ['YA']; }));
+    }
+  }
+  const latestHeaders = sheet.getRange(1, 1, 1, Math.max(1, sheet.getLastColumn())).getDisplayValues()[0];
+  const latestNormalized = latestHeaders.map(gwNormalize_);
+  if (latestNormalized.indexOf('kategori tampilan') < 0) {
+    let latestIdIndex = latestNormalized.indexOf('admin id');
+    if (latestIdIndex < 0) latestIdIndex = latestNormalized.indexOf('id');
+    const categoryColumn = latestIdIndex >= 0 ? latestIdIndex + 1 : sheet.getLastColumn() + 1;
+    if (categoryColumn <= sheet.getMaxColumns()) sheet.insertColumnBefore(categoryColumn);
+    else sheet.insertColumnAfter(sheet.getMaxColumns());
+    sheet.getRange(1, categoryColumn).setValue('Kategori Tampilan');
+    if (sheet.getLastRow() > 1) {
+      const categoryCount = sheet.getLastRow() - 1;
+      sheet.getRange(2, categoryColumn, categoryCount, 1).setValues(Array.from({length: categoryCount}, function () { return ['UMUM']; }));
     }
   }
 }
@@ -956,7 +970,7 @@ function gwReadAnnouncements_(spreadsheet, now) {
   const sheet = spreadsheet.getSheetByName(GW.SHEETS.announcements);
   if (!sheet || sheet.getLastRow() < 2) return [];
   const count = sheet.getLastRow() - 1;
-  const width = Math.min(Math.max(sheet.getLastColumn(), 9), 9);
+  const width = Math.min(Math.max(sheet.getLastColumn(), 10), 10);
   const raw = sheet.getRange(2, 1, count, width).getValues();
   const display = sheet.getRange(2, 1, count, width).getDisplayValues();
   const today = new Date(Utilities.formatDate(now || new Date(), GW.TIMEZONE, 'yyyy-MM-dd') + 'T00:00:00' + GW.UTC_OFFSET).getTime();
@@ -966,8 +980,10 @@ function gwReadAnnouncements_(spreadsheet, now) {
     const priority = ['PENTING', 'IBADAH', 'NORMAL'].indexOf(String(display[index][6] || '').toUpperCase()) >= 0
       ? String(display[index][6]).toUpperCase() : 'NORMAL';
     const bulletinValue = gwNormalize_(display[index][7] || 'YA');
+    const categoryValue = String(display[index][8] || 'UMUM').toUpperCase();
+    const category = categoryValue === 'PA' ? 'PEMUDA ADVENT' : (['RABU MALAM', 'IBADAH KHOTBAH', 'SEKOLAH SABAT', 'PEMUDA ADVENT', 'UMUM'].indexOf(categoryValue) >= 0 ? categoryValue : 'UMUM');
     return {
-      id: gwClean_(display[index][8]) || ('ANN-' + (index + 2)),
+      id: gwClean_(display[index][9]) || ('ANN-' + (index + 2)),
       dateValue: date ? date.getTime() : 0,
       dateLabel: date ? gwFormatShortDate_(date) : gwClean_(display[index][0]),
       title: gwClean_(display[index][1]),
@@ -976,7 +992,8 @@ function gwReadAnnouncements_(spreadsheet, now) {
       status: gwNormalize_(display[index][4]),
       expiresAt: expires ? Utilities.formatDate(expires, GW.TIMEZONE, 'yyyy-MM-dd') : '',
       priority: priority,
-      includeInBulletin: ['tidak', 'no', 'false', '0'].indexOf(bulletinValue) < 0
+      includeInBulletin: ['tidak', 'no', 'false', '0'].indexOf(bulletinValue) < 0,
+      category: category
     };
   }).filter(function (item) {
     const end = item.expiresAt ? new Date(item.expiresAt + 'T23:59:59' + GW.UTC_OFFSET).getTime() : Infinity;
