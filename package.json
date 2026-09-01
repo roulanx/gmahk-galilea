@@ -1,6 +1,6 @@
 {
-  "name": "galilea-vercel-v29-worship-operations",
-  "version": "29.0.0",
+  "name": "galilea-vercel-v30-presenter-media",
+  "version": "30.0.0",
   "private": true,
   "type": "module",
   "description": "Viewer Vercel GMAHK Galilea Balikpapan dengan backend Google Apps Script.",
