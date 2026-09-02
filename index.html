@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-RESPONSIVE-ABOUT-35-0-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-0-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2568,7 +2568,7 @@
     #main,.view,.view>*{min-width:0}
     :is(section,article,aside,div,header,footer,nav,form,fieldset){min-width:0}
     :is(.section,.page-head,.chapter-anchor,[id]){scroll-margin-top:calc(var(--header-h) + 18px)}
-    :is(h1,h2,h3,p,strong,dd,a,button){overflow-wrap:anywhere}
+    :is(p,dd,a){overflow-wrap:break-word}:is(h1,h2,h3,strong,button){overflow-wrap:normal;word-break:normal;hyphens:none}
     .card{border-radius:var(--radius)!important}
     .grid,.media-grid,.discussion-layout,.contact-layout,.footer-main{align-items:stretch}
     .grid>*,:is(.media-grid,.discussion-layout,.contact-layout,.footer-main)>*{min-width:0}
@@ -2851,6 +2851,26 @@
       .footer-tools{grid-template-columns:1fr}
       .footer-tools button{justify-content:flex-start;padding-inline:12px}
       .footer-bottom{align-items:flex-start;flex-direction:column;padding-block:18px!important}
+    }
+
+    /* V35.3 — judul tidak pernah dipotong di tengah kata. */
+    .presentation-shell :is(h1,h2,h3,.presentation-title,.presentation-copy,.presentation-announcement-title,.presentation-operator-aside strong,.presentation-schedule-overview-art strong,.presentation-reminder-aside strong){
+      overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important
+    }
+    .presentation-schedule-overview-art{padding-inline:clamp(24px,2.4vw,38px)!important}
+    .presentation-schedule-overview-art strong{max-width:100%;font-size:clamp(2.25rem,4.15vw,4.9rem)!important;line-height:.94!important;text-wrap:balance}
+    .footer-tools{grid-template-columns:1fr!important}
+    .footer-tools button{justify-content:flex-start!important;padding-inline:12px!important;white-space:nowrap}
+    @media(max-width:1080px) and (min-width:521px){
+      .footer-tools{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+      .footer-tools button{justify-content:center!important}
+    }
+    @media(max-width:820px){
+      .presentation-schedule-overview-art strong{font-size:clamp(2.2rem,12vw,4.2rem)!important}
+    }
+
+    :is(.hero-stat strong,#reader-dialog .modal-head strong,.mobile-nav-copy strong,.chip,.badge,.status-chip,.field dd,.presentation-schedule-field dd,.presentation-operator-field dd,.presentation-connect-card strong,.footer-visit-row strong,.footer-visit-row a){
+      overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important
     }
 </style>
 </head>
