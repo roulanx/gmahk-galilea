@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-RESPONSIVE-ABOUT-35-2-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2872,6 +2872,18 @@
     :is(.hero-stat strong,#reader-dialog .modal-head strong,.mobile-nav-copy strong,.chip,.badge,.status-chip,.field dd,.presentation-schedule-field dd,.presentation-operator-field dd,.presentation-connect-card strong,.footer-visit-row strong,.footer-visit-row a){
       overflow-wrap:normal!important;word-break:normal!important;hyphens:none!important
     }
+
+/* V35.4 — pengaman tipografi global: kata utuh di semua ukuran layar */
+:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,strong,span,button,summary,.chip,.badge,.status-chip){
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+}
+:is(a,code){
+  overflow-wrap:break-word!important;
+  word-break:normal!important;
+  hyphens:none!important;
+}
 </style>
 </head>
 <body>
