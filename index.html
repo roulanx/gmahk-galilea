@@ -3712,6 +3712,7 @@
           const services=(item.services||[]).length?item.services:[{title:entry.label,fields:item.fields||[]}];
           services.filter(service=>(service.fields||[]).length).forEach(service=>{const fields=service.fields||[],parts=Math.max(1,Math.ceil(fields.length/8));for(let index=0;index<fields.length;index+=8)slides.push({kind:'service',title:service.title+(parts>1?' · '+(Math.floor(index/8)+1)+'/'+parts:''),dateLabel:item.dateLabel||'',time:time,countdown:item.countdown||'',fields:fields.slice(index,index+8)});});
         });
+        slides.push(...worshipClosingSlides(selectedWorshipPlan()));
         return slides;
       }
       function openScheduleSummaryPresentation(){
@@ -3751,12 +3752,18 @@
         }
         if(view.type==='schedule'){
           const slides=Array.isArray(view.item)?view.item:[];if(!slides.length)return;
-          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index],isOverview=slide.kind==='overview';setPresentationOrnament(isOverview?'overview':'service');
-          kicker.textContent='RINGKASAN IBADAH TERDEKAT';title.textContent=slide.title||'Jadwal Ibadah';setPresentationNavigationLabels('Bagian');
+          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index],isOverview=slide.kind==='overview';setPresentationOrnament(slide.kind||(isOverview?'overview':'service'));
+          kicker.textContent=slide.kind==='announcement'?'AGENDA DAN PENGUMUMAN':slide.kind==='reminder'?'PENGINGAT IBADAH':slide.kind==='connection'?'TETAP TERHUBUNG':'RINGKASAN IBADAH TERDEKAT';title.textContent=slide.title||'Jadwal Ibadah';setPresentationNavigationLabels('Bagian');
           const heading='<h2 class="presentation-schedule-heading">'+esc(slide.title||'Jadwal Ibadah')+'</h2>';
           const subline='<div class="presentation-schedule-subline"><span>'+esc(slide.dateLabel)+'</span><span>'+esc(slide.time)+'</span></div>';
           const fields='<dl class="presentation-schedule-grid '+((slide.fields||[]).length>8?'is-dense':'')+'">'+(slide.fields||[]).map(field=>'<div class="presentation-schedule-field"><dt>'+esc(field.label)+'</dt><dd>'+esc(field.value||'—')+'</dd></div>').join('')+'</dl>';
-          if(isOverview){
+          if(slide.kind==='announcement'){
+            stage.innerHTML='<article class="presentation-announcement"><div class="presentation-announcement-meta"><span class="presentation-verse-label">'+esc(slide.dateLabel)+'</span><span class="presentation-announcement-priority">'+esc(slide.priority)+'</span></div><h2 class="presentation-announcement-title">'+esc(slide.title)+'</h2><p class="presentation-announcement-copy">'+esc(slide.summary||'Informasi selengkapnya tersedia pada website.')+'</p></article>';
+          }else if(slide.kind==='reminder'){
+            stage.innerHTML='<article class="presentation-reminder"><section class="presentation-reminder-copy"><span class="presentation-verse-label">PENGINGAT IBADAH</span><h2>'+esc(slide.title)+'</h2></section><aside class="presentation-reminder-aside"><strong>'+esc(slide.number||'')+'</strong><span>Persiapan Ibadah</span></aside></article>';
+          }else if(slide.kind==='connection'){
+            stage.innerHTML='<article class="presentation-connect"><section class="presentation-connect-intro"><span class="presentation-verse-label">TETAP TERHUBUNG</span><h2>'+esc(slide.title)+'</h2><p>'+esc(slide.copy||'Informasi resmi Jemaat Galilea Balikpapan.')+'</p></section><section class="presentation-connect-grid">'+(slide.fields||[]).map(field=>'<div class="presentation-connect-card"><small>'+esc(field.label)+'</small><strong>'+esc(field.value||'—')+'</strong></div>').join('')+'</section></article>';
+          }else if(isOverview){
             stage.innerHTML='<article class="presentation-schedule is-overview"><section class="presentation-schedule-overview-copy"><div class="presentation-schedule-meta"><span class="presentation-verse-label">IBADAH TERDEKAT</span>'+(slide.countdown?'<span class="presentation-schedule-countdown">'+esc(slide.countdown)+'</span>':'')+'</div>'+heading+'<h3 class="presentation-schedule-date">'+esc(slide.dateLabel)+'</h3><div class="presentation-schedule-time">'+icon('clock')+'<span>'+esc(slide.time)+'</span></div></section><aside class="presentation-schedule-overview-art" aria-hidden="true"><span>RINGKASAN</span><strong>JADWAL<br>IBADAH</strong><small>GMAHK GALILEA<br>BALIKPAPAN</small></aside></article>';
           }else{
             stage.innerHTML='<article class="presentation-schedule is-service"><aside class="presentation-schedule-sidebar"><span class="presentation-verse-label">JENIS IBADAH</span>'+heading+subline+'<span class="presentation-schedule-sidebar-note">Ringkasan ibadah terdekat</span></aside><section class="presentation-schedule-board"><header class="presentation-schedule-board-head"><strong>Susunan Petugas</strong><span>'+esc((slide.fields||[]).length)+' bagian pelayanan</span></header>'+fields+'</section></article>';
@@ -3927,6 +3934,20 @@
         const sabbathStart=Date.parse(String(sabbathIso||witaDateKey())+'T00:00:00+08:00');
         return(state.data.announcements||[]).filter(item=>item.includeInBulletin!==false&&operatorAnnouncementTime(item)>=sabbathStart).sort((a,b)=>operatorAnnouncementTime(a)-operatorAnnouncementTime(b)).slice(0,8).map(item=>({kind:'announcement',title:item.title,dateLabel:item.dateLabel||'INFORMASI JEMAAT',priority:item.priority||'NORMAL',summary:item.summary||''}));
       }
+      function worshipClosingSlides(plan){
+        const site=state.data.site||{};
+        return worshipAnnouncementSlides(plan).concat([
+          {kind:'reminder',number:'01',title:'Partisipan wajib hadir 15 menit sebelum kebaktian dimulai.'},
+          {kind:'reminder',number:'02',title:'Mohon nonaktifkan perangkat elektronik saat ibadah berjalan.'},
+          {kind:'connection',title:'Tetap terhubung bersama kami.',copy:'Informasi resmi Jemaat Galilea Balikpapan.',fields:[
+            {label:'WhatsApp',value:site.phone||'+62 851-1717-7709'},
+            {label:'Instagram',value:'@sda.galilea'},
+            {label:'Email Galilea',value:'galileabalikpapan@gmail.com'},
+            {label:'Bank Mandiri',value:'1490022442422\nGereja Masehi Advent Hari Ketujuh'},
+            {label:'Website',value:'gmahk-galilea.vercel.app'}
+          ]}
+        ]);
+      }
       async function buildWorshipOperatorSlides(){
         const plan=selectedWorshipPlan();if(!plan)return[];const readiness=worshipReadiness(plan),slides=[];
         slides.push({kind:'overview',title:plan.theme||plan.serviceType||'Ibadah',serviceType:plan.serviceType||'IBADAH',dateLabel:plan.dateLabel||'',time:String(plan.time||'').replace(':','.')+' WITA',readiness:readiness.ready+'/'+readiness.total+' bagian siap'});
@@ -3944,17 +3965,7 @@
           verses.forEach((verse,index)=>slides.push({kind:'song',title:song.title,number:song.isTheme?'Lagu Tema':('Lagu Sion · '+song.number),verseLabel:'AYAT '+String(verse.index||index+1),lines:verse.lines||[],chorus:chorus&&chorus.lines||[]}));
         }
         readiness.services.forEach(service=>{const fields=service.fields||[],parts=Math.max(1,Math.ceil(fields.length/8));for(let index=0;index<fields.length;index+=8)slides.push({kind:'service',title:service.title+(parts>1?' · '+(Math.floor(index/8)+1)+'/'+parts:''),dateLabel:plan.dateLabel||'',time:String(plan.time||'').replace(':','.')+' WITA',fields:fields.slice(index,index+8)});});
-        slides.push(...worshipAnnouncementSlides(plan));
-        slides.push({kind:'reminder',number:'01',title:'Partisipan wajib hadir 15 menit sebelum kebaktian dimulai.'});
-        slides.push({kind:'reminder',number:'02',title:'Mohon nonaktifkan perangkat elektronik saat ibadah berjalan.'});
-        const site=state.data.site||{};
-        slides.push({kind:'connection',title:'Tetap terhubung bersama kami.',copy:'Informasi resmi Jemaat Galilea Balikpapan.',fields:[
-          {label:'WhatsApp',value:site.phone||'+62 851-1717-7709'},
-          {label:'Instagram',value:'@sda.galilea'},
-          {label:'Email Galilea',value:'galileabalikpapan@gmail.com'},
-          {label:'Bank Mandiri',value:'1490022442422\nGereja Masehi Advent Hari Ketujuh'},
-          {label:'Website',value:'gmahk-galilea.vercel.app'}
-        ]});
+        slides.push(...worshipClosingSlides(plan));
         return slides;
       }
       async function prepareWorshipOffline(){
