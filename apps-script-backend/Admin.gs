@@ -94,6 +94,18 @@ function gaEntityDefinitions_() {
         gaField_('order', 'Urutan', 3, 'number', true)
       ], statusColumn: 4, idColumn: 5
     },
+    mission: {
+      label: 'Berita Misi Cadangan', icon: 'info', sheet: GW.SHEETS.mission,
+      fields: [
+        gaField_('year', 'Tahun', 0, 'number', true, [], 'Gunakan tahun bacaan, misalnya 2026.'),
+        gaField_('quarter', 'Triwulan', 1, 'select', true, ['1', '2', '3', '4'], 'Pilih triwulan sesuai tanggal Sabat.'),
+        gaField_('date', 'Tanggal Sabat', 2, 'date', true, [], 'Tanggal ini menentukan bacaan mana yang ditampilkan sebagai Sabat terbaru.'),
+        gaField_('title', 'Judul Berita Misi', 3, 'text', true),
+        gaField_('summary', 'Ringkasan', 4, 'textarea', true, [], 'Ringkasan singkat yang tampil pada kartu Berita Misi.'),
+        gaField_('url', 'Link Bacaan Cadangan', 5, 'url', true, [], 'Dipakai otomatis bila sumber Berita Misi utama sedang tidak dapat dihubungi.'),
+        gaField_('imageUrl', 'Gambar Opsional', 6, 'image', false)
+      ], statusColumn: 7, idColumn: 8
+    },
     adventTheme: {
       label: 'Tema Advent', icon: 'spark', sheet: GW.SHEETS.adventTheme,
       fields: [
