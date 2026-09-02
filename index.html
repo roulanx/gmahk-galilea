@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-ADMIN-ORNAMENT-35-6-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-REALISTIC-PRESENTATION-35-7-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -3092,6 +3092,145 @@
   .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-art.is-song{
     right:-18vw!important;bottom:72px!important;width:min(88vw,440px)!important;opacity:var(--presentation-ornament-opacity)!important
   }
+}
+
+/* V35.7 — latar foto fullscreen yang dewasa, kontekstual, dan aman pada dua tema. */
+.presentation-shell:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::before{
+  z-index:0!important;
+  display:block!important;
+  inset:0!important;
+  background-repeat:no-repeat!important;
+  background-size:cover!important;
+  background-position:center!important;
+  content:""!important;
+  opacity:1!important;
+  filter:none!important;
+  transition:background-image .32s ease,filter .32s ease!important;
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(1,8,4,.985) 0%,rgba(3,17,9,.95) 43%,rgba(4,18,10,.78) 68%,rgba(2,9,5,.5) 100%),
+    linear-gradient(180deg,rgba(5,24,13,.08),rgba(1,8,4,.5)),
+    url('/assets/presentation/schedule.webp')!important;
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,8,.95) 45%,rgba(4,18,10,.79) 68%,rgba(2,9,5,.48) 100%),
+    linear-gradient(180deg,rgba(5,25,13,.06),rgba(1,8,4,.48)),
+    url('/assets/presentation/bible.webp')!important;
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,9,.95) 45%,rgba(4,18,11,.78) 68%,rgba(2,9,5,.46) 100%),
+    linear-gradient(180deg,rgba(4,24,13,.06),rgba(1,8,4,.5)),
+    url('/assets/presentation/hymnal.webp')!important;
+}
+
+.presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(250,252,248,.99) 0%,rgba(244,248,241,.965) 43%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.68) 100%),
+    linear-gradient(180deg,rgba(245,249,242,.18),rgba(225,236,222,.36)),
+    url('/assets/presentation/schedule.webp')!important;
+}
+.presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.66) 100%),
+    linear-gradient(180deg,rgba(247,250,244,.2),rgba(225,236,222,.34)),
+    url('/assets/presentation/bible.webp')!important;
+}
+.presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.65) 100%),
+    linear-gradient(180deg,rgba(247,250,244,.18),rgba(225,236,222,.34)),
+    url('/assets/presentation/hymnal.webp')!important;
+}
+
+/* Saat ornamen dimatikan dari admin, foto ikut disembunyikan dan gradien aman tetap dipakai. */
+.presentation-shell[data-presentation-ornament="off"]:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::before{
+  background-image:linear-gradient(125deg,#020b06 0%,#0a2918 58%,#173d28 100%)!important;
+}
+.presentation-shell.is-light[data-presentation-ornament="off"]:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::before{
+  background-image:linear-gradient(125deg,#fbfcf8 0%,#edf3e9 58%,#dce8db 100%)!important;
+}
+
+/* Foto menggantikan ikon garis agar visual tidak terasa seperti clip-art. */
+.presentation-shell:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) :is(.presentation-context-art,.presentation-art){
+  display:none!important;
+}
+.presentation-shell:is([data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::after{
+  display:none!important;
+}
+.presentation-shell:is([data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-stage{
+  position:relative;
+  z-index:2;
+}
+.presentation-shell:not(.is-light):is([data-presentation-type="bible"],[data-presentation-type="song"]) :is(.presentation-copy,.presentation-title){
+  color:#fff!important;
+  text-shadow:0 3px 8px rgba(0,0,0,.72),0 12px 38px rgba(0,0,0,.42)!important;
+}
+.presentation-shell.is-light:is([data-presentation-type="bible"],[data-presentation-type="song"]) :is(.presentation-copy,.presentation-title){
+  color:#0b2515!important;
+  text-shadow:0 2px 14px rgba(255,255,255,.92)!important;
+}
+.presentation-shell:not(.is-light):is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-brand{
+  border-color:rgba(255,255,255,.18)!important;
+  background:rgba(2,14,7,.68)!important;
+  box-shadow:0 18px 54px rgba(0,0,0,.28)!important;
+}
+.presentation-shell.is-light:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-brand{
+  border-color:rgba(24,71,40,.22)!important;
+  background:rgba(250,252,247,.9)!important;
+  box-shadow:0 16px 48px rgba(24,71,40,.16)!important;
+}
+
+/* Panel jadwal tetap transparan secukupnya agar foto terlihat tanpa mengorbankan teks. */
+.presentation-shell:not(.is-light)[data-presentation-type="schedule"] :is(.presentation-schedule-overview-copy,.presentation-schedule-board){
+  border-color:rgba(255,255,255,.18)!important;
+  background:rgba(2,15,8,.82)!important;
+  box-shadow:0 28px 80px rgba(0,0,0,.3)!important;
+  backdrop-filter:blur(16px) saturate(.82)!important;
+}
+.presentation-shell:not(.is-light)[data-presentation-type="schedule"] .presentation-schedule-sidebar{
+  background:linear-gradient(155deg,rgba(10,57,34,.91),rgba(2,19,11,.9))!important;
+  backdrop-filter:blur(14px)!important;
+}
+.presentation-shell.is-light[data-presentation-type="schedule"] :is(.presentation-schedule-overview-copy,.presentation-schedule-board){
+  border-color:rgba(24,71,40,.2)!important;
+  background:rgba(250,252,247,.88)!important;
+  box-shadow:0 26px 76px rgba(24,71,40,.16)!important;
+  backdrop-filter:blur(16px) saturate(.78)!important;
+}
+.presentation-shell.is-light[data-presentation-type="schedule"] .presentation-schedule-sidebar{
+  color:#0b2515!important;
+  border-color:rgba(24,71,40,.2)!important;
+  background:linear-gradient(155deg,rgba(248,251,245,.94),rgba(225,236,222,.9))!important;
+  box-shadow:0 24px 70px rgba(24,71,40,.14)!important;
+  backdrop-filter:blur(14px)!important;
+}
+.presentation-shell.is-light[data-presentation-type="schedule"] .presentation-schedule-sidebar :is(.presentation-schedule-heading,.presentation-schedule-subline){color:#0b2515!important}
+.presentation-shell.is-light[data-presentation-type="schedule"] .presentation-schedule-sidebar-note{border-color:rgba(24,71,40,.18)!important;color:#654e12!important}
+.presentation-shell.is-light[data-presentation-type="schedule"] .presentation-schedule-overview-art{
+  color:#102719!important;
+  background:linear-gradient(155deg,rgba(236,213,148,.92),rgba(202,174,99,.9))!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+@media(max-width:820px){
+  .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before,
+  .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before,
+  .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
+    background-position:76% center!important;
+  }
+  .presentation-shell:not(.is-light):not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before,
+  .presentation-shell:not(.is-light):not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before,
+  .presentation-shell:not(.is-light):not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
+    background-blend-mode:normal,normal,normal;
+    filter:brightness(.88) saturate(.82)!important;
+  }
+}
+@media(prefers-contrast:more){
+  .presentation-shell:not(.is-light):is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::before{filter:brightness(.72)!important}
+  .presentation-shell.is-light:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::before{filter:brightness(1.08) contrast(.9)!important}
 }
 </style>
 </head>
