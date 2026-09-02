@@ -7,8 +7,8 @@
  */
 
 const GW = Object.freeze({
-  VERSION: '20.0.0',
-  BUILD_ID: 'GALILEA-20260831-WORSHIP-PRESENTER-2000',
+  VERSION: '20.1.0',
+  BUILD_ID: 'GALILEA-20260902-RESPONSIVE-ABOUT-2010',
   TITLE: 'GMAHK Galilea Balikpapan',
   TIMEZONE: 'Asia/Makassar',
   UTC_OFFSET: '+08:00',
@@ -346,6 +346,7 @@ function getWebsiteData() {
   if (cached) return JSON.parse(cached);
 
   const spreadsheet = gwSpreadsheet_();
+  gwEnsureSettingsSheet_(spreadsheet);
   gwEnsureV200ContentSchemas_(spreadsheet);
   const scheduleSheet = gwChooseScheduleSheet_(spreadsheet);
   if (!scheduleSheet) {
@@ -690,10 +691,11 @@ function gwSettingDefinitions_() {
     ['Kontak', 'address', 'Jl. Mulawarman Gg. Sumber Rejeki RT.15 No.11, Balikpapan', 'Alamat lengkap'],
     ['Kontak', 'phone', '+62 851-1717-7709', 'Telepon/WhatsApp'],
     ['Kontak', 'whatsapp_url', 'https://wa.me/6285117177709', 'Link WhatsApp'],
-    ['Kontak', 'email', '', 'Email resmi'],
+    ['Kontak', 'email', 'galileabalikpapan@gmail.com', 'Email resmi'],
     ['Kontak', 'maps_url', '', 'Link Google Maps'],
     ['Kontak', 'maps_embed_url', '', 'URL embed Google Maps'],
-    ['Media', 'instagram_url', '', 'Link Instagram'],
+    ['Media', 'instagram_url', 'https://www.instagram.com/advent.galilea/', 'Link Instagram'],
+    ['Media', 'instagram_handle', '@advent.galilea', 'Nama akun Instagram, termasuk tanda @'],
     ['Media', 'youtube_url', '', 'Link YouTube jemaat'],
     ['Media', 'facebook_url', '', 'Link Facebook'],
     ['Media', 'awr_youtube_channel_url', 'https://www.youtube.com/@AWRBorneo', 'Channel YouTube resmi AWR Borneo; boleh dikoreksi bila handle kanal berbeda'],
@@ -704,6 +706,21 @@ function gwSettingDefinitions_() {
     ['Media', 'sabbath_discussion_channel_id', 'UCkNVHkC8G5HiOgFG7Iv9smg', 'ID kanal untuk pembahasan Sekolah Sabat mingguan'],
     ['Media', 'theme_song_number', '', 'Nomor Lagu Sion tema, 1–525'],
     ['Media', 'theme_song_title', 'Lagu Tema Jemaat', 'Judul kartu lagu tema'],
+    ['Tentang Website', 'website_about_title', 'Sebuah ruang digital yang terasa teduh, jelas, dan dekat.', 'Judul utama halaman Tentang Website'],
+    ['Tentang Website', 'website_about_intro', 'Website ini dibuat agar hal-hal sederhana—melihat jadwal, menemukan bacaan, atau menghubungi jemaat—tidak terasa rumit. Ia bukan pengganti persekutuan, melainkan jembatan kecil yang membantu kita tetap terhubung.', 'Pembuka halaman dengan gaya bahasa yang hangat'],
+    ['Tentang Website', 'website_palette_text', 'Hijau tua dipilih sebagai warna utama karena mengingatkan pada pertumbuhan, keteduhan, dan pengharapan yang terus hidup. Emas memberi rasa hangat sekaligus mengarah pada terang—sebuah pengingat sederhana kepada Yesus, Terang Dunia. Warna gading menjaga setiap halaman tetap jernih dan nyaman dibaca.', 'Filosofi palet warna website'],
+    ['Tentang Website', 'website_logo_text', 'Nyala api Advent, Alkitab yang terbuka, dan salib bertemu dalam satu lambang. Bagi kami, bentuk ini bercerita tentang Kristus yang tetap menjadi pusat, firman yang hidup, dan kabar baik yang terus bergerak keluar.', 'Filosofi logo GMAHK Galilea'],
+    ['Tentang Website', 'website_purpose_text', 'Tujuannya sederhana: membuat informasi ibadah dan pelayanan lebih mudah ditemukan, dibaca dari ponsel, serta ditampilkan dengan tenang saat kebaktian. Teknologi dipakai untuk membantu pelayanan, bukan mengambil alih persekutuan.', 'Tujuan website bagi jemaat dan pengunjung'],
+    ['Tentang Website', 'website_developer', 'Kevin Oloan Simatupang', 'Nama pengembang website'],
+    ['Mode Layar', 'presentation_reminder_arrival', 'Partisipan wajib hadir 15 menit sebelum kebaktian dimulai.', 'Teks pengingat pertama di akhir presentasi'],
+    ['Mode Layar', 'presentation_reminder_devices', 'Mohon nonaktifkan perangkat elektronik saat ibadah berjalan.', 'Teks pengingat kedua di akhir presentasi'],
+    ['Mode Layar', 'presentation_connection_title', 'Tetap terhubung bersama kami.', 'Judul slide kontak'],
+    ['Mode Layar', 'presentation_instagram_handle', '@advent.galilea', 'Instagram yang tampil di presentasi'],
+    ['Mode Layar', 'presentation_email', 'galileabalikpapan@gmail.com', 'Email yang tampil di presentasi'],
+    ['Mode Layar', 'presentation_bank_name', 'Bank Mandiri', 'Nama bank rekening jemaat'],
+    ['Mode Layar', 'presentation_bank_account', '1490022442422', 'Nomor rekening jemaat'],
+    ['Mode Layar', 'presentation_bank_holder', 'Gereja Masehi Advent Hari Ketujuh', 'Nama pemilik rekening'],
+    ['Mode Layar', 'presentation_website', 'gmahk-galilea.vercel.app', 'Alamat website yang tampil di presentasi'],
     ['Tema Advent', 'advent_theme_year', '', 'Kosong mengikuti tahun berjalan'],
     ['Tampilan', 'primary_color', '#476452', 'Warna utama HEX'],
     ['Tampilan', 'accent_color', '#B79A61', 'Warna aksen HEX'],

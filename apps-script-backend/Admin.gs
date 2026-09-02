@@ -6,7 +6,7 @@
  */
 
 const GA = Object.freeze({
-  VERSION: '20.0.0',
+  VERSION: '20.1.0',
   SHEETS: Object.freeze({
     admins: 'Website Admin',
     workflow: 'Website Workflow',
@@ -394,6 +394,7 @@ function adminListEntity(entityKey) {
 }
 
 function gaListSettings_(spreadsheet, user) {
+  gwEnsureSettingsSheet_(spreadsheet);
   const settings = gwReadSettings_(spreadsheet);
   const excluded = /api[_-]?key|youtube_channel_id|analytics_id/i;
   const definitions = gwSettingDefinitions_().filter(function (row) { return !excluded.test(row[1]); });
@@ -585,9 +586,15 @@ function gaApplyWorkflow_(spreadsheet, entity, entityId, action, payload) {
 
 function gaApplySetting_(spreadsheet, key, action, payload) {
   if (action === 'DELETE') throw new Error('Pengaturan inti tidak dapat dihapus.');
+  gwEnsureSettingsSheet_(spreadsheet);
   const sheet = spreadsheet.getSheetByName(GW.SHEETS.settings);
-  const row = gaFindRowByValue_(sheet, 2, key);
-  if (!row) throw new Error('Kunci pengaturan tidak ditemukan.');
+  let row = gaFindRowByValue_(sheet, 2, key);
+  if (!row) {
+    const definition = gwSettingDefinitions_().filter(function (item) { return item[1] === key; })[0];
+    if (!definition) throw new Error('Kunci pengaturan tidak ditemukan.');
+    row = sheet.getLastRow() + 1;
+    sheet.getRange(row, 1, 1, 4).setValues([[definition[0], definition[1], '', definition[3]]]);
+  }
   sheet.getRange(row, 3).setValue(String(payload.value == null ? '' : payload.value));
   return { id: key, row: row };
 }
@@ -743,6 +750,24 @@ function adminUpdateServiceStatus(id, status, note) {
   sheet.getRange(row, 9, 1, 3).setValues([[selected, gwClean_(note), new Date()]]);
   gaAudit_(user, 'UPDATE_SERVICE', 'services', id, selected + (note ? ' · ' + gwClean_(note) : ''));
   return { ok: true, status: selected };
+}
+
+function adminDeleteService(id) {
+  const user = gaRequireRole_('EDITOR');
+  gaEnsureServiceColumns_();
+  const sheet = gwServiceSheet_();
+  const row = gaFindRowByValue_(sheet, 1, id);
+  if (!row) throw new Error('Permohonan layanan tidak ditemukan.');
+  const values = sheet.getRange(row, 1, 1, 12).getDisplayValues()[0];
+  const privacy = String(values[11] || 'TIM_PELAYANAN').toUpperCase();
+  if (privacy === 'GEMBALA' && user.level < GA.ROLES.APPROVER) {
+    throw new Error('FORBIDDEN|Pengajuan privat hanya dapat dihapus oleh APPROVER atau SUPERADMIN.');
+  }
+  const reference = values[0];
+  const type = values[2] || 'Layanan Jemaat';
+  sheet.deleteRow(row);
+  gaAudit_(user, 'DELETE_SERVICE', 'services', reference, type + ' · pengajuan dihapus permanen');
+  return { ok: true, id: reference, message: 'Pengajuan berhasil dihapus.' };
 }
 
 /* -------------------------------------------------------------------------- */

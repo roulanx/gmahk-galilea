@@ -1,4 +1,4 @@
-const BUILD = 'GALILEA-YOUTUBE-33.0.0';
+const BUILD = 'GALILEA-YOUTUBE-35.0.0';
 
 const CHANNELS = {
   awr: {
@@ -46,7 +46,7 @@ function publicVideo(item) {
     title: item.title,
     publishedAt: item.publishedAt,
     publishedLabel: dateLabel(item.publishedAt),
-    thumbnailUrl: 'https://i.ytimg.com/vi/' + item.videoId + '/hqdefault.jpg',
+    thumbnailUrl: '/api/thumbnail?id=' + encodeURIComponent(item.videoId),
     embedUrl: 'https://www.youtube-nocookie.com/embed/' + item.videoId + '?rel=0&modestbranding=1&playsinline=1',
     watchUrl: 'https://www.youtube.com/watch?v=' + item.videoId
   };
@@ -82,6 +82,29 @@ async function readFeed(channel) {
   }
 }
 
+function normalizedTitle(value) {
+  return String(value || '').toLowerCase()
+    .replace(/\blive\b|🔴|episode\s*\d+|ep\.?\s*\d+/gi, ' ')
+    .replace(/[^a-z0-9]+/gi, ' ')
+    .trim();
+}
+
+function uniqueByTitle(items, limit) {
+  const seenIds = new Set();
+  const seenTitles = new Set();
+  const result = [];
+  for (const item of items || []) {
+    const id = String(item && item.videoId || '');
+    const title = normalizedTitle(item && item.title);
+    if (!id || seenIds.has(id) || (title && seenTitles.has(title))) continue;
+    seenIds.add(id);
+    if (title) seenTitles.add(title);
+    result.push(item);
+    if (result.length >= limit) break;
+  }
+  return result;
+}
+
 function isDiscussion(item) {
   const title = String(item && item.title || '');
   return /sekolah\s+sabat|sabbath\s+school/i.test(title) &&
@@ -110,6 +133,7 @@ export default async function handler(request, response) {
         channel: type,
         data: {
           channelName: channel.name,
+          channelId: channel.id,
           channelUrl: channel.url,
           video: publicVideo(selected),
           updatedAt: new Date().toISOString(),
@@ -117,13 +141,15 @@ export default async function handler(request, response) {
         }
       });
     }
-    const latest = videos.slice(0, 3);
+    const latest = uniqueByTitle(videos, 3);
     return response.status(200).json({
       ok: true,
       channel: type,
       data: {
         isLive: false,
         mode: 'latest',
+        channelId: channel.id,
+        channelName: channel.name,
         videoId: latest[0].videoId,
         title: latest[0].title,
         channelUrl: channel.url,

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-DUAL-BRAND-31-0-0" data-ui-revision="GALILEA-RESPONSIVE-CONTRAST-20-0-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-RESPONSIVE-ABOUT-35-0-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-0-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2547,6 +2547,311 @@
     .presentation-shell.is-light[data-presentation-type="song"] .presentation-refrain{color:#102719!important;background:rgba(255,255,255,.8)!important;border-left-color:#7d6118!important;text-shadow:none!important}
     .presentation-shell.is-light[data-presentation-type="song"] .presentation-refrain strong{color:#694f0e!important}
     @media(max-width:820px){.presentation-shell[data-presentation-type="bible"] .presentation-frame::before,.presentation-shell[data-presentation-type="song"] .presentation-frame::before{background-position:64% center!important}.presentation-shell[data-presentation-kind="announcement"] .presentation-frame::before{filter:brightness(.9)}}
+
+    /* GALILEA-RESPONSIVE-ABOUT-35-0-0
+       Lapisan akhir: hierarki tenang, kontras dua tema, dan tata letak tanpa tumpang tindih. */
+    :root{--header-h:88px;--radius:20px;--radius-lg:28px;--shell:min(1220px,calc(100% - 40px))}
+    html,body{max-width:100%;overflow-x:clip}
+    .site-header{height:var(--header-h)!important;transition:height .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease)}
+    .site-header.is-scrolled{--header-h:74px;box-shadow:0 14px 42px rgba(17,43,27,.1)}
+    .site-header .header-row,.site-header.is-scrolled .header-row{grid-template-columns:minmax(0,1fr) auto!important;max-width:1220px!important;gap:16px!important}
+    .site-header .brand,.site-header .brand-copy,.site-header .header-actions{min-width:0}
+    .site-header .brand{overflow:hidden}
+    .site-header .header-actions{grid-column:2!important;align-items:center}
+    .site-header .mobile-toggle,.site-header.is-scrolled .mobile-toggle{position:relative;display:flex!important;min-width:116px!important;height:48px!important;gap:10px!important;padding:0 18px!important;border-radius:3px 18px 3px 18px!important;overflow:hidden}
+    .mobile-panel{top:var(--header-h)!important;height:calc(100dvh - var(--header-h))!important;max-height:calc(100dvh - var(--header-h))!important}
+    .mobile-nav-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+    .mobile-nav-grid>button{min-width:0!important;min-height:62px!important;align-items:center!important}
+    .mobile-nav-copy{min-width:0}
+    .mobile-nav-copy strong{display:block;overflow-wrap:anywhere;line-height:1.2}
+    .mobile-nav-copy small{display:none!important}
+    #main,.view,.view>*{min-width:0}
+    :is(section,article,aside,div,header,footer,nav,form,fieldset){min-width:0}
+    :is(.section,.page-head,.chapter-anchor,[id]){scroll-margin-top:calc(var(--header-h) + 18px)}
+    :is(h1,h2,h3,p,strong,dd,a,button){overflow-wrap:anywhere}
+    .card{border-radius:var(--radius)!important}
+    .grid,.media-grid,.discussion-layout,.contact-layout,.footer-main{align-items:stretch}
+    .grid>*,:is(.media-grid,.discussion-layout,.contact-layout,.footer-main)>*{min-width:0}
+    .page-head{padding-block:clamp(48px,7vw,86px)!important}
+    .page-head h1{max-width:900px;font-size:clamp(2.45rem,6.5vw,5.9rem)!important;line-height:.96!important}
+    .page-head .lead{max-width:760px}
+    .section-title h2,.cinema-heading h2{font-size:clamp(2rem,4.7vw,4.6rem)!important;line-height:1!important}
+    .instagram-stage{padding:clamp(54px,7vw,96px) 0!important}
+    .instagram-stage .cinema-heading h2{max-width:820px!important;font-size:clamp(2.1rem,5.4vw,5.3rem)!important}
+    .instagram-reel-fallback{min-height:0!important;padding:clamp(24px,4vw,48px)!important}
+    .instagram-reel-fallback h3{font-size:clamp(1.8rem,4vw,3.7rem)!important}
+    .media-grid{grid-auto-rows:1fr}
+    .media-tile{display:flex;min-height:100%;flex-direction:column;overflow:hidden}
+    .media-cover{isolation:isolate;aspect-ratio:16/9;background:
+      radial-gradient(circle at 72% 28%,rgba(214,187,116,.25),transparent 28%),
+      linear-gradient(145deg,#153b25,#07180e)!important}
+    .media-cover::before{position:absolute;z-index:0;right:12%;top:16%;width:18%;height:55%;border-radius:3px;background:rgba(230,209,148,.16);content:"";transform:rotate(90deg)}
+    .media-cover::after{position:absolute;z-index:0;right:18%;top:7%;width:7%;height:72%;border-radius:3px;background:rgba(230,209,148,.16);content:""}
+    .media-cover img{position:relative;z-index:1;width:100%;height:100%;object-fit:cover}
+    .media-cover :is(.media-shade,.media-play,.media-label){z-index:2}
+    .media-copy{display:flex;flex:1;flex-direction:column;background:var(--surface)!important}
+    .media-copy .media-youtube-link{margin-top:auto!important;padding-top:14px}
+    :is(.toolbar,.tabs,.button-row,.page-actions){max-width:100%}
+    :is(input,select,textarea){max-width:100%;color:var(--text)!important;background:var(--surface)!important;border-color:var(--line)!important}
+    [data-theme="dark"] :is(.card,.toolbar,.lesson-feature,.library-card,.resource-feature,.discussion-copy,.media-copy,.modal,.bible-sidebar,.archive-panel,.schedule-card,.next-card,.instagram-reel-copy,.instagram-reel-fallback,.lesson-day,.song-row,.lyric-part,.contact-row,.faq,.service-card){color:var(--text)!important;border-color:var(--line)!important;background-color:var(--surface)!important}
+    [data-theme="dark"] :is(.lesson-feature-body,.resource-reading,.song-stage,.song-reader-nav,.verse-list){color:var(--text)!important;background:var(--surface)!important}
+    [data-theme="dark"] :is(.lesson-feature-body,.resource-reading,.discussion-copy,.media-copy,.song-stage,.song-reader-nav) :is(h1,h2,h3,h4,strong,p,span,li,dd){color:inherit}
+    .resource-reading::after{background:linear-gradient(transparent,var(--surface))!important}
+    .song-reader-hero{color:var(--text)!important;background:
+      radial-gradient(circle at 82% 22%,color-mix(in srgb,var(--gold) 25%,transparent),transparent 24%),
+      linear-gradient(145deg,var(--surface-soft),var(--surface))!important}
+    .song-reader-hero::before{display:none!important}
+    .song-reader-hero::after{right:clamp(24px,8vw,120px)!important;top:50%!important;width:clamp(90px,15vw,180px)!important;height:clamp(90px,15vw,180px)!important;border-color:color-mix(in srgb,var(--brand) 24%,transparent)!important;box-shadow:0 0 0 38px color-mix(in srgb,var(--brand) 6%,transparent)!important;transform:translateY(-50%)}
+    #reader-dialog .song-reader-hero .song-reader-number{color:var(--gold)!important;text-shadow:none!important}
+    #reader-dialog .song-reader-hero h2{color:var(--text)!important;text-shadow:none!important}
+    [data-theme="dark"] .song-reader-hero{background:
+      radial-gradient(circle at 82% 22%,rgba(216,188,118,.12),transparent 25%),
+      linear-gradient(145deg,#102419,#172c20)!important}
+
+    /* Halaman Tentang Website */
+    .about-site-section{padding-top:0}
+    .about-site-layout{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}
+    .about-story-card,.developer-signature{position:relative;overflow:hidden;padding:clamp(28px,4vw,52px);border:1px solid var(--line);border-radius:26px;background:var(--surface);box-shadow:var(--shadow-sm)}
+    .about-story-card h2{max-width:720px;margin:22px 0 14px;font-size:clamp(2rem,4.2vw,4.2rem);line-height:1}
+    .about-story-card p,.developer-signature p{max-width:760px;margin-bottom:0;color:var(--text-soft);font-size:clamp(1rem,1.35vw,1.18rem);line-height:1.78}
+    .about-palette-card{grid-column:span 7;display:grid;align-content:space-between;min-height:520px;background:
+      radial-gradient(circle at 90% 10%,color-mix(in srgb,var(--gold) 20%,transparent),transparent 35%),
+      var(--surface)}
+    .about-logo-card{grid-column:span 5;display:grid;align-content:space-between;gap:34px;min-height:520px;color:#f7faf5;background:linear-gradient(150deg,#06190e,#17422a)!important}
+    .about-logo-card :is(h2,p){color:inherit}
+    .about-logo-card p{color:rgba(247,250,245,.76)}
+    .about-logo-visual{position:relative;display:grid;min-height:190px;place-items:center;isolation:isolate}
+    .about-logo-visual .theme-logo-pair{z-index:2;width:clamp(118px,14vw,176px);height:clamp(118px,14vw,176px);border:1px solid rgba(255,255,255,.18);border-radius:30px;box-shadow:0 28px 65px rgba(0,0,0,.26)}
+    .about-logo-halo{position:absolute;width:70%;aspect-ratio:1;border:1px solid rgba(224,201,132,.25);border-radius:50%;box-shadow:0 0 0 38px rgba(255,255,255,.025),0 0 0 76px rgba(255,255,255,.018)}
+    .palette-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:38px}
+    .palette-swatch{display:flex;min-height:130px;flex-direction:column;justify-content:flex-end;padding:18px;border:1px solid color-mix(in srgb,var(--line) 66%,transparent);border-radius:18px}
+    .palette-swatch b{font-size:1rem}.palette-swatch small{opacity:.75}
+    .palette-swatch.is-green{color:#fff;background:#173f29}.palette-swatch.is-gold{color:#132018;background:#d7bd75}.palette-swatch.is-ivory{color:#173020;background:#f3f0e6}
+    .about-purpose-card{grid-column:span 8;min-height:340px}
+    .about-purpose-points{display:flex;flex-wrap:wrap;gap:10px;margin-top:32px}
+    .about-purpose-points span{display:inline-flex;align-items:center;gap:9px;padding:11px 14px;border:1px solid var(--line);border-radius:999px;color:var(--text-soft);background:var(--surface-soft);font-size:.82rem;font-weight:780}
+    .developer-signature{grid-column:span 4;display:flex;flex-direction:column;justify-content:flex-end;min-height:340px;color:#132018;background:linear-gradient(145deg,#ead89c,#cdb269)!important}
+    .developer-signature .eyebrow{color:#5f4a16}.developer-signature strong{display:block;margin:18px 0 8px;font-size:clamp(1.7rem,3vw,3rem);line-height:1.05}.developer-signature p{color:#314537}
+
+    /* Presentasi: identitas terbaca, tidak menabrak isi, dan ornamen tetap tenang. */
+    .presentation-brand{left:clamp(22px,3vw,52px)!important;right:auto!important;top:clamp(16px,2.2vw,30px)!important;gap:13px!important;padding:10px 12px 10px 17px!important;border-radius:18px!important}
+    .presentation-brand .presentation-brand-copy{gap:4px!important;padding-right:14px!important;text-align:left!important}
+    .presentation-brand-copy small{display:block!important;font-size:clamp(.62rem,.72vw,.78rem)!important;line-height:1.1!important;letter-spacing:.18em!important}
+    .presentation-brand-copy strong{font-size:clamp(.9rem,1.08vw,1.15rem)!important;line-height:1.05!important;letter-spacing:.075em!important}
+    .presentation-brand .presentation-logo{width:clamp(62px,6vw,82px)!important;height:clamp(62px,6vw,82px)!important}
+    .presentation-head{min-height:78px!important;padding-left:clamp(320px,29vw,460px)!important;padding-right:0!important}
+    .presentation-reminder-aside{align-items:center!important;justify-content:center!important;text-align:center!important}
+    .presentation-reminder-aside strong{font-variant-numeric:tabular-nums}
+    .presentation-operator-aside,.presentation-schedule-overview-art{align-items:center!important;justify-content:center!important;text-align:center!important}
+    .presentation-shell:is([data-presentation-kind="announcement"],[data-presentation-kind="reminder"],[data-presentation-kind="connection"]) .presentation-context-art{display:block!important}
+    .presentation-shell[data-presentation-kind="reminder"] .presentation-context-art{right:3vw!important;bottom:8vh!important;width:min(27vw,410px)!important;height:min(27vw,410px)!important;opacity:.055!important}
+    .presentation-shell[data-presentation-type="bible"] .presentation-frame::before{
+      background-image:
+        radial-gradient(circle at 86% 22%,rgba(192,218,190,.12),transparent 25%),
+        linear-gradient(115deg,#031008 0%,#0a2817 58%,#173b26 100%)!important;
+      background-size:auto!important;background-position:center!important}
+    .presentation-shell[data-presentation-type="song"] .presentation-frame::before{
+      background-image:
+        repeating-linear-gradient(0deg,transparent 0 48px,rgba(230,207,145,.045) 49px 50px),
+        radial-gradient(circle at 83% 30%,rgba(224,198,124,.13),transparent 28%),
+        linear-gradient(120deg,#031008 0%,#102d1c 62%,#283d2d 100%)!important;
+      background-size:auto!important;background-position:center!important}
+    .presentation-shell[data-presentation-type="bible"] .presentation-frame::after{
+      position:absolute!important;z-index:0!important;right:8%!important;bottom:11%!important;display:block!important;width:clamp(110px,17vw,260px)!important;height:clamp(160px,26vw,390px)!important;border-radius:8px!important;background:
+        linear-gradient(90deg,transparent 40%,rgba(222,237,216,.11) 40% 60%,transparent 60%),
+        linear-gradient(0deg,transparent 61%,rgba(222,237,216,.11) 61% 72%,transparent 72%)!important;content:""!important;opacity:1!important;pointer-events:none!important}
+    .presentation-shell[data-presentation-type="song"] .presentation-frame::after{
+      position:absolute!important;z-index:0!important;right:7%!important;bottom:15%!important;display:block!important;width:clamp(170px,28vw,430px)!important;height:clamp(150px,24vw,360px)!important;border:0!important;border-radius:50%!important;background:
+        radial-gradient(circle at 38% 70%,rgba(234,211,143,.13) 0 9%,transparent 10%),
+        radial-gradient(circle at 75% 45%,rgba(234,211,143,.13) 0 8%,transparent 9%),
+        linear-gradient(90deg,transparent 34%,rgba(234,211,143,.1) 34% 38%,transparent 38%),
+        linear-gradient(76deg,transparent 66%,rgba(234,211,143,.1) 66% 70%,transparent 70%)!important;content:""!important;opacity:1!important;pointer-events:none!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-frame::before{
+      background-image:
+        radial-gradient(circle at 86% 22%,rgba(45,104,67,.09),transparent 25%),
+        linear-gradient(115deg,#fbfcf8 0%,#edf3e9 58%,#dce8db 100%)!important}
+    .presentation-shell.is-light[data-presentation-type="song"] .presentation-frame::before{
+      background-image:
+        repeating-linear-gradient(0deg,transparent 0 48px,rgba(72,105,78,.045) 49px 50px),
+        radial-gradient(circle at 83% 30%,rgba(150,116,42,.09),transparent 28%),
+        linear-gradient(120deg,#fbfcf8 0%,#edf3e9 62%,#dde8dc 100%)!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-frame::after{background:
+      linear-gradient(90deg,transparent 40%,rgba(31,92,53,.1) 40% 60%,transparent 60%),
+      linear-gradient(0deg,transparent 61%,rgba(31,92,53,.1) 61% 72%,transparent 72%)!important}
+    .presentation-shell.is-light[data-presentation-type="song"] .presentation-frame::after{filter:saturate(.7);opacity:.65!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-copy,
+    .presentation-shell.is-light[data-presentation-type="song"] .presentation-copy{color:#102719!important;text-shadow:none!important}
+    .presentation-shell:not(.is-light)[data-presentation-type="bible"] .presentation-copy,
+    .presentation-shell:not(.is-light)[data-presentation-type="song"] .presentation-copy{color:#fff!important;text-shadow:0 4px 22px rgba(0,0,0,.38)!important}
+
+    @media(max-width:980px){
+      :root{--shell:min(100% - 28px,760px)}
+      .grid-2,.grid-3,.contact-layout,.discussion-layout,.resource-feature,.lesson-feature,.bible-layout{grid-template-columns:1fr!important}
+      .bible-sidebar{position:relative!important;top:auto!important}
+      .song-list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+      .footer-main{grid-template-columns:1fr 1fr!important}
+      .footer-brand{grid-column:1/-1}
+      .about-palette-card,.about-logo-card,.about-purpose-card,.developer-signature{grid-column:1/-1}
+      .about-story-card,.developer-signature{min-height:0}
+    }
+    @media(max-width:820px){
+      :root{--header-h:72px;--shell:calc(100% - 24px)}
+      .site-header.is-scrolled{--header-h:66px}
+      .site-header .header-row,.site-header.is-scrolled .header-row{gap:8px!important}
+      .site-header .brand-name{font-size:.82rem}.site-header .brand-tagline{font-size:.58rem}
+      .site-header .language-switcher,.site-header .search-trigger,.site-header .a11y-trigger,#theme-button{display:none!important}
+      .site-header .mobile-toggle,.site-header.is-scrolled .mobile-toggle{min-width:100px!important;height:44px!important;padding:0 13px!important;border-radius:3px 16px 3px 16px!important}
+      .mobile-nav{padding:18px 12px calc(28px + env(safe-area-inset-bottom))!important}
+      .mobile-nav-grid{gap:8px!important}
+      .mobile-nav-grid>button{min-height:56px!important;padding:10px!important}
+      .mobile-nav-icon{width:34px!important;height:34px!important}
+      .page-head{padding-block:38px!important}.page-head h1{font-size:clamp(2.2rem,12vw,4.2rem)!important}
+      .section{padding-block:42px}
+      .toolbar,.page-actions{align-items:stretch!important}
+      .toolbar>*{max-width:100%}
+      .tabs{overflow-x:auto;flex-wrap:nowrap!important;scrollbar-width:none}
+      .tabs::-webkit-scrollbar{display:none}
+      .tabs>*{flex:0 0 auto}
+      .button-row{flex-wrap:wrap}
+      .button-row>.btn{min-height:44px}
+      .palette-row{grid-template-columns:1fr}
+      .palette-swatch{min-height:92px}
+      .about-logo-visual{min-height:160px}
+      .presentation-brand{left:auto!important;right:max(10px,env(safe-area-inset-right))!important;top:max(9px,env(safe-area-inset-top))!important;padding:7px 9px 7px 11px!important;border-radius:14px!important}
+      .presentation-brand .presentation-brand-copy{gap:2px!important;padding-right:9px!important;text-align:right!important}
+      .presentation-brand-copy small{font-size:.5rem!important}.presentation-brand-copy strong{font-size:.72rem!important}
+      .presentation-brand .presentation-logo{width:44px!important;height:44px!important;border-radius:12px!important}
+      .presentation-main{padding-top:92px!important}
+      .presentation-head{min-height:34px!important;padding-left:0!important;padding-right:0!important}
+      .presentation-reminder{grid-template-columns:1fr!important;gap:12px!important;min-height:0!important}
+      .presentation-reminder-copy{min-height:52vh;padding:clamp(24px,7vw,44px)!important}
+      .presentation-reminder-aside{display:flex!important;min-height:150px!important;padding:22px!important}
+      .presentation-reminder-aside strong{font-size:clamp(3.6rem,18vw,6rem)!important}
+      .presentation-connect{grid-template-columns:1fr!important;min-height:0!important}
+      .presentation-connect-intro{min-height:240px}
+      .presentation-connect-grid{grid-template-columns:1fr!important}
+      .presentation-context-art{max-width:52vw!important;max-height:52vw!important}
+    }
+    @media(max-width:600px){
+      .footer-main{grid-template-columns:1fr!important}
+      .song-list{grid-template-columns:1fr!important}
+      .media-grid{grid-template-columns:1fr!important}
+      .lesson-feature-body,.resource-reading,.card-pad{padding:22px!important}
+      .resource-aside{padding:26px!important}
+      .map-embed{min-height:460px}
+      .map-overlay{align-items:flex-start;flex-direction:column}
+      .map-overlay .btn{width:100%}
+      dialog .modal{max-width:calc(100vw - 16px)!important;max-height:calc(100dvh - 16px)!important}
+      .song-reader-hero{padding:38px 24px!important}
+      .song-reader-hero h2{font-size:clamp(2rem,11vw,3.5rem)!important}
+      .song-stage{padding:24px!important}
+    }
+    @media(max-width:420px){
+      :root{--shell:calc(100% - 20px)}
+      .site-header .brand-tagline{display:none}
+      .site-header .brand-mark .theme-logo-pair{width:34px!important;height:34px!important}
+      .site-header .brand-name{font-size:.76rem}
+      .site-header .mobile-toggle,.site-header.is-scrolled .mobile-toggle{min-width:92px!important;padding-inline:11px!important}
+      .mobile-nav-grid{grid-template-columns:1fr!important}
+      .mobile-nav-grid>button{min-height:52px!important}
+      .about-story-card,.developer-signature{padding:24px;border-radius:22px}
+      .presentation-brand-copy small{font-size:.44rem!important}.presentation-brand-copy strong{font-size:.64rem!important}
+      .presentation-brand .presentation-logo{width:40px!important;height:40px!important}
+    }
+    @media(max-height:620px) and (orientation:landscape){
+      .presentation-brand{transform:scale(.82)!important;transform-origin:top left!important}
+      .presentation-head{padding-left:280px!important}
+      .presentation-main{padding-top:76px!important}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .site-header,.site-header .mobile-toggle,.media-cover img{transition:none!important}
+    }
+
+    /* V35.1 — isi pendek di mode fullscreen memanfaatkan bidang secara proporsional. */
+    .presentation-stage>:only-child{width:100%;max-width:none}
+    .presentation-copy,.presentation-copy.bible,.presentation-announcement,.presentation-announcement-title,.presentation-announcement-copy{max-width:100%!important}
+    .presentation-reminder{grid-template-columns:minmax(0,1.6fr) minmax(250px,.34fr)!important}
+    .presentation-reminder-copy h2{width:100%;max-width:none!important;font-size:calc(clamp(2.8rem,5.55vw,6.7rem) * var(--present-scale))!important;line-height:.94!important;text-wrap:balance}
+    .presentation-operator-copy h2,.presentation-schedule-overview-copy h2{width:100%;max-width:none!important;text-wrap:balance}
+    .presentation-operator-copy,.presentation-schedule-overview-copy{max-width:none!important}
+    .presentation-announcement-title{text-wrap:balance}
+    @media(max-width:820px){
+      .presentation-reminder{grid-template-columns:1fr!important}
+      .presentation-reminder-copy h2{font-size:calc(clamp(2.35rem,11vw,4.6rem) * var(--present-scale))!important}
+    }
+
+    /* V35.2 — footer gereja: identitas, jalur utama, dan kontak dalam hierarki yang jelas. */
+    .site-footer{position:relative;overflow:hidden;margin-top:clamp(64px,9vw,120px);color:#eef5ee;background:#04140b!important}
+    .site-footer::before{position:absolute;inset:0;background:
+      radial-gradient(circle at 88% 6%,rgba(215,189,117,.12),transparent 25rem),
+      linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:auto,72px 72px,72px 72px;content:"";pointer-events:none}
+    .footer-crossbar{position:absolute;z-index:1;left:7%;top:28%;width:clamp(90px,10vw,150px);height:clamp(150px,17vw,250px);opacity:.055}
+    .footer-crossbar::before,.footer-crossbar::after{position:absolute;border-radius:4px;background:#e8d18c;content:""}
+    .footer-crossbar::before{left:43%;width:14%;height:100%}.footer-crossbar::after{left:0;top:31%;width:100%;height:9%}
+    .footer-callout{position:relative;z-index:2;border-bottom:1px solid rgba(255,255,255,.11);background:linear-gradient(118deg,rgba(31,88,53,.9),rgba(9,37,21,.86))}
+    .footer-callout-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:34px;padding-block:clamp(44px,6vw,72px)}
+    .footer-callout-copy{max-width:780px}
+    .footer-callout-copy .eyebrow{color:#e5cc84}.footer-callout-copy h2{max-width:760px;margin:15px 0 10px;color:#fff;font-size:clamp(2.3rem,5vw,5.2rem);line-height:.94;letter-spacing:-.05em}.footer-callout-copy p{margin:0;color:rgba(238,245,238,.72)}
+    .footer-callout-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px}
+    .footer-callout .btn{min-height:52px;border-color:rgba(255,255,255,.22);color:#fff;background:rgba(255,255,255,.06)}
+    .footer-callout .btn.primary{border-color:#e3ca83;color:#112619;background:#e3ca83}
+    .footer-main{position:relative;z-index:2;display:grid!important;grid-template-columns:minmax(280px,1.4fr) minmax(150px,.72fr) minmax(170px,.82fr) minmax(240px,1.08fr)!important;align-items:start!important;gap:clamp(30px,4vw,68px)!important;padding-block:clamp(54px,7vw,88px)!important}
+    .footer-brand{grid-column:auto!important;max-width:390px}
+    .footer-brand-lockup{display:flex;align-items:center;gap:14px}
+    .footer-logo{width:62px;height:62px;border:1px solid rgba(255,255,255,.14);border-radius:17px;box-shadow:0 14px 34px rgba(0,0,0,.25)}
+    .footer-brand-lockup div{display:grid;gap:3px}.footer-brand-lockup span{color:#dbc37e;font-size:.62rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase}.footer-brand-lockup strong{color:#fff;font-size:1.15rem;letter-spacing:.025em}
+    .footer-brand>p{margin:24px 0 16px;color:rgba(238,245,238,.68);line-height:1.72}
+    .footer-brand address{color:rgba(238,245,238,.82);font-size:.86rem;font-style:normal;line-height:1.6}
+    .footer-social{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+    .footer-social a{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 11px;border:1px solid rgba(255,255,255,.13);border-radius:12px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.04);font-size:.72rem;font-weight:760}
+    .footer-social a:hover{border-color:rgba(229,204,132,.55);color:#fff;background:rgba(229,204,132,.08)}
+    .footer-group{display:grid!important;align-content:start;gap:4px}
+    .footer-group>strong{margin-bottom:14px;color:#e5cc84;font-size:.68rem;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+    .footer-link{position:relative;width:max-content;max-width:100%;padding:7px 0!important;color:rgba(238,245,238,.7)!important;background:transparent!important;font-size:.82rem!important;text-align:left}
+    .footer-link::after{position:absolute;right:-17px;content:"→";opacity:0;transform:translateX(-5px);transition:.2s var(--ease)}
+    .footer-link:hover{color:#fff!important;transform:none!important}.footer-link:hover::after{opacity:1;transform:none}
+    .footer-visit{padding:24px;border:1px solid rgba(255,255,255,.13);border-radius:20px;background:rgba(255,255,255,.045)}
+    .footer-visit>.eyebrow{color:#e5cc84}
+    .footer-visit-row{display:grid;grid-template-columns:36px minmax(0,1fr);gap:12px;align-items:start;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+    .footer-visit-row>.icon{width:20px;height:20px;margin-top:2px;color:#e5cc84}
+    .footer-visit-row small{display:block;color:rgba(238,245,238,.5);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .footer-visit-row :is(strong,a){display:block;margin-top:3px;color:#fff;font-size:.79rem;line-height:1.5;overflow-wrap:anywhere}
+    .footer-tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:18px}
+    .footer-tools button{display:flex;min-width:0;min-height:42px;align-items:center;justify-content:center;gap:6px;padding:7px;border:1px solid rgba(255,255,255,.11);border-radius:11px;color:rgba(238,245,238,.68);background:rgba(255,255,255,.035);font-size:.62rem;cursor:pointer}
+    .footer-tools button:hover{color:#fff;border-color:rgba(229,204,132,.45)}
+    .footer-bottom{position:relative;z-index:2;display:flex!important;align-items:center;justify-content:space-between;gap:16px;padding-block:21px!important;border-top:1px solid rgba(255,255,255,.11);color:rgba(238,245,238,.5);font-size:.7rem}
+    @media(max-width:1080px){
+      .footer-main{grid-template-columns:minmax(0,1.25fr) repeat(2,minmax(150px,.75fr))!important}
+      .footer-visit{grid-column:1/-1;display:grid;grid-template-columns:auto repeat(2,minmax(0,1fr)) auto;align-items:center;gap:16px}
+      .footer-visit>.eyebrow{grid-column:1/-1}
+      .footer-visit-row{padding:8px 0;border:0}
+      .footer-tools{margin:0}
+    }
+    @media(max-width:760px){
+      .footer-callout-inner{grid-template-columns:1fr}
+      .footer-callout-actions{justify-content:flex-start}
+      .footer-callout-actions .btn{flex:1;justify-content:center}
+      .footer-main{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+      .footer-brand{grid-column:1/-1!important}
+      .footer-visit{grid-column:1/-1;grid-template-columns:1fr!important}
+      .footer-visit>.eyebrow{grid-column:auto}
+      .footer-tools{grid-template-columns:repeat(3,minmax(0,1fr))}
+    }
+    @media(max-width:520px){
+      .site-footer{margin-top:64px}
+      .footer-callout-inner{padding-block:38px}
+      .footer-callout-copy h2{font-size:clamp(2.2rem,12vw,3.5rem)}
+      .footer-callout-actions{display:grid;grid-template-columns:1fr;width:100%}
+      .footer-main{grid-template-columns:1fr!important;gap:34px!important;padding-block:46px!important}
+      .footer-brand{grid-column:auto!important}
+      .footer-group{padding-top:22px;border-top:1px solid rgba(255,255,255,.1)}
+      .footer-link{width:100%;min-height:40px}
+      .footer-visit{grid-column:auto;padding:20px}
+      .footer-tools{grid-template-columns:1fr}
+      .footer-tools button{justify-content:flex-start;padding-inline:12px}
+      .footer-bottom{align-items:flex-start;flex-direction:column;padding-block:18px!important}
+    }
 </style>
 </head>
 <body>
@@ -2619,7 +2924,7 @@
         <button class="nav-link" type="button" data-route="sabbath">Sekolah Sabat</button>
         <button class="nav-link" type="button" data-route="bible">Alkitab</button>
         <button class="nav-link" type="button" data-route="hymnal">Lagu Sion</button>
-        <span class="nav-drop"><button type="button" data-nav-toggle aria-expanded="false">Lainnya <svg class="icon"><use href="#i-down"></use></svg></button><span class="nav-drop-menu"><button type="button" data-route="bulletin"><svg class="icon"><use href="#i-file"></use></svg>Warta Digital</button><button type="button" data-route="announcements"><svg class="icon"><use href="#i-bell"></use></svg>Agenda dan Pengumuman</button><button type="button" data-route="activities"><svg class="icon"><use href="#i-calendar"></use></svg>Berita Jemaat</button><button type="button" data-route="visitor"><svg class="icon"><use href="#i-map"></use></svg>Panduan Pengunjung</button><button type="button" data-route="favorites"><svg class="icon"><use href="#i-star"></use></svg>Tersimpan</button><button type="button" data-route="gallery"><svg class="icon"><use href="#i-image"></use></svg>Galeri</button><button type="button" data-route="services"><svg class="icon"><use href="#i-heart"></use></svg>Layanan Jemaat</button><button type="button" data-route="faq"><svg class="icon"><use href="#i-help"></use></svg>FAQ</button></span></span>
+        <span class="nav-drop"><button type="button" data-nav-toggle aria-expanded="false">Lainnya <svg class="icon"><use href="#i-down"></use></svg></button><span class="nav-drop-menu"><button type="button" data-route="bulletin"><svg class="icon"><use href="#i-file"></use></svg>Warta Digital</button><button type="button" data-route="announcements"><svg class="icon"><use href="#i-bell"></use></svg>Agenda dan Pengumuman</button><button type="button" data-route="activities"><svg class="icon"><use href="#i-calendar"></use></svg>Berita Jemaat</button><button type="button" data-route="visitor"><svg class="icon"><use href="#i-map"></use></svg>Panduan Pengunjung</button><button type="button" data-route="favorites"><svg class="icon"><use href="#i-star"></use></svg>Tersimpan</button><button type="button" data-route="gallery"><svg class="icon"><use href="#i-image"></use></svg>Galeri</button><button type="button" data-route="services"><svg class="icon"><use href="#i-heart"></use></svg>Layanan Jemaat</button><button type="button" data-route="aboutsite"><svg class="icon"><use href="#i-info"></use></svg>Tentang Website</button><button type="button" data-route="faq"><svg class="icon"><use href="#i-help"></use></svg>FAQ</button></span></span>
       </nav>
       <div class="header-actions">
         <label class="language-switcher" translate="no" title="Bahasa"><svg class="icon"><use href="#i-globe"></use></svg><select id="language-select" aria-label="Bahasa website"><option value="id">ID</option><option value="en">EN</option><option value="ms">MS</option><option value="zh-CN">中文</option><option value="es">ES</option></select></label>
@@ -2637,11 +2942,27 @@
 
   <footer class="site-footer" id="footer">
     <span class="footer-crossbar" aria-hidden="true"></span>
-    <div class="footer-closing"><div class="footer-closing-copy"><small>Closing scene · Hidupkan firman</small><strong>Iman tidak berhenti di layar.</strong></div></div>
+    <section class="footer-callout">
+      <div class="shell footer-callout-inner">
+        <div class="footer-callout-copy"><span class="eyebrow">Pintu selalu terbuka</span><h2>Mari beribadah dan bertumbuh bersama.</h2><p>Temukan jadwal terdekat atau hubungi kami sebelum berkunjung.</p></div>
+        <div class="footer-callout-actions"><button class="btn footer-schedule-btn" type="button" data-route="schedule"><svg class="icon"><use href="#i-calendar"></use></svg>Lihat Jadwal</button><a class="btn primary" id="footer-whatsapp" target="_blank" rel="noopener"><svg class="brand-svg whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.76 9.76 0 0 0-8.47 14.64L2 22l5.5-1.44A9.98 9.98 0 1 0 12.04 2Zm0 17.73a7.8 7.8 0 0 1-3.98-1.09l-.29-.17-3.26.85.87-3.17-.19-.31a7.74 7.74 0 1 1 6.85 3.89Zm4.27-5.81c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.52.12-.16.23-.6.76-.74.92-.13.16-.27.18-.5.06-.23-.12-.99-.36-1.88-1.16a7.05 7.05 0 0 1-1.3-1.62c-.14-.23-.02-.36.1-.48.1-.1.23-.27.35-.41.12-.14.16-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.52-1.27-.72-1.74-.19-.46-.38-.4-.52-.4h-.45c-.15 0-.4.06-.62.3-.21.23-.81.8-.81 1.94s.83 2.25.95 2.4c.11.16 1.63 2.5 3.96 3.5.55.24.98.38 1.32.49.55.17 1.05.15 1.45.09.44-.07 1.38-.57 1.57-1.12.2-.55.2-1.03.14-1.12-.06-.1-.21-.16-.45-.28Z"/></svg>WhatsApp</a></div>
+      </div>
+    </section>
     <div class="shell footer-main">
-      <div class="footer-brand"><span class="eyebrow">GMAHK Galilea Balikpapan</span><h2>Mari beribadah dan bertumbuh bersama.</h2><p id="footer-address">Balikpapan, Kalimantan Timur</p><div class="button-row"><a class="btn primary" id="footer-whatsapp" target="_blank" rel="noopener"><svg class="brand-svg whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.76 9.76 0 0 0-8.47 14.64L2 22l5.5-1.44A9.98 9.98 0 1 0 12.04 2Zm0 17.73a7.8 7.8 0 0 1-3.98-1.09l-.29-.17-3.26.85.87-3.17-.19-.31a7.74 7.74 0 1 1 6.85 3.89Zm4.27-5.81c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.52.12-.16.23-.6.76-.74.92-.13.16-.27.18-.5.06-.23-.12-.99-.36-1.88-1.16a7.05 7.05 0 0 1-1.3-1.62c-.14-.23-.02-.36.1-.48.1-.1.23-.27.35-.41.12-.14.16-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.52-1.27-.72-1.74-.19-.46-.38-.4-.52-.4h-.45c-.15 0-.4.06-.62.3-.21.23-.81.8-.81 1.94s.83 2.25.95 2.4c.11.16 1.63 2.5 3.96 3.5.55.24.98.38 1.32.49.55.17 1.05.15 1.45.09.44-.07 1.38-.57 1.57-1.12.2-.55.2-1.03.14-1.12-.06-.1-.21-.16-.45-.28Z"/></svg>WhatsApp</a><a class="btn" id="footer-maps" target="_blank" rel="noopener"><svg class="brand-svg maps-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="#34A853" d="M12 22s7-6.13 7-13A7 7 0 0 0 5.2 7.32L12 22Z"/><path fill="#4285F4" d="M5.2 7.32A7 7 0 0 1 12 2v7L5.2 7.32Z"/><path fill="#EA4335" d="M12 2a7 7 0 0 1 6.08 3.53L12 9V2Z"/><path fill="#FBBC04" d="m12 9 6.08-3.47A7 7 0 0 1 19 9c0 1.57-.4 3.05-1.03 4.4L12 9Z"/><circle cx="12" cy="9" r="2.45" fill="#fff"/></svg>Google Maps</a></div></div>
-      <div class="footer-group"><strong>Jelajahi</strong><button class="footer-link" data-route="today">Ibadah Hari Ini</button><button class="footer-link" data-route="bulletin">Warta Digital</button><button class="footer-link" data-route="schedule">Jadwal ibadah</button><button class="footer-link" data-route="sabbath">Sekolah Sabat</button><button class="footer-link" data-route="bible">Alkitab</button><button class="footer-link" data-route="hymnal">Lagu Sion</button><button class="footer-link" data-route="favorites">Tersimpan</button></div>
-      <div class="footer-group"><strong>Bantuan</strong><button class="footer-link" data-route="visitor">Panduan pengunjung</button><button class="footer-link" data-route="faq">Pertanyaan umum</button><button class="footer-link" data-open="search">Cari di website</button><button class="footer-link" data-open="settings">Aksesibilitas</button><button class="footer-link" id="install-app">Simpan di HP</button><button class="footer-link" data-route="contact">Kontak gereja</button></div>
+      <section class="footer-brand" aria-label="Identitas gereja">
+        <div class="footer-brand-lockup"><span class="theme-logo-pair footer-logo" aria-hidden="true"><img class="logo-light" src="/assets/logo-galilea-light.webp" alt=""><img class="logo-dark" src="/assets/logo-galilea-dark.webp" alt=""></span><div><span>Website Resmi</span><strong>GMAHK Galilea</strong></div></div>
+        <p>Ruang digital Jemaat Galilea Balikpapan untuk ibadah, firman, dan pelayanan.</p>
+        <address id="footer-address">Balikpapan, Kalimantan Timur</address>
+        <div class="footer-social"><a id="footer-instagram" target="_blank" rel="noopener" aria-label="Instagram GMAHK Galilea"><svg class="brand-svg instagram-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.7" r="1.15" fill="currentColor"/></svg><span id="footer-instagram-label">@advent.galilea</span></a><a id="footer-maps" target="_blank" rel="noopener"><svg class="icon"><use href="#i-map"></use></svg>Petunjuk arah</a></div>
+      </section>
+      <nav class="footer-group" aria-label="Menu ibadah"><strong>Ibadah & Firman</strong><button class="footer-link" data-route="today">Ibadah Hari Ini</button><button class="footer-link" data-route="schedule">Jadwal Pelayanan</button><button class="footer-link" data-route="bulletin">Warta Digital</button><button class="footer-link" data-route="sabbath">Sekolah Sabat</button><button class="footer-link" data-route="bible">Alkitab</button><button class="footer-link" data-route="hymnal">Lagu Sion</button></nav>
+      <nav class="footer-group" aria-label="Menu informasi"><strong>Jemaat & Informasi</strong><button class="footer-link" data-route="announcements">Pengumuman</button><button class="footer-link" data-route="activities">Berita Jemaat</button><button class="footer-link" data-route="gallery">Galeri</button><button class="footer-link" data-route="services">Layanan Jemaat</button><button class="footer-link" data-route="aboutsite">Tentang Website</button><button class="footer-link" data-route="contact">Kontak Gereja</button></nav>
+      <section class="footer-visit" aria-label="Informasi kunjungan">
+        <span class="eyebrow">Datang beribadah</span>
+        <div class="footer-visit-row"><svg class="icon"><use href="#i-calendar"></use></svg><div><small>Ibadah Sabat</small><strong id="footer-sabbath">Setiap Sabat · 09.00 WITA</strong></div></div>
+        <div class="footer-visit-row"><svg class="icon"><use href="#i-mail"></use></svg><div><small>Email</small><a id="footer-email">galileabalikpapan@gmail.com</a></div></div>
+        <div class="footer-tools"><button type="button" data-open="search"><svg class="icon"><use href="#i-search"></use></svg>Cari</button><button type="button" data-open="settings"><svg class="icon"><use href="#i-access"></use></svg>Aksesibilitas</button><button type="button" id="install-app"><svg class="icon"><use href="#i-down"></use></svg>Simpan di HP</button></div>
+      </section>
     </div>
     <div class="shell footer-bottom"><span id="footer-copy">© Sekretaris Jemaat Galilea</span><span id="footer-updated">Memuat pembaruan…</span></div>
   </footer>
@@ -2695,13 +3016,13 @@
       });
 
       const APP_URL = window.location.origin;
-      const ROUTES = ['home','today','church','leaders','schedule','bulletin','sabbath','bible','hymnal','favorites','visitor','activities','announcements','gallery','services','faq','contact'];
+      const ROUTES = ['home','today','church','aboutsite','leaders','schedule','bulletin','sabbath','bible','hymnal','favorites','visitor','activities','announcements','gallery','services','faq','contact'];
       const MOBILE_GROUPS = [
         {label:'Utama',items:[
           ['home','home','Beranda','Ringkasan hari ini']
         ]},
         {label:'Gereja',items:[
-          ['church','church','Gereja','Tentang jemaat'],['leaders','users','Pengurus','Pelayan gereja'],['contact','map','Kontak','Alamat & WhatsApp']
+          ['church','church','Gereja','Tentang jemaat'],['aboutsite','info','Tentang Website','Cerita desain dan tujuan'],['leaders','users','Pengurus','Pelayan gereja'],['contact','map','Kontak','Alamat & WhatsApp']
         ]},
         {label:'Ibadah',items:[
           ['today','church','Ibadah Hari Ini','Tema, lagu & susunan acara'],['schedule','calendar','Jadwal','Pelayanan terdekat'],['bulletin','file','Warta Digital','Susunan ibadah & kabar'],['services','heart','Layanan Jemaat','Kirim permohonan']
@@ -2791,11 +3112,11 @@
         const photo = leaderPhotoSources(leader && leader.photoUrl);
         return '<div class="avatar" role="img" aria-label="Foto ' + attr(label) + '"><span class="avatar-fallback" aria-hidden="true">' + esc(letters) + '</span>' + (photo.primary ? '<img src="' + attr(photo.primary) + '"' + (photo.fallback ? ' data-avatar-fallback="' + attr(photo.fallback) + '"' : '') + ' data-avatar-image alt="" loading="lazy" decoding="async">' : '') + '</div>';
       }
-      const routeTitle = route => ({home:'Beranda',today:'Ibadah Hari Ini',church:'Gereja',leaders:'Pengurus',schedule:'Jadwal Ibadah',bulletin:'Warta Digital',sabbath:'Sekolah Sabat',bible:'Alkitab',hymnal:'Lagu Sion',favorites:'Tersimpan',visitor:'Panduan Pengunjung',activities:'Berita Jemaat',announcements:'Agenda dan Pengumuman',gallery:'Galeri',services:'Layanan Jemaat',faq:'FAQ',contact:'Kontak'})[route] || 'Galilea';
+      const routeTitle = route => ({home:'Beranda',today:'Ibadah Hari Ini',church:'Gereja',aboutsite:'Tentang Website',leaders:'Pengurus',schedule:'Jadwal Ibadah',bulletin:'Warta Digital',sabbath:'Sekolah Sabat',bible:'Alkitab',hymnal:'Lagu Sion',favorites:'Tersimpan',visitor:'Panduan Pengunjung',activities:'Berita Jemaat',announcements:'Agenda dan Pengumuman',gallery:'Galeri',services:'Layanan Jemaat',faq:'FAQ',contact:'Kontak'})[route] || 'Galilea';
       const ROUTE_DESCRIPTIONS = {
         home:'Website resmi GMAHK Galilea Balikpapan untuk jadwal ibadah, Sekolah Sabat, Alkitab, Lagu Sion, warta, dan informasi pelayanan jemaat.',
         today:'Tema, ayat, lagu, susunan acara, dan informasi Ibadah Hari Ini GMAHK Galilea Balikpapan.',
-        church:'Profil, sejarah, dan pelayanan GMAHK Galilea Balikpapan.',leaders:'Daftar pengurus dan pelayan GMAHK Galilea Balikpapan.',
+        church:'Profil, sejarah, dan pelayanan GMAHK Galilea Balikpapan.',aboutsite:'Cerita di balik warna, logo, dan tujuan Website GMAHK Galilea Balikpapan.',leaders:'Daftar pengurus dan pelayan GMAHK Galilea Balikpapan.',
         schedule:'Jadwal Ibadah Sabat, Rabu Malam, Sekolah Sabat, dan pembagian pelayanan GMAHK Galilea Balikpapan.',
         bulletin:'Warta Jemaat digital GMAHK Galilea Balikpapan yang dapat dibaca, dibagikan, dan diunduh.',
         sabbath:'Pelajaran Sekolah Sabat, Berita Misi, Bacaan Persembahan, dan Penginjilan Perorangan Advent.',
@@ -3051,6 +3372,8 @@
       function phoneDigits(phone) { return String(phone || '').replace(/\D/g,''); }
       function whatsappUrl(site) { return safeUrl(site.whatsapp_url) || ('https://wa.me/' + phoneDigits(site.phone)); }
       function mapsUrl(site) { return safeUrl(site.maps_url) || ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(site.address || 'GMAHK Galilea Balikpapan')); }
+      function instagramHandle(site) { const value=String(site&&site.instagram_handle||'@advent.galilea').trim().replace(/^@?\s*/,''); return '@'+(value||'advent.galilea'); }
+      function instagramProfileUrl(site) { return safeUrl(site&&site.instagram_url) || ('https://www.instagram.com/' + encodeURIComponent(instagramHandle(site).slice(1)) + '/'); }
       function brandIcon(name) {
         if (name === 'whatsapp') return '<svg class="brand-svg whatsapp-svg" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.76 9.76 0 0 0-8.47 14.64L2 22l5.5-1.44A9.98 9.98 0 1 0 12.04 2Zm0 17.73a7.8 7.8 0 0 1-3.98-1.09l-.29-.17-3.26.85.87-3.17-.19-.31a7.74 7.74 0 1 1 6.85 3.89Zm4.27-5.81c-.23-.12-1.38-.68-1.6-.76-.21-.08-.37-.12-.52.12-.16.23-.6.76-.74.92-.13.16-.27.18-.5.06-.23-.12-.99-.36-1.88-1.16a7.05 7.05 0 0 1-1.3-1.62c-.14-.23-.02-.36.1-.48.1-.1.23-.27.35-.41.12-.14.16-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.52-1.27-.72-1.74-.19-.46-.38-.4-.52-.4h-.45c-.15 0-.4.06-.62.3-.21.23-.81.8-.81 1.94s.83 2.25.95 2.4c.11.16 1.63 2.5 3.96 3.5.55.24.98.38 1.32.49.55.17 1.05.15 1.45.09.44-.07 1.38-.57 1.57-1.12.2-.55.2-1.03.14-1.12-.06-.1-.21-.16-.45-.28Z"/></svg>';
         if (name === 'instagram') return '<svg class="brand-svg instagram-svg" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="instagram-gradient" x1="2" y1="22" x2="22" y2="2"><stop stop-color="#ffdc80"/><stop offset=".36" stop-color="#fcaf45"/><stop offset=".68" stop-color="#c13584"/><stop offset="1" stop-color="#833ab4"/></linearGradient></defs><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="url(#instagram-gradient)" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="url(#instagram-gradient)" stroke-width="2"/><circle cx="17.4" cy="6.7" r="1.15" fill="#c13584"/></svg>';
@@ -3059,9 +3382,9 @@
 
       function youtubeTile(item, label) {
         if (!item || !/^[A-Za-z0-9_-]{11}$/.test(String(item.videoId || ''))) return '';
-        const thumb = safeUrl(item.thumbnailUrl) || ('https://i.ytimg.com/vi/' + item.videoId + '/hqdefault.jpg');
+        const thumb = '/api/thumbnail?id=' + encodeURIComponent(item.videoId);
         const watch=safeUrl(item.watchUrl)||('https://www.youtube.com/watch?v='+item.videoId);
-        return '<article class="media-tile card lift"><button class="media-cover" type="button" data-youtube-play="' + attr(item.videoId) + '" data-youtube-title="' + attr(item.title || 'Video YouTube') + '" aria-label="Putar ' + attr(item.title || 'video') + '"><img src="' + attr(thumb) + '" alt="" loading="lazy"><span class="media-shade"></span><span class="media-play">' + icon('play') + '</span><span class="media-label">' + esc(label || 'VIDEO TERBARU') + '</span></button><div class="media-copy"><strong>' + esc(item.title || 'Video terbaru') + '</strong>' + (item.publishedLabel ? '<span>' + esc(item.publishedLabel) + '</span>' : '') + '<a class="media-youtube-link" href="'+attr(watch)+'" target="_blank" rel="noopener">Buka di YouTube'+icon('external')+'</a></div></article>';
+        return '<article class="media-tile card lift"><button class="media-cover" type="button" data-youtube-play="' + attr(item.videoId) + '" data-youtube-title="' + attr(item.title || 'Video YouTube') + '" aria-label="Putar ' + attr(item.title || 'video') + '"><img src="' + attr(thumb) + '" data-video-thumbnail alt="" loading="lazy"><span class="media-shade"></span><span class="media-play">' + icon('play') + '</span><span class="media-label">' + esc(label || 'VIDEO TERBARU') + '</span></button><div class="media-copy"><strong>' + esc(item.title || 'Video terbaru') + '</strong>' + (item.publishedLabel ? '<span>' + esc(item.publishedLabel) + '</span>' : '') + '<a class="media-youtube-link" href="'+attr(watch)+'" target="_blank" rel="noopener">Buka di YouTube'+icon('external')+'</a></div></article>';
       }
 
       function youtubeChannelFallback(channelUrl,title,copy){
@@ -3145,7 +3468,13 @@
         $('#footer-whatsapp').href = whatsappUrl(site);
         $('#footer-whatsapp').innerHTML = brandIcon('whatsapp') + 'WhatsApp';
         $('#footer-maps').href = mapsUrl(site);
-        $('#footer-maps').innerHTML = brandIcon('maps') + 'Google Maps';
+        $('#footer-maps').innerHTML = icon('map') + 'Petunjuk arah';
+        $('#footer-instagram').href = instagramProfileUrl(site);
+        $('#footer-instagram-label').textContent = instagramHandle(site);
+        $('#footer-sabbath').textContent = site.sabbath_service || 'Setiap Sabat · 09.00 WITA';
+        const footerEmail=site.email||'galileabalikpapan@gmail.com';
+        $('#footer-email').textContent=footerEmail;
+        $('#footer-email').href='mailto:'+footerEmail;
         $('#footer-copy').textContent = state.data.copyright + ' · ' + (site.footer_text || 'Website resmi GMAHK Galilea Balikpapan');
         $('#footer-updated').textContent = 'Data diperbarui ' + state.data.updatedAt;
         syncSeoMetadata(state.route,site);
@@ -3168,10 +3497,10 @@
       function buildMobileNav() {
         const groups = MOBILE_GROUPS.map((group,index) => {
           const titleId = 'mobile-group-' + index;
-          const items = group.items.map(item => '<button type="button" data-route="' + attr(item[0]) + '"><span class="mobile-nav-icon">' + icon(item[1]) + '</span><span class="mobile-nav-copy"><strong>' + esc(item[2]) + '</strong><small>' + esc(item[3]) + '</small></span></button>').join('');
+          const items = group.items.map(item => '<button type="button" data-route="' + attr(item[0]) + '"><span class="mobile-nav-icon">' + icon(item[1]) + '</span><span class="mobile-nav-copy"><strong>' + esc(item[2]) + '</strong></span></button>').join('');
           return '<section class="mobile-nav-group" aria-labelledby="' + titleId + '"><h2 class="mobile-nav-title" id="' + titleId + '">' + esc(group.label) + '</h2><div class="mobile-nav-grid">' + items + '</div></section>';
         }).join('');
-        const tools = '<section class="mobile-nav-group mobile-nav-tools" aria-labelledby="mobile-group-tools"><h2 class="mobile-nav-title" id="mobile-group-tools">Alat</h2><div class="mobile-nav-grid"><button type="button" data-open="search"><span class="mobile-nav-icon">' + icon('search') + '</span><span class="mobile-nav-copy"><strong>Cari</strong><small>Temukan konten</small></span></button><button type="button" data-open="settings"><span class="mobile-nav-icon">' + icon('access') + '</span><span class="mobile-nav-copy"><strong>Tampilan</strong><small>Bahasa & aksesibilitas</small></span></button></div></section>';
+        const tools = '<section class="mobile-nav-group mobile-nav-tools" aria-labelledby="mobile-group-tools"><h2 class="mobile-nav-title" id="mobile-group-tools">Alat</h2><div class="mobile-nav-grid"><button type="button" data-open="search"><span class="mobile-nav-icon">' + icon('search') + '</span><span class="mobile-nav-copy"><strong>Cari</strong></span></button><button type="button" data-open="settings"><span class="mobile-nav-icon">' + icon('access') + '</span><span class="mobile-nav-copy"><strong>Tampilan</strong></span></button></div></section>';
         $('#mobile-nav').innerHTML = groups + tools;
         scheduleTranslation();
       }
@@ -3222,7 +3551,7 @@
 
       function render() {
         const renderers = {
-          home: renderHome, today: renderToday, church: renderChurch, leaders: renderLeaders, schedule: renderSchedule,
+          home: renderHome, today: renderToday, church: renderChurch, aboutsite: renderAboutSite, leaders: renderLeaders, schedule: renderSchedule,
           bulletin: renderBulletin, sabbath: renderSabbath, bible: renderBible, hymnal: renderHymnal,
           favorites: renderFavorites, visitor: renderVisitor, activities: renderActivities,
           announcements: renderAnnouncements, gallery: renderGallery, services: renderServices,
@@ -3283,16 +3612,18 @@
           '<details class="v18-more"><summary>Ayat tema & kabar dari Galilea</summary><div class="v18-more-body"><section class="faith-interlude"><div class="shell faith-interlude-grid"><article class="faith-verse"><p class="eyebrow">' + esc(site.bible_reference) + '</p><p class="quote">“' + esc(site.bible_verse) + '”</p><button class="btn ghost" type="button" data-route="bible">Baca Alkitab' + icon('arrow') + '</button></article><div class="faith-theme"><article class="card card-pad" id="advent-theme">' + loadingBox('Menyiapkan tema Advent','Membaca tema untuk tahun berjalan…') + '</article></div></div></section><section class="cinema-chapter journal-stage"><div class="shell cinema-chapter-grid"><div><div class="chapter-heading"><h2>Kabar dari Galilea.</h2><p>Berita kegiatan yang sudah berlangsung ditampilkan sebagai cerita visual dan dapat memuat beberapa foto.</p></div><div class="journal-grid">' + (journal || emptyText('Belum ada kabar yang dipublikasikan.')) + '</div><div class="button-row" style="margin-top:36px"><button class="btn primary" type="button" data-route="activities">Seluruh Berita Jemaat' + icon('arrow') + '</button><button class="btn" type="button" data-route="announcements">Agenda dan Pengumuman</button></div></div></div></section></div></details>';
       }
 
-      async function loadDevotionalHome() {
+      async function loadDevotionalHome(force) {
         const devotionalBox = $('#home-devotional');
         if (devotionalBox) {
           try {
             const todayKey = witaDateKey();
-            const cacheKey = 'v1730-devotional-' + todayKey;
+            const cacheKey = 'v3500-devotional-' + todayKey;
+            cacheRemove('v1730-devotional-' + todayKey);
             cacheRemove('v1700-devotional-' + todayKey);
             cacheRemove('v11-devotional-today');
             cacheRemove('v1101-devotional-' + todayKey);
-            let item = cacheGet(cacheKey);
+            let item = force ? null : cacheGet(cacheKey);
+            if (force) cacheRemove(cacheKey);
             if (item && item.requestedDate !== todayKey) {
               cacheRemove(cacheKey);
               item = null;
@@ -3334,8 +3665,12 @@
       }
       function renderAwrHomeMedia(media){
         const box=$('#home-video');if(!box||!media)return false;
-        const featured=media.videoId?{videoId:media.videoId,title:media.title,thumbnailUrl:'https://i.ytimg.com/vi/'+media.videoId+'/hqdefault.jpg'}:null;
-        const items=[featured].concat(media.recentVideos||[]).filter(item=>item&&/^[A-Za-z0-9_-]{11}$/.test(String(item.videoId||''))).filter((item,index,array)=>array.findIndex(other=>String(other.videoId)===String(item.videoId))===index).slice(0,3);
+        const featured=media.videoId?{videoId:media.videoId,title:media.title,thumbnailUrl:'/api/thumbnail?id='+encodeURIComponent(media.videoId)}:null;
+        const normalizeTitle=value=>String(value||'').toLowerCase().replace(/\blive\b|🔴|episode\s*\d+|ep\.?\s*\d+/gi,' ').replace(/[^a-z0-9]+/gi,' ').trim();
+        const items=[featured].concat(media.recentVideos||[]).filter(item=>item&&/^[A-Za-z0-9_-]{11}$/.test(String(item.videoId||''))).filter((item,index,array)=>{
+          const title=normalizeTitle(item.title),id=String(item.videoId);
+          return array.findIndex(other=>String(other.videoId)===id || (title&&normalizeTitle(other.title)===title))===index;
+        }).slice(0,3);
         box.innerHTML=items.length?'<div class="media-grid">'+items.map((item,index)=>youtubeTile(item,index===0&&media.isLive?'● SEDANG LIVE':index===0?'TERBARU':'AWR BORNEO')).join('')+'</div>':youtubePlaylistFallback(media.channelId||'UC41TOa3S2aC8C-AxRBvH9Xw','AWR Borneo','Feed kartu sedang diperbarui. Unggahan terbaru tetap tersedia pada pemutar kanal resmi.');return Boolean(items.length);
       }
       async function fetchLiveYoutubeChannel(channel){
@@ -3402,6 +3737,23 @@
       }
       async function loadHomeAsync() {
         await Promise.allSettled([loadDevotionalHome(),loadInstagramHome(),loadAwrHome(),loadSabbathDiscussionHome(),loadThemeHome()]);
+      }
+
+      function renderAboutSite() {
+        const site = state.data.site || {};
+        const title = site.website_about_title || 'Sebuah ruang digital yang terasa teduh, jelas, dan dekat.';
+        const intro = site.website_about_intro || 'Website ini dibuat agar hal-hal sederhana—melihat jadwal, menemukan bacaan, atau menghubungi jemaat—tidak terasa rumit. Ia bukan pengganti persekutuan, melainkan jembatan kecil yang membantu kita tetap terhubung.';
+        const palette = site.website_palette_text || 'Hijau tua dipilih sebagai warna utama karena mengingatkan pada pertumbuhan, keteduhan, dan pengharapan yang terus hidup. Emas memberi rasa hangat sekaligus mengarah pada terang—sebuah pengingat sederhana kepada Yesus, Terang Dunia. Warna gading menjaga setiap halaman tetap jernih dan nyaman dibaca.';
+        const logo = site.website_logo_text || 'Nyala api Advent, Alkitab yang terbuka, dan salib bertemu dalam satu lambang. Bagi kami, bentuk ini bercerita tentang Kristus yang tetap menjadi pusat, firman yang hidup, dan kabar baik yang terus bergerak keluar.';
+        const purpose = site.website_purpose_text || 'Tujuannya sederhana: membuat informasi ibadah dan pelayanan lebih mudah ditemukan, dibaca dari ponsel, serta ditampilkan dengan tenang saat kebaktian. Teknologi dipakai untuk membantu pelayanan, bukan mengambil alih persekutuan.';
+        const developer = site.website_developer || 'Kevin Oloan Simatupang';
+        return pageHead('Tentang Website', title, intro) +
+          '<section class="section about-site-section"><div class="shell about-site-layout">' +
+            '<article class="about-story-card about-palette-card"><div><span class="chip brand">WARNA YANG PUNYA ARTI</span><h2>Teduh, hangat, dan tetap jernih.</h2><p>' + esc(palette) + '</p></div><div class="palette-row" aria-label="Palet warna website"><span class="palette-swatch is-green"><b>Hijau</b><small>Pertumbuhan</small></span><span class="palette-swatch is-gold"><b>Emas</b><small>Terang</small></span><span class="palette-swatch is-ivory"><b>Gading</b><small>Kejernihan</small></span></div></article>' +
+            '<article class="about-story-card about-logo-card"><div class="about-logo-visual"><span class="theme-logo-pair"><img class="logo-light" src="/assets/logo-galilea-light.webp" alt="Logo GMAHK Galilea"><img class="logo-dark" src="/assets/logo-galilea-dark.webp" alt="Logo GMAHK Galilea"></span><span class="about-logo-halo" aria-hidden="true"></span></div><div><span class="chip">CERITA DI BALIK LOGO</span><h2>Kristus tetap menjadi pusat.</h2><p>' + esc(logo) + '</p></div></article>' +
+            '<article class="about-story-card about-purpose-card"><span class="chip brand">UNTUK APA WEBSITE INI?</span><h2>Pelayanan yang lebih mudah dijangkau.</h2><p>' + esc(purpose) + '</p><div class="about-purpose-points"><span>' + icon('calendar') + 'Jadwal yang jelas</span><span>' + icon('book') + 'Bacaan yang mudah dibuka</span><span>' + icon('users') + 'Jemaat tetap terhubung</span></div></article>' +
+            '<aside class="developer-signature"><span class="eyebrow">Dikembangkan oleh</span><strong>' + esc(developer) + '</strong><p>Dirancang untuk melayani kebutuhan digital Jemaat Galilea, dengan perhatian pada keterbacaan, kesederhanaan, dan suasana ibadah.</p></aside>' +
+          '</div></section>';
       }
 
       function renderChurch() {
@@ -4112,15 +4464,18 @@
       }
       function worshipClosingSlides(plan){
         const site=state.data.site||{};
+        const bankName=site.presentation_bank_name||'Bank Mandiri';
+        const bankAccount=site.presentation_bank_account||'1490022442422';
+        const bankHolder=site.presentation_bank_holder||'Gereja Masehi Advent Hari Ketujuh';
         return worshipAnnouncementSlides(plan).concat([
-          {kind:'reminder',number:'01',title:'Partisipan wajib hadir 15 menit sebelum kebaktian dimulai.'},
-          {kind:'reminder',number:'02',title:'Mohon nonaktifkan perangkat elektronik saat ibadah berjalan.'},
-          {kind:'connection',title:'Tetap terhubung bersama kami.',copy:'Informasi resmi Jemaat Galilea Balikpapan.',fields:[
+          {kind:'reminder',number:'01',title:site.presentation_reminder_arrival||'Partisipan wajib hadir 15 menit sebelum kebaktian dimulai.'},
+          {kind:'reminder',number:'02',title:site.presentation_reminder_devices||'Mohon nonaktifkan perangkat elektronik saat ibadah berjalan.'},
+          {kind:'connection',title:site.presentation_connection_title||'Tetap terhubung bersama kami.',copy:'Informasi resmi Jemaat Galilea Balikpapan.',fields:[
             {label:'WhatsApp',value:site.phone||'+62 851-1717-7709'},
-            {label:'Instagram',value:'@advent.galilea'},
-            {label:'Email Galilea',value:'galileabalikpapan@gmail.com'},
-            {label:'Bank Mandiri',value:'1490022442422\nGereja Masehi Advent Hari Ketujuh'},
-            {label:'Website',value:'gmahk-galilea.vercel.app'}
+            {label:'Instagram',value:site.presentation_instagram_handle||instagramHandle(site)},
+            {label:'Email Galilea',value:site.presentation_email||site.email||'galileabalikpapan@gmail.com'},
+            {label:bankName,value:bankAccount+'\n'+bankHolder},
+            {label:'Website',value:site.presentation_website||'gmahk-galilea.vercel.app'}
           ]}
         ]);
       }
@@ -4311,7 +4666,8 @@
       function renderContact() {
         const site = state.data.site;
         const mapEmbed = safeUrl(site.maps_embed_url) || ('https://www.google.com/maps?q=' + encodeURIComponent((site.church_name || 'GMAHK Galilea Balikpapan') + ' ' + (site.address || 'Balikpapan')) + '&output=embed');
-        return pageHead('Datang beribadah', 'Kontak Gereja', 'Alamat, jadwal ibadah, dan jalur komunikasi GMAHK Galilea Balikpapan.') + '<section class="section" style="padding-top:10px"><div class="shell contact-layout"><article class="card card-pad"><p class="eyebrow">Informasi Gereja</p><h2>Mari terhubung.</h2><div class="contact-list"><div class="contact-row"><span class="contact-icon">' + icon('map') + '</span><div><small>Alamat</small><strong>' + esc(site.address) + '</strong></div></div><div class="contact-row"><span class="contact-icon">' + icon('phone') + '</span><div><small>Telepon / WhatsApp</small><strong>' + esc(site.phone) + '</strong></div></div>' + (site.email ? '<div class="contact-row"><span class="contact-icon">' + icon('mail') + '</span><div><small>Email</small><strong>' + esc(site.email) + '</strong></div></div>' : '') + '<div class="contact-row"><span class="contact-icon">' + brandIcon('instagram') + '</span><div><small>Instagram</small><strong><a href="https://www.instagram.com/advent.galilea/" target="_blank" rel="noopener">@advent.galilea</a></strong></div></div><div class="contact-row"><span class="contact-icon">' + icon('calendar') + '</span><div><small>Ibadah Sabat</small><strong>' + esc(site.sabbath_service) + '</strong></div></div><div class="contact-row"><span class="contact-icon">' + icon('clock') + '</span><div><small>Permintaan Doa</small><strong>' + esc(site.wednesday_service) + '</strong></div></div></div><div class="button-row"><a class="btn primary" href="' + attr(whatsappUrl(site)) + '" target="_blank" rel="noopener">' + brandIcon('whatsapp') + 'WhatsApp</a><a class="btn" href="https://www.instagram.com/advent.galilea/" target="_blank" rel="noopener">' + brandIcon('instagram') + 'Instagram</a><a class="btn" href="' + attr(mapsUrl(site)) + '" target="_blank" rel="noopener">' + brandIcon('maps') + 'Google Maps</a></div></article><article class="card map-embed"><iframe src="' + attr(mapEmbed) + '" title="Peta lokasi GMAHK Galilea Balikpapan" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><div class="map-overlay"><div><strong>GMAHK Galilea Balikpapan</strong><br><span class="small muted">' + esc(site.address) + '</span></div><a class="btn primary" href="' + attr(mapsUrl(site)) + '" target="_blank" rel="noopener">' + brandIcon('maps') + 'Petunjuk arah</a></div></article></div></section>';
+        const instagramName=instagramHandle(site), instagramLink=instagramProfileUrl(site);
+        return pageHead('Datang beribadah', 'Kontak Gereja', 'Alamat, jadwal ibadah, dan jalur komunikasi GMAHK Galilea Balikpapan.') + '<section class="section" style="padding-top:10px"><div class="shell contact-layout"><article class="card card-pad"><p class="eyebrow">Informasi Gereja</p><h2>Mari terhubung.</h2><div class="contact-list"><div class="contact-row"><span class="contact-icon">' + icon('map') + '</span><div><small>Alamat</small><strong>' + esc(site.address) + '</strong></div></div><div class="contact-row"><span class="contact-icon">' + icon('phone') + '</span><div><small>Telepon / WhatsApp</small><strong>' + esc(site.phone) + '</strong></div></div>' + (site.email ? '<div class="contact-row"><span class="contact-icon">' + icon('mail') + '</span><div><small>Email</small><strong>' + esc(site.email) + '</strong></div></div>' : '') + '<div class="contact-row"><span class="contact-icon">' + brandIcon('instagram') + '</span><div><small>Instagram</small><strong><a href="' + attr(instagramLink) + '" target="_blank" rel="noopener">' + esc(instagramName) + '</a></strong></div></div><div class="contact-row"><span class="contact-icon">' + icon('calendar') + '</span><div><small>Ibadah Sabat</small><strong>' + esc(site.sabbath_service) + '</strong></div></div><div class="contact-row"><span class="contact-icon">' + icon('clock') + '</span><div><small>Permintaan Doa</small><strong>' + esc(site.wednesday_service) + '</strong></div></div></div><div class="button-row"><a class="btn primary" href="' + attr(whatsappUrl(site)) + '" target="_blank" rel="noopener">' + brandIcon('whatsapp') + 'WhatsApp</a><a class="btn" href="' + attr(instagramLink) + '" target="_blank" rel="noopener">' + brandIcon('instagram') + 'Instagram</a><a class="btn" href="' + attr(mapsUrl(site)) + '" target="_blank" rel="noopener">' + brandIcon('maps') + 'Google Maps</a></div></article><article class="card map-embed"><iframe src="' + attr(mapEmbed) + '" title="Peta lokasi GMAHK Galilea Balikpapan" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><div class="map-overlay"><div><strong>GMAHK Galilea Balikpapan</strong><br><span class="small muted">' + esc(site.address) + '</span></div><a class="btn primary" href="' + attr(mapsUrl(site)) + '" target="_blank" rel="noopener">' + brandIcon('maps') + 'Petunjuk arah</a></div></article></div></section>';
       }
 
       function bindView() {
@@ -4861,7 +5217,7 @@
           } catch (_) {
             if ($('#home-devotional')) {
               $('#home-devotional').innerHTML = loadingBox('Memperbarui renungan pagi','Menyesuaikan bacaan dengan tanggal WITA hari ini…');
-              loadDevotionalHome();
+              loadDevotionalHome(true);
             }
           }
         },60000);
@@ -4903,7 +5259,7 @@
       $('#presentation-dialog')?.addEventListener('close',cleanupPresentation);
       if('ResizeObserver' in window){presentationResizeObserver=new ResizeObserver(()=>{if($('#presentation-dialog')?.open)schedulePresentationFit();});const frame=$('#presentation-frame');if(frame)presentationResizeObserver.observe(frame);}
       document.addEventListener('fullscreenchange',()=>{if($('#presentation-dialog')?.open)schedulePresentationFit();});
-      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&$('#presentation-dialog')?.open){requestPresentationWakeLock();schedulePresentationFit();}else if(document.visibilityState!=='visible')releasePresentationWakeLock();});
+      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){if($('#presentation-dialog')?.open){requestPresentationWakeLock();schedulePresentationFit();}if(state.route==='home'&&state.async.devotional&&state.async.devotional.requestedDate!==witaDateKey())loadDevotionalHome(true);}else releasePresentationWakeLock();});
       window.addEventListener('beforeinstallprompt',event => { event.preventDefault(); state.deferredInstall=event; });
       window.addEventListener('online',()=>{updateNetworkStatus();toast('Koneksi kembali tersedia.');});
       window.addEventListener('offline',updateNetworkStatus);
