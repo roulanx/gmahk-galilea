@@ -3125,6 +3125,30 @@
     linear-gradient(180deg,rgba(4,24,13,.06),rgba(1,8,4,.5)),
     url('/assets/presentation/hymnal.webp')!important;
 }
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="overview"],[data-presentation-kind="agenda"],[data-presentation-kind="service"],[data-presentation-kind="closing"]) .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(1,8,4,.985) 0%,rgba(3,17,9,.95) 43%,rgba(4,18,10,.78) 68%,rgba(2,9,5,.5) 100%),
+    linear-gradient(180deg,rgba(5,24,13,.08),rgba(1,8,4,.5)),
+    url('/assets/presentation/schedule.webp')!important;
+  background-size:cover!important;
+  background-position:center!important;
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="bible"],[data-presentation-kind="scripture"]) .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,8,.95) 45%,rgba(4,18,10,.79) 68%,rgba(2,9,5,.48) 100%),
+    linear-gradient(180deg,rgba(5,25,13,.06),rgba(1,8,4,.48)),
+    url('/assets/presentation/bible.webp')!important;
+  background-size:cover!important;
+  background-position:center!important;
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="song"],[data-presentation-kind="song-reference"]) .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,9,.95) 45%,rgba(4,18,11,.78) 68%,rgba(2,9,5,.46) 100%),
+    linear-gradient(180deg,rgba(4,24,13,.06),rgba(1,8,4,.5)),
+    url('/assets/presentation/hymnal.webp')!important;
+  background-size:cover!important;
+  background-position:center!important;
+}
 
 .presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before{
   background-image:
@@ -3144,6 +3168,24 @@
     linear-gradient(180deg,rgba(247,250,244,.18),rgba(225,236,222,.34)),
     url('/assets/presentation/hymnal.webp')!important;
 }
+.presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="overview"],[data-presentation-kind="agenda"],[data-presentation-kind="service"],[data-presentation-kind="closing"]) .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(250,252,248,.99) 0%,rgba(244,248,241,.965) 43%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.68) 100%),
+    linear-gradient(180deg,rgba(245,249,242,.18),rgba(225,236,222,.36)),
+    url('/assets/presentation/schedule.webp')!important;
+}
+.presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="bible"],[data-presentation-kind="scripture"]) .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.66) 100%),
+    linear-gradient(180deg,rgba(247,250,244,.2),rgba(225,236,222,.34)),
+    url('/assets/presentation/bible.webp')!important;
+}
+.presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="song"],[data-presentation-kind="song-reference"]) .presentation-frame::before{
+  background-image:
+    linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.65) 100%),
+    linear-gradient(180deg,rgba(247,250,244,.18),rgba(225,236,222,.34)),
+    url('/assets/presentation/hymnal.webp')!important;
+}
 
 /* Saat ornamen dimatikan dari admin, foto ikut disembunyikan dan gradien aman tetap dipakai. */
 .presentation-shell[data-presentation-ornament="off"]:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::before{
@@ -3154,7 +3196,10 @@
 }
 
 /* Foto menggantikan ikon garis agar visual tidak terasa seperti clip-art. */
-.presentation-shell:is([data-presentation-type="schedule"],[data-presentation-type="bible"],[data-presentation-type="song"]) :is(.presentation-context-art,.presentation-art){
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-context-art,
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-art.is-bible,
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-art.is-song,
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="overview"],[data-presentation-kind="agenda"],[data-presentation-kind="service"],[data-presentation-kind="closing"],[data-presentation-kind="bible"],[data-presentation-kind="scripture"],[data-presentation-kind="song"],[data-presentation-kind="song-reference"]) .presentation-context-art{
   display:none!important;
 }
 .presentation-shell:is([data-presentation-type="bible"],[data-presentation-type="song"]) .presentation-frame::after{
@@ -3219,6 +3264,9 @@
   .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before,
   .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before,
   .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
+    background-position:76% center!important;
+  }
+  .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="overview"],[data-presentation-kind="agenda"],[data-presentation-kind="service"],[data-presentation-kind="closing"],[data-presentation-kind="bible"],[data-presentation-kind="scripture"],[data-presentation-kind="song"],[data-presentation-kind="song-reference"]) .presentation-frame::before{
     background-position:76% center!important;
   }
   .presentation-shell:not(.is-light):not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-frame::before,
