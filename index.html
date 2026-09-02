@@ -2512,6 +2512,41 @@
     .reader-content.mission-reading{max-width:900px;margin-inline:auto;font-family:Georgia,"Times New Roman",serif;font-size:clamp(1.05rem,1.45vw,1.24rem);line-height:1.88;letter-spacing:-.01em}
     .reader-content.mission-reading p{margin:0 0 1.25em}.reader-content.mission-reading h2,.reader-content.mission-reading h3{margin:2em 0 .65em;font-family:Inter,ui-sans-serif,system-ui,sans-serif;line-height:1.08;letter-spacing:-.035em}.reader-content.mission-reading img{display:block;max-width:100%;height:auto;margin:28px auto;border-radius:20px;box-shadow:var(--shadow)}
     .reader-content.mission-reading blockquote{margin:28px 0;padding:18px 22px;border-left:4px solid var(--gold);border-radius:0 16px 16px 0;background:var(--surface-soft)}
+    /* GALILEA-MEDIA-PRESENTER-34-0-0 */
+    #home-video .media-grid{align-items:stretch;grid-auto-rows:1fr}
+    #home-video .media-tile{min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:24px;background:var(--surface);box-shadow:var(--shadow-sm)}
+    #home-video .media-copy{min-height:132px;background:var(--surface)}
+    #home-video .media-copy strong{color:var(--text)}
+    #home-video .media-youtube-link{margin-top:auto}
+    .media-feed-fallback{display:grid;grid-template-columns:minmax(0,.7fr) minmax(300px,1.3fr);gap:22px;align-items:center;padding:22px;border-radius:24px}
+    .media-feed-fallback h3{margin:16px 0 8px;color:var(--text)}
+    .media-feed-frame{overflow:hidden;aspect-ratio:16/9;border-radius:18px;background:#07110b}
+    .media-feed-frame iframe{display:block;width:100%;height:100%;border:0}
+    [data-theme="dark"] .media-feed-fallback,[data-theme="dark"] #home-video .media-tile,[data-theme="dark"] #home-video .media-copy{color:#f4f7f0;background:#102318}
+    @media(max-width:760px){.media-feed-fallback{grid-template-columns:1fr}.media-grid{grid-template-columns:1fr!important}}
+
+    /* Foto ornamental fullscreen yang tetap terbaca pada kedua tema */
+    .presentation-context-art,.presentation-art{display:none!important}
+    .presentation-frame::after{display:none!important}
+    .presentation-frame::before{z-index:0;display:block!important;inset:0!important;opacity:1!important;mask-image:none!important;-webkit-mask-image:none!important;background-repeat:no-repeat!important;content:""!important}
+    .presentation-shell[data-presentation-type="bible"] .presentation-frame::before{background-image:linear-gradient(90deg,rgba(1,8,4,.97) 0%,rgba(2,14,7,.91) 50%,rgba(2,12,6,.48) 78%,rgba(1,7,4,.28) 100%),url('/assets/presentation-bible-v33.webp')!important;background-size:cover!important;background-position:center!important}
+    .presentation-shell[data-presentation-type="song"] .presentation-frame::before{background-image:linear-gradient(90deg,rgba(1,8,4,.97) 0%,rgba(2,14,7,.91) 50%,rgba(2,12,6,.48) 78%,rgba(1,7,4,.28) 100%),url('/assets/presentation-hymnal-v33.webp')!important;background-size:cover!important;background-position:center!important}
+    .presentation-shell[data-presentation-kind="announcement"] .presentation-frame::before{background-image:linear-gradient(90deg,rgba(1,8,4,.96) 0%,rgba(3,14,8,.9) 55%,rgba(3,10,6,.5) 80%,rgba(2,7,4,.3) 100%),url('/assets/presentation-announcements-v33.webp')!important;background-size:cover,200% 200%!important}
+    .presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="0"] .presentation-frame::before{background-position:center,0% 0%!important}
+    .presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="1"] .presentation-frame::before{background-position:center,100% 0%!important}
+    .presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="2"] .presentation-frame::before{background-position:center,0% 100%!important}
+    .presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="3"] .presentation-frame::before{background-position:center,100% 100%!important}
+    .presentation-shell[data-presentation-type="bible"] .presentation-main,.presentation-shell[data-presentation-type="song"] .presentation-main,.presentation-shell[data-presentation-kind="announcement"] .presentation-main{position:relative;z-index:2}
+    .presentation-shell[data-presentation-type="bible"] .presentation-copy,.presentation-shell[data-presentation-type="song"] .presentation-copy,.presentation-shell[data-presentation-kind="announcement"] .presentation-announcement-title,.presentation-shell[data-presentation-kind="announcement"] .presentation-announcement-copy{color:#fff!important;text-shadow:0 4px 22px rgba(0,0,0,.7)!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-frame::before{background-image:linear-gradient(90deg,rgba(250,252,247,.98) 0%,rgba(244,248,241,.94) 50%,rgba(234,242,231,.8) 76%,rgba(228,238,225,.58) 100%),url('/assets/presentation-bible-v33.webp')!important}
+    .presentation-shell.is-light[data-presentation-type="song"] .presentation-frame::before{background-image:linear-gradient(90deg,rgba(250,252,247,.98) 0%,rgba(244,248,241,.94) 50%,rgba(234,242,231,.8) 76%,rgba(228,238,225,.58) 100%),url('/assets/presentation-hymnal-v33.webp')!important}
+    .presentation-shell.is-light[data-presentation-kind="announcement"] .presentation-frame::before{background-image:linear-gradient(90deg,rgba(250,252,247,.98) 0%,rgba(244,248,241,.94) 55%,rgba(234,242,231,.78) 78%,rgba(228,238,225,.55) 100%),url('/assets/presentation-announcements-v33.webp')!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-copy,.presentation-shell.is-light[data-presentation-type="song"] .presentation-copy,.presentation-shell.is-light[data-presentation-kind="announcement"] .presentation-announcement-title,.presentation-shell.is-light[data-presentation-kind="announcement"] .presentation-announcement-copy{color:#102719!important;text-shadow:0 2px 12px rgba(255,255,255,.72)!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-verse-label,.presentation-shell.is-light[data-presentation-type="song"] .presentation-verse-label,.presentation-shell.is-light[data-presentation-kind="announcement"] .presentation-verse-label{color:#173c25!important;border-color:rgba(42,91,54,.32)!important;background:rgba(255,255,255,.82)!important}
+    .presentation-shell.is-light[data-presentation-type="bible"] .presentation-title,.presentation-shell.is-light[data-presentation-type="song"] .presentation-title,.presentation-shell.is-light[data-presentation-kind="announcement"] .presentation-title{color:#173620!important}
+    .presentation-shell.is-light[data-presentation-type="song"] .presentation-refrain{color:#102719!important;background:rgba(255,255,255,.8)!important;border-left-color:#7d6118!important;text-shadow:none!important}
+    .presentation-shell.is-light[data-presentation-type="song"] .presentation-refrain strong{color:#694f0e!important}
+    @media(max-width:820px){.presentation-shell[data-presentation-type="bible"] .presentation-frame::before,.presentation-shell[data-presentation-type="song"] .presentation-frame::before{background-position:64% center!important}.presentation-shell[data-presentation-kind="announcement"] .presentation-frame::before{filter:brightness(.9)}}
 </style>
 </head>
 <body>
@@ -3032,6 +3067,11 @@
       function youtubeChannelFallback(channelUrl,title,copy){
         return '<article class="card card-pad"><span class="chip brand">KANAL RESMI</span><h3 style="margin-top:18px">'+esc(title)+'</h3><p class="muted">'+esc(copy)+'</p><a class="btn primary" href="'+attr(safeUrl(channelUrl)||'https://www.youtube.com/')+'" target="_blank" rel="noopener">Buka kanal YouTube'+icon('external')+'</a></article>';
       }
+      function youtubePlaylistFallback(channelId,title,copy){
+        const id=String(channelId||'').trim();
+        if(!/^UC[A-Za-z0-9_-]{20,}$/.test(id))return youtubeChannelFallback('',title,copy);
+        return '<article class="card media-feed-fallback"><div><span class="chip brand">KANAL RESMI</span><h3>'+esc(title)+'</h3><p class="muted">'+esc(copy)+'</p></div><div class="media-feed-frame"><iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=UU'+attr(id.slice(2))+'&rel=0&modestbranding=1" title="'+attr(title)+'" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div></article>';
+      }
 
       function safeFileName(value) {
         return String(value || 'bacaan-galilea').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z0-9_-]+/g,'-').replace(/^-+|-+$/g,'').slice(0,90) || 'bacaan-galilea';
@@ -3296,27 +3336,39 @@
         const box=$('#home-video');if(!box||!media)return false;
         const featured=media.videoId?{videoId:media.videoId,title:media.title,thumbnailUrl:'https://i.ytimg.com/vi/'+media.videoId+'/hqdefault.jpg'}:null;
         const items=[featured].concat(media.recentVideos||[]).filter(item=>item&&/^[A-Za-z0-9_-]{11}$/.test(String(item.videoId||''))).filter((item,index,array)=>array.findIndex(other=>String(other.videoId)===String(item.videoId))===index).slice(0,3);
-        box.innerHTML=items.length?'<div class="media-grid">'+items.map((item,index)=>youtubeTile(item,index===0&&media.isLive?'● SEDANG LIVE':index===0?'TERBARU':'AWR BORNEO')).join('')+'</div>':youtubeChannelFallback(media.channelUrl||state.data.site.awr_youtube_channel_url,'AWR Borneo','Video belum dapat dibaca tanpa mengulang kartu yang sama. Buka kanal resmi untuk melihat unggahan terbaru.');return Boolean(items.length);
+        box.innerHTML=items.length?'<div class="media-grid">'+items.map((item,index)=>youtubeTile(item,index===0&&media.isLive?'● SEDANG LIVE':index===0?'TERBARU':'AWR BORNEO')).join('')+'</div>':youtubePlaylistFallback(media.channelId||'UC41TOa3S2aC8C-AxRBvH9Xw','AWR Borneo','Feed kartu sedang diperbarui. Unggahan terbaru tetap tersedia pada pemutar kanal resmi.');return Boolean(items.length);
       }
-      async function loadAwrHome() {
-        if(!$('#home-video'))return;const key='v2900-awr-video',stale=cachePeek(key);
+      async function fetchLiveYoutubeChannel(channel){
+        const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9000);
+        try{
+          const response=await fetch('/api/media?channel='+encodeURIComponent(channel),{headers:{Accept:'application/json'},cache:'no-store',credentials:'same-origin',signal:controller.signal});
+          let payload=null;try{payload=await response.json();}catch(_){}
+          if(!response.ok||!payload||payload.ok!==true||!payload.data)throw new Error(payload&&payload.error||'Feed video belum tersedia.');
+          return payload.data;
+        }finally{clearTimeout(timer);}
+      }
+      async function loadAwrHome(){
+        if(!$('#home-video'))return;const key='v3400-awr-video',stale=cachePeek(key);
         if(stale)renderAwrHomeMedia(stale);
         const fresh=cacheGet(key);if(fresh){state.async.awr=fresh;renderAwrHomeMedia(fresh);return;}
-        try{const media=await server('getAwrBorneoMedia',[false],6500);cacheSet(key,media,media.isLive?300000:1800000);state.async.awr=media;renderAwrHomeMedia(media);}
-        catch(error){if(!stale&&$('#home-video'))$('#home-video').innerHTML=youtubeChannelFallback(state.data.site.awr_youtube_channel_url,'AWR Borneo','Koneksi video membutuhkan waktu terlalu lama. Halaman utama tetap dapat digunakan.');}
+        try{
+          let media;try{media=await fetchLiveYoutubeChannel('awr');}catch(_){media=await server('getAwrBorneoMedia',[false],12000);}
+          cacheSet(key,media,media.isLive?300000:600000);state.async.awr=media;renderAwrHomeMedia(media);
+        }catch(error){if(!stale&&$('#home-video'))$('#home-video').innerHTML=youtubePlaylistFallback('UC41TOa3S2aC8C-AxRBvH9Xw','AWR Borneo','Feed kartu sedang diperbarui. Unggahan terbaru tetap tersedia pada pemutar kanal resmi.');}
       }
       function renderSabbathDiscussionMedia(media){
         const box=$('#home-sabbath-video');if(!box||!media)return false;
-        if(!media.video||!/^[A-Za-z0-9_-]{11}$/.test(String(media.video.videoId||''))){box.innerHTML=youtubeChannelFallback(media.channelUrl,'Diskusi Sekolah Sabat','Pembahasan terbaru belum terbaca. Hanya satu tautan kanal ditampilkan agar tidak muncul tiga video yang sama.');return false;}
+        if(!media.video||!/^[A-Za-z0-9_-]{11}$/.test(String(media.video.videoId||''))){box.innerHTML=youtubePlaylistFallback(media.channelId||'UCkNVHkC8G5HiOgFG7Iv9smg','Diskusi Sekolah Sabat','Pembahasan terbaru sedang diperbarui. Video kanal resmi tetap dapat diputar.');return false;}
         box.innerHTML='<div class="discussion-layout">'+youtubeTile(media.video,'PEMBAHASAN TERBARU')+'<article class="card discussion-copy"><span class="chip brand">SATU VIDEO TERBARU</span><h3>'+esc(media.video.title)+'</h3><p class="muted">Pembahasan pelajaran mingguan dari Diskusi Sekolah Sabat, Hope Channel Indonesia. Tekan gambar video untuk menonton tanpa meninggalkan halaman.</p><div class="button-row"><button class="btn primary" type="button" data-youtube-play="'+attr(media.video.videoId)+'" data-youtube-title="'+attr(media.video.title)+'">'+icon('play')+'Tonton sekarang</button><a class="btn" href="'+attr(media.channelUrl)+'" target="_blank" rel="noopener">Buka kanal'+icon('external')+'</a></div></article></div>';return true;
       }
-      async function loadSabbathDiscussionHome() {
-        const box = $('#home-sabbath-video');
-        if (!box) return;
-        const key='v2900-sabbath-discussion-single',stale=cachePeek(key);if(stale)renderSabbathDiscussionMedia(stale);
+      async function loadSabbathDiscussionHome(){
+        const box=$('#home-sabbath-video');if(!box)return;
+        const key='v3400-sabbath-discussion',stale=cachePeek(key);if(stale)renderSabbathDiscussionMedia(stale);
         const fresh=cacheGet(key);if(fresh){state.async.sabbathDiscussion=fresh;renderSabbathDiscussionMedia(fresh);return;}
-        try{const media=await server('getSabbathDiscussionVideos',[false],6500);cacheSet(key,media,1800000);state.async.sabbathDiscussion=media;renderSabbathDiscussionMedia(media);}
-        catch(error){if(!stale&&$('#home-sabbath-video'))$('#home-sabbath-video').innerHTML=youtubeChannelFallback(state.data.site.sabbath_discussion_channel_url,'Diskusi Sekolah Sabat','Koneksi video membutuhkan waktu terlalu lama. Hanya satu tautan kanal resmi ditampilkan.');}
+        try{
+          let media;try{media=await fetchLiveYoutubeChannel('sabbath');}catch(_){media=await server('getSabbathDiscussionVideos',[false],12000);}
+          cacheSet(key,media,600000);state.async.sabbathDiscussion=media;renderSabbathDiscussionMedia(media);
+        }catch(error){if(!stale&&$('#home-sabbath-video'))$('#home-sabbath-video').innerHTML=youtubePlaylistFallback('UCkNVHkC8G5HiOgFG7Iv9smg','Diskusi Sekolah Sabat','Pembahasan terbaru sedang diperbarui. Video kanal resmi tetap dapat diputar.');}
       }
       async function loadThemeHome() {
         const themeBox = $('#advent-theme');
@@ -3484,7 +3536,19 @@
         const freshness=featured.isThisSabbath
           ? '<div class="mission-live-note">'+icon('check')+'<div><strong>Bacaan Sabat terbaru sudah cocok.</strong><br><span>Sistem memeriksa sumber otomatis setiap menit.</span></div></div>'
           : '<div class="mission-live-note">'+icon('info')+'<div><strong>Materi Sabat berikutnya belum diterbitkan.</strong><br><span>Menampilkan bacaan terbaru yang tersedia dan akan berganti otomatis setelah sumber memperbaruinya.</span></div></div>';
-        box.innerHTML='<div class="section-head"><div><p class="eyebrow">'+esc(payload.cadence||'Otomatis setiap Sabat')+'</p><h2>Berita Misi Advent</h2></div><span class="chip brand">Triwulan '+['','I','II','III','IV'][state.sabbathQuarter]+' · '+state.sabbathYear+'</span></div>'+freshness+'<article class="card resource-feature is-mission"><aside class="resource-aside"><span class="chip gold">'+esc(featured.badge||'TERBARU')+'</span><h2>'+esc(featured.title)+'</h2><p>'+esc(featured.dateLabel||'')+'</p><p class="resource-aside-copy">'+esc(featured.summary||'Kisah misi Advent untuk Sabat ini.')+'</p></aside><div class="resource-reading"><div class="resource-reading-head"><p class="eyebrow">Baca langsung</p>'+(detail?'<button class="btn" type="button" data-download-featured-resource>'+icon('download')+'Unduh bacaan</button>':'')+'</div>'+reader+'<p class="small faint">Sumber: '+esc((detail&&detail.source)||featured.source||'ben.Adam · Berita Misi Advent')+'</p></div></article>'+(others.length?'<div class="section-head" style="margin-top:42px"><div><p class="eyebrow">Arsip Triwulan</p><h2>Berita Misi Sabat lainnya.</h2></div></div><div class="grid grid-3">'+others.map(item=>'<button class="card library-card lift" type="button" data-resource-type="mission" data-resource-id="'+attr(item.sourceId)+'" style="text-align:left"><span class="chip '+(item.badge?'gold':'')+'">'+esc(item.badge||item.dateLabel||'Berita Misi')+'</span><h3>'+esc(item.title)+'</h3><p class="muted">'+esc(item.summary||'')+'</p><span class="link-arrow">Baca di sini'+icon('arrow')+'</span></button>').join('')+'</div>':'');
+        box.innerHTML='<div class="section-head"><div><p class="eyebrow">'+esc(payload.cadence||'Otomatis setiap Sabat')+'</p><h2>Berita Misi Advent</h2></div><span class="chip brand">Triwulan '+['','I','II','III','IV'][state.sabbathQuarter]+' · '+state.sabbathYear+'</span></div>'+freshness+'<article class="card resource-feature is-mission"><aside class="resource-aside"><span class="chip gold">'+esc(featured.badge||'TERBARU')+'</span><h2>'+esc(featured.title)+'</h2><p>'+esc(featured.dateLabel||'')+'</p><p class="resource-aside-copy">'+esc(featured.summary||'Kisah misi Advent untuk Sabat ini.')+'</p></aside><div class="resource-reading"><div class="resource-reading-head"><p class="eyebrow">Baca langsung</p>'+(detail?'<button class="btn" type="button" data-download-featured-resource="mission" data-resource-id="'+attr(featured.sourceId)+'">'+icon('download')+'Unduh bacaan</button>':'')+'</div>'+reader+'<p class="small faint">Sumber: '+esc((detail&&detail.source)||featured.source||'ben.Adam · Berita Misi Advent')+'</p></div></article>'+(others.length?'<div class="section-head" style="margin-top:42px"><div><p class="eyebrow">Arsip Triwulan</p><h2>Berita Misi Sabat lainnya.</h2></div></div><div class="grid grid-3">'+others.map(item=>'<button class="card library-card lift" type="button" data-resource-type="mission" data-resource-id="'+attr(item.sourceId)+'" style="text-align:left"><span class="chip '+(item.badge?'gold':'')+'">'+esc(item.badge||item.dateLabel||'Berita Misi')+'</span><h3>'+esc(item.title)+'</h3><p class="muted">'+esc(item.summary||'')+'</p><span class="link-arrow">Baca di sini'+icon('arrow')+'</span></button>').join('')+'</div>':'');
+      }
+
+      async function downloadFeaturedResource(button){
+        const type=String(button&&button.dataset.downloadFeaturedResource||'').toLowerCase();
+        const id=String(button&&button.dataset.resourceId||'');
+        if(!type||!id)return toast('Bacaan belum siap diunduh.');
+        try{
+          const key='v3400-download-'+type+'-'+id;
+          let data=cacheGet(key);
+          if(!data)data=type==='mission'?await fetchMissionDetail(id):await server('getSabbathResourceDetail',[type,id]);
+          cacheSet(key,data,21600000);downloadResourceData(data);
+        }catch(error){toast(error.message||'Bacaan belum dapat diunduh.');}
       }
 
       async function loadSabbathResources(type) {
@@ -3528,7 +3592,7 @@
           const manualLink=!detail&&safeUrl(featured.url)?'<a class="btn primary" href="'+attr(featured.url)+'" target="_blank" rel="noopener">Buka link bacaan cadangan'+icon('external')+'</a>':'';
           const reader = detail ? resourceReadingHtml(detail,type) : '<p class="lead">' + esc(featured.summary || '') + '</p>' + (detailMessage ? '<div class="notice">' + icon('info') + '<div class="notice-copy"><strong>Bacaan lengkap belum tersambung</strong><span>' + esc(detailMessage) + '</span></div></div>' : '')+manualLink;
           const others = (data.items || []).filter(item => item.sourceId !== featured.sourceId).slice(0,12);
-          box.innerHTML = '<div class="section-head"><div><p class="eyebrow">Diperbarui otomatis · ' + esc(data.cadence) + '</p><h2>' + esc(label) + '</h2></div><span class="chip brand">Triwulan ' + ['','I','II','III','IV'][state.sabbathQuarter] + ' · ' + state.sabbathYear + '</span></div>'+(fallbackMessage?'<div class="mission-live-note">'+icon('info')+'<div><strong>Mode link cadangan admin aktif.</strong><br><span>'+esc(fallbackMessage)+'</span></div></div>':'')+'<article class="card resource-feature"><aside class="resource-aside"><span class="chip gold">' + esc(featured.badge || 'TERBARU') + '</span><h2>' + esc(type === 'offering' ? 'Bacaan untuk Sabat mendatang' : featured.title) + '</h2><p>' + esc(featured.dateLabel || '') + '</p><p class="resource-aside-copy">' + esc(type === 'offering' ? featured.title : featured.summary || '') + '</p></aside><div class="resource-reading"><div class="resource-reading-head"><p class="eyebrow">Baca langsung</p>' + (detail ? '<button class="btn" type="button" data-download-featured-resource>' + icon('download') + 'Unduh bacaan</button>' : '') + '</div>' + reader + '<p class="small faint">Sumber: ' + esc((detail && detail.source) || featured.source || '') + '</p></div></article>' + (others.length ? '<div class="section-head" style="margin-top:42px"><div><p class="eyebrow">Arsip</p><h2>Bacaan lainnya.</h2></div></div><div class="grid grid-3">' + others.map(item => '<button class="card library-card lift" type="button" data-resource-type="' + type + '" data-resource-id="' + attr(item.sourceId) + '" style="text-align:left"><span class="chip ' + (item.badge ? 'gold' : '') + '">' + esc(item.badge || item.dateLabel || label) + '</span><h3>' + esc(item.title) + '</h3><p class="muted">' + esc(item.summary || '') + '</p><span class="link-arrow">Baca di sini' + icon('arrow') + '</span></button>').join('') + '</div>' : '');
+          box.innerHTML = '<div class="section-head"><div><p class="eyebrow">Diperbarui otomatis · ' + esc(data.cadence) + '</p><h2>' + esc(label) + '</h2></div><span class="chip brand">Triwulan ' + ['','I','II','III','IV'][state.sabbathQuarter] + ' · ' + state.sabbathYear + '</span></div>'+(fallbackMessage?'<div class="mission-live-note">'+icon('info')+'<div><strong>Mode link cadangan admin aktif.</strong><br><span>'+esc(fallbackMessage)+'</span></div></div>':'')+'<article class="card resource-feature"><aside class="resource-aside"><span class="chip gold">' + esc(featured.badge || 'TERBARU') + '</span><h2>' + esc(type === 'offering' ? 'Bacaan untuk Sabat mendatang' : featured.title) + '</h2><p>' + esc(featured.dateLabel || '') + '</p><p class="resource-aside-copy">' + esc(type === 'offering' ? featured.title : featured.summary || '') + '</p></aside><div class="resource-reading"><div class="resource-reading-head"><p class="eyebrow">Baca langsung</p>' + (detail ? '<button class="btn" type="button" data-download-featured-resource="' + attr(type) + '" data-resource-id="' + attr(featured.sourceId) + '">' + icon('download') + 'Unduh bacaan</button>' : '') + '</div>' + reader + '<p class="small faint">Sumber: ' + esc((detail && detail.source) || featured.source || '') + '</p></div></article>' + (others.length ? '<div class="section-head" style="margin-top:42px"><div><p class="eyebrow">Arsip</p><h2>Bacaan lainnya.</h2></div></div><div class="grid grid-3">' + others.map(item => '<button class="card library-card lift" type="button" data-resource-type="' + type + '" data-resource-id="' + attr(item.sourceId) + '" style="text-align:left"><span class="chip ' + (item.badge ? 'gold' : '') + '">' + esc(item.badge || item.dateLabel || label) + '</span><h3>' + esc(item.title) + '</h3><p class="muted">' + esc(item.summary || '') + '</p><span class="link-arrow">Baca di sini' + icon('arrow') + '</span></button>').join('') + '</div>' : '');
         } catch (error) { if ($('#sabbath-content')) $('#sabbath-content').innerHTML = errorBox(error.message); }
       }
 
@@ -3787,9 +3851,16 @@
         if(prev){prev.setAttribute('aria-label',label+' sebelumnya');prev.title=label+' sebelumnya';}
         if(next){next.setAttribute('aria-label',label+' berikutnya');next.title=label+' berikutnya';}
       }
-      function setPresentationOrnament(kind){
+      function announcementBackdropVariant(item,index){
+        const text=((item&&item.title)||'')+' '+((item&&item.summary)||'');
+        if(/doa|renungan|penghiburan|rohani/i.test(text))return 1;
+        if(/buah|pelayanan|bakti|sosial|one voice/i.test(text))return 2;
+        if(/makan|potluck|perjamuan|fellowship|kebersamaan/i.test(text))return 3;
+        return Math.abs(Number(index)||0)%4;
+      }
+      function setPresentationOrnament(kind,context,index){
         const shell=$('#presentation-shell'),use=$('#presentation-context-art-use'),map={overview:'church',agenda:'calendar',bible:'book',scripture:'book',song:'music','song-reference':'music',service:'users',announcement:'bell',reminder:'church',connection:'heart',closing:'church'};
-        if(shell)shell.dataset.presentationKind=String(kind||'overview');
+        if(shell){shell.dataset.presentationKind=String(kind||'overview');shell.dataset.presentationVariant=String(kind==='announcement'?announcementBackdropVariant(context,index):Math.abs(Number(index)||0)%4);}
         if(use)use.setAttribute('href','#i-'+(map[kind]||'church'));
       }
       function launchPresentation(view){
@@ -3831,7 +3902,7 @@
         shell.style.setProperty('--present-scale',String(clampPresentationScale(view.scale)));
         if(view.type==='operator'){
           const slides=Array.isArray(view.item)?view.item:[];if(!slides.length)return;
-          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index];setPresentationOrnament(slide.kind);
+          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index];setPresentationOrnament(slide.kind,slide,view.index);
           kicker.textContent='MODE OPERATOR · GMAHK GALILEA';title.textContent=slide.title||'Ibadah';setPresentationNavigationLabels('Bagian');
           if(slide.kind==='overview')stage.innerHTML='<article class="presentation-operator-hero"><section class="presentation-operator-copy"><span class="presentation-verse-label">'+esc(slide.serviceType||'IBADAH')+'</span><h2>'+esc(slide.title)+'</h2><p>'+esc(slide.dateLabel)+' · '+esc(slide.time)+'</p></section><aside class="presentation-operator-aside"><span>KESIAPAN MATERI</span><strong>'+esc(slide.readiness||'SIAP')+'</strong><small>Urutan otomatis tanpa playlist</small></aside></article>';
           else if(slide.kind==='agenda')stage.innerHTML='<article class="presentation-operator-panel"><span class="presentation-verse-label">URUTAN IBADAH'+(slide.part>1?' · BAGIAN '+esc(slide.part):'')+'</span><h2>'+esc(slide.title)+'</h2><ol class="presentation-operator-agenda">'+(slide.items||[]).map(item=>'<li>'+esc(item)+'</li>').join('')+'</ol></article>';
@@ -3857,7 +3928,7 @@
         }
         if(view.type==='schedule'){
           const slides=Array.isArray(view.item)?view.item:[];if(!slides.length)return;
-          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index],isOverview=slide.kind==='overview';setPresentationOrnament(slide.kind||(isOverview?'overview':'service'));
+          view.index=Math.max(0,Math.min(slides.length-1,Number(view.index)||0));const slide=slides[view.index],isOverview=slide.kind==='overview';setPresentationOrnament(slide.kind||(isOverview?'overview':'service'),slide,view.index);
           kicker.textContent=slide.kind==='announcement'?'AGENDA DAN PENGUMUMAN':slide.kind==='reminder'?'PENGINGAT IBADAH':slide.kind==='connection'?'TETAP TERHUBUNG':'RINGKASAN IBADAH TERDEKAT';title.textContent=slide.title||'Jadwal Ibadah';setPresentationNavigationLabels('Bagian');
           const heading='<h2 class="presentation-schedule-heading">'+esc(slide.title||'Jadwal Ibadah')+'</h2>';
           const subline='<div class="presentation-schedule-subline"><span>'+esc(slide.dateLabel)+'</span><span>'+esc(slide.time)+'</span></div>';
@@ -3879,7 +3950,7 @@
         }
         if(view.type==='announcement'){
           const items=Array.isArray(view.item)?view.item:[];if(!items.length)return;
-          view.index=Math.max(0,Math.min(items.length-1,Number(view.index)||0));const item=items[view.index],meta=announcementGroupMeta(view.announcementCategory||announcementCategory(item));setPresentationOrnament('announcement');
+          view.index=Math.max(0,Math.min(items.length-1,Number(view.index)||0));const item=items[view.index],meta=announcementGroupMeta(view.announcementCategory||announcementCategory(item));setPresentationOrnament('announcement',item,view.index);
           kicker.textContent='AGENDA DAN PENGUMUMAN';title.textContent=meta.label;setPresentationNavigationLabels('Pengumuman');
           stage.innerHTML='<article class="presentation-announcement"><div class="presentation-announcement-meta"><span class="presentation-verse-label">'+esc(item.dateLabel||'INFORMASI JEMAAT')+'</span><span class="presentation-announcement-priority">'+esc(item.priority||'NORMAL')+'</span></div><h2 class="presentation-announcement-title">'+esc(item.title)+'</h2><p class="presentation-announcement-copy">'+esc(item.summary||'Informasi selengkapnya akan diperbarui oleh pengurus.')+'</p></article>';
           counter.textContent=(view.index+1)+' / '+items.length;counter.setAttribute('aria-label','Pengumuman '+(view.index+1)+' dari '+items.length);
@@ -4649,7 +4720,7 @@
         const lessonDownload = event.target.closest('[data-download-lesson-id]');
         if (lessonDownload) return downloadLessonById(lessonDownload.dataset.downloadLessonId);
         if (event.target.closest('[data-download-current-lesson]') && state.async.currentLesson) return downloadLessonData(state.async.currentLesson);
-        if (event.target.closest('[data-download-featured-resource]') && state.async.featuredResource) return downloadResourceData(state.async.featuredResource);
+        const featuredDownload=event.target.closest('[data-download-featured-resource]');if(featuredDownload)return downloadFeaturedResource(featuredDownload);
         if (event.target.closest('[data-download-current-resource]') && state.async.currentResource) return downloadResourceData(state.async.currentResource);
         const resource = event.target.closest('[data-resource-id]');
         if (resource) return openResource(resource.dataset.resourceType,resource.dataset.resourceId);

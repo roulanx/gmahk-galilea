@@ -1,79 +1,143 @@
-const DRIVE_ID_PATTERN = /^[A-Za-z0-9_-]{10,128}$/;
-const MAX_IMAGE_BYTES = 6 * 1024 * 1024;
-const FETCH_TIMEOUT_MS = 8000;
+const BUILD = 'GALILEA-YOUTUBE-33.0.0';
 
-function reply(response, status, message) {
-  response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  response.setHeader('Cache-Control', 'no-store, max-age=0');
-  response.setHeader('X-Content-Type-Options', 'nosniff');
-  return response.status(status).json({ok: false, error: message});
+const CHANNELS = {
+  awr: {
+    id: 'UC41TOa3S2aC8C-AxRBvH9Xw',
+    name: 'AWR Borneo',
+    url: 'https://www.youtube.com/@AWRBorneo'
+  },
+  sabbath: {
+    id: 'UCkNVHkC8G5HiOgFG7Iv9smg',
+    name: 'Diskusi Sekolah Sabat · Hope Channel Indonesia',
+    url: 'https://www.youtube.com/@DiskusiSekolahSabat'
+  }
+};
+
+function decodeXml(value) {
+  return String(value || '')
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .trim();
 }
 
-function imageType(buffer, header) {
-  const declared = String(header || '').split(';')[0].trim().toLowerCase();
-  if (/^image\/(?:avif|gif|jpe?g|png|webp)$/.test(declared)) return declared;
-  if (buffer.length >= 3 && buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff) return 'image/jpeg';
-  if (buffer.length >= 8 && buffer.subarray(0, 8).equals(Buffer.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]))) return 'image/png';
-  if (buffer.length >= 6 && /GIF8[79]a/.test(buffer.subarray(0, 6).toString('ascii'))) return 'image/gif';
-  if (buffer.length >= 12 && buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP') return 'image/webp';
-  return '';
+function tag(source, name) {
+  const match = String(source || '').match(new RegExp('<(?:[a-z]+:)?' + name + '(?:\\s[^>]*)?>([\\s\\S]*?)<\\/(?:[a-z]+:)?' + name + '>', 'i'));
+  return decodeXml(match && match[1]);
 }
 
-async function downloadImage(url) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+function dateLabel(value) {
+  if (!value) return '';
   try {
-    const result = await fetch(url, {
+    return new Intl.DateTimeFormat('id-ID', {
+      timeZone: 'Asia/Makassar', day: 'numeric', month: 'long', year: 'numeric'
+    }).format(new Date(value));
+  } catch (_) {
+    return '';
+  }
+}
+
+function publicVideo(item) {
+  return {
+    videoId: item.videoId,
+    title: item.title,
+    publishedAt: item.publishedAt,
+    publishedLabel: dateLabel(item.publishedAt),
+    thumbnailUrl: 'https://i.ytimg.com/vi/' + item.videoId + '/hqdefault.jpg',
+    embedUrl: 'https://www.youtube-nocookie.com/embed/' + item.videoId + '?rel=0&modestbranding=1&playsinline=1',
+    watchUrl: 'https://www.youtube.com/watch?v=' + item.videoId
+  };
+}
+
+async function readFeed(channel) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 9000);
+  try {
+    const response = await fetch('https://www.youtube.com/feeds/videos.xml?channel_id=' + encodeURIComponent(channel.id), {
       headers: {
-        Accept: 'image/avif,image/webp,image/png,image/jpeg,image/*;q=0.8',
-        'User-Agent': 'GMAHK-Galilea-Media-Proxy/1.0'
+        Accept: 'application/atom+xml, application/xml, text/xml',
+        'User-Agent': BUILD
       },
       redirect: 'follow',
       signal: controller.signal
     });
-    if (!result.ok) throw new Error('HTTP ' + result.status);
-    const declaredLength = Number(result.headers.get('content-length') || 0);
-    if (declaredLength > MAX_IMAGE_BYTES) throw new Error('Gambar terlalu besar');
-    const buffer = Buffer.from(await result.arrayBuffer());
-    if (!buffer.length || buffer.length > MAX_IMAGE_BYTES) throw new Error('Ukuran gambar tidak valid');
-    const contentType = imageType(buffer, result.headers.get('content-type'));
-    if (!contentType) throw new Error('Respons bukan gambar');
-    return {buffer, contentType};
+    if (!response.ok) throw new Error('Feed YouTube menjawab HTTP ' + response.status + '.');
+    const xml = await response.text();
+    const entries = xml.match(/<entry>[\s\S]*?<\/entry>/gi) || [];
+    const seen = new Set();
+    return entries.map(entry => ({
+      videoId: tag(entry, 'videoId'),
+      title: tag(entry, 'title') || 'Video YouTube',
+      publishedAt: tag(entry, 'published')
+    })).filter(item => {
+      if (!/^[A-Za-z0-9_-]{11}$/.test(item.videoId) || seen.has(item.videoId)) return false;
+      seen.add(item.videoId);
+      return true;
+    });
   } finally {
     clearTimeout(timer);
   }
 }
 
+function isDiscussion(item) {
+  const title = String(item && item.title || '');
+  return /sekolah\s+sabat|sabbath\s+school/i.test(title) &&
+    /pelajaran|diskusi|sabbath\s+school/i.test(title) &&
+    !/shorts?|q\s*&\s*a|tanya\s*jawab|pertanyaan/i.test(title);
+}
+
 export default async function handler(request, response) {
-  if (request.method !== 'GET' && request.method !== 'HEAD') {
-    response.setHeader('Allow', 'GET, HEAD');
-    return reply(response, 405, 'Metode permintaan tidak didukung.');
+  if (request.method !== 'GET') {
+    response.setHeader('Allow', 'GET');
+    return response.status(405).json({ok: false, error: 'Metode tidak didukung.'});
   }
-
-  const rawId = Array.isArray(request.query && request.query.id) ? request.query.id[0] : request.query && request.query.id;
-  const id = String(rawId || '').trim();
-  if (!DRIVE_ID_PATTERN.test(id)) return reply(response, 400, 'ID gambar tidak valid.');
-
-  const candidates = [
-    `https://lh3.googleusercontent.com/d/${id}=w1200`,
-    `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1200`,
-    `https://drive.usercontent.google.com/download?id=${encodeURIComponent(id)}&export=view`
-  ];
-
-  for (const url of candidates) {
-    try {
-      const image = await downloadImage(url);
-      response.setHeader('Content-Type', image.contentType);
-      response.setHeader('Content-Length', String(image.buffer.length));
-      response.setHeader('Content-Disposition', 'inline');
-      response.setHeader('Cache-Control', 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000');
-      response.setHeader('X-Content-Type-Options', 'nosniff');
-      if (request.method === 'HEAD') return response.status(200).end();
-      return response.status(200).send(image.buffer);
-    } catch (_) {
-      // Coba endpoint resmi Google berikutnya sebelum menampilkan fallback inisial.
+  const type = String(request.query && request.query.channel || 'awr').toLowerCase();
+  const channel = CHANNELS[type];
+  if (!channel) return response.status(400).json({ok: false, error: 'Kanal tidak dikenali.'});
+  try {
+    const videos = await readFeed(channel);
+    if (!videos.length) throw new Error('Feed kanal belum memuat video.');
+    response.setHeader('Content-Type', 'application/json; charset=utf-8');
+    response.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=900');
+    response.setHeader('X-Galilea-Build', BUILD);
+    if (type === 'sabbath') {
+      const selected = videos.find(isDiscussion) || videos[0];
+      return response.status(200).json({
+        ok: true,
+        channel: type,
+        data: {
+          channelName: channel.name,
+          channelUrl: channel.url,
+          video: publicVideo(selected),
+          updatedAt: new Date().toISOString(),
+          source: 'YouTube RSS · Vercel'
+        }
+      });
     }
+    const latest = videos.slice(0, 3);
+    return response.status(200).json({
+      ok: true,
+      channel: type,
+      data: {
+        isLive: false,
+        mode: 'latest',
+        videoId: latest[0].videoId,
+        title: latest[0].title,
+        channelUrl: channel.url,
+        recentVideos: latest.slice(1).map(publicVideo),
+        updatedAt: new Date().toISOString(),
+        source: 'YouTube RSS · Vercel'
+      }
+    });
+  } catch (error) {
+    const timedOut = error && error.name === 'AbortError';
+    return response.status(timedOut ? 504 : 502).json({
+      ok: false,
+      error: timedOut ? 'YouTube membutuhkan waktu terlalu lama.' : String(error && error.message || error || 'Video belum dapat dimuat.'),
+      build: BUILD
+    });
   }
-
-  return reply(response, 404, 'Gambar belum dapat diakses.');
 }
