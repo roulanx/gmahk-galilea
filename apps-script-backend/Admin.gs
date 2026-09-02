@@ -6,7 +6,7 @@
  */
 
 const GA = Object.freeze({
-  VERSION: '20.1.0',
+  VERSION: '20.2.0',
   SHEETS: Object.freeze({
     admins: 'Website Admin',
     workflow: 'Website Workflow',
@@ -505,6 +505,37 @@ function adminListApprovals(stateFilter) {
   const state = String(stateFilter || 'PENDING').toUpperCase();
   if (GA.STATES.indexOf(state) < 0) throw new Error('Filter status persetujuan tidak dikenali.');
   return gaWorkflowRows_(gwSpreadsheet_()).filter(function (item) { return !state || item.state === state; });
+}
+
+/**
+ * Menghapus catatan persetujuan tanpa membatalkan konten yang sudah diterbitkan.
+ * Jejak tindakan tetap disimpan di Website Audit agar pengelolaan dapat ditelusuri.
+ */
+function adminDeleteApproval(workflowId) {
+  const user = gaRequireRole_('APPROVER');
+  const spreadsheet = gwSpreadsheet_();
+  const sheet = spreadsheet.getSheetByName(GA.SHEETS.workflow);
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(7000)) throw new Error('Portal sedang menyimpan perubahan lain. Tunggu beberapa detik lalu coba kembali.');
+  try {
+    const row = gaFindRowByValue_(sheet, 1, workflowId);
+    if (!row) throw new Error('Catatan persetujuan tidak ditemukan.');
+    const values = sheet.getRange(row, 1, 1, 13).getDisplayValues()[0];
+    const workflowState = String(values[5] || '').toUpperCase();
+    if (['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'].indexOf(workflowState) < 0) {
+      throw new Error('Item ini bukan catatan persetujuan yang dapat dihapus.');
+    }
+    sheet.deleteRow(row);
+    gaAudit_(user, 'DELETE_APPROVAL_RECORD', values[1], workflowId, workflowState + ' · catatan persetujuan dihapus; konten publik tidak dibatalkan');
+    return {
+      ok: true,
+      id: workflowId,
+      state: workflowState,
+      message: workflowState === 'APPROVED'
+        ? 'Riwayat persetujuan dihapus. Konten yang sudah terbit tetap tampil.'
+        : 'Pengajuan berhasil dihapus dari daftar persetujuan.'
+    };
+  } finally { lock.releaseLock(); }
 }
 
 function adminReviewWorkflow(workflowId, decision, note) {

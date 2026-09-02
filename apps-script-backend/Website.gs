@@ -7,8 +7,8 @@
  */
 
 const GW = Object.freeze({
-  VERSION: '20.1.0',
-  BUILD_ID: 'GALILEA-20260902-RESPONSIVE-ABOUT-2010',
+  VERSION: '20.2.0',
+  BUILD_ID: 'GALILEA-20260903-ADMIN-ORNAMENT-2020',
   TITLE: 'GMAHK Galilea Balikpapan',
   TIMEZONE: 'Asia/Makassar',
   UTC_OFFSET: '+08:00',
@@ -706,6 +706,7 @@ function gwSettingDefinitions_() {
     ['Media', 'sabbath_discussion_channel_id', 'UCkNVHkC8G5HiOgFG7Iv9smg', 'ID kanal untuk pembahasan Sekolah Sabat mingguan'],
     ['Media', 'theme_song_number', '', 'Nomor Lagu Sion tema, 1–525'],
     ['Media', 'theme_song_title', 'Lagu Tema Jemaat', 'Judul kartu lagu tema'],
+    ['Navigasi', 'navigation_menu_label', 'MENU', 'Tulisan tombol menu utama, maksimal 12 karakter'],
     ['Tentang Website', 'website_about_title', 'Sebuah ruang digital yang terasa teduh, jelas, dan dekat.', 'Judul utama halaman Tentang Website'],
     ['Tentang Website', 'website_about_intro', 'Website ini dibuat agar hal-hal sederhana—melihat jadwal, menemukan bacaan, atau menghubungi jemaat—tidak terasa rumit. Ia bukan pengganti persekutuan, melainkan jembatan kecil yang membantu kita tetap terhubung.', 'Pembuka halaman dengan gaya bahasa yang hangat'],
     ['Tentang Website', 'website_palette_text', 'Hijau tua dipilih sebagai warna utama karena mengingatkan pada pertumbuhan, keteduhan, dan pengharapan yang terus hidup. Emas memberi rasa hangat sekaligus mengarah pada terang—sebuah pengingat sederhana kepada Yesus, Terang Dunia. Warna gading menjaga setiap halaman tetap jernih dan nyaman dibaca.', 'Filosofi palet warna website'],
@@ -721,6 +722,12 @@ function gwSettingDefinitions_() {
     ['Mode Layar', 'presentation_bank_account', '1490022442422', 'Nomor rekening jemaat'],
     ['Mode Layar', 'presentation_bank_holder', 'Gereja Masehi Advent Hari Ketujuh', 'Nama pemilik rekening'],
     ['Mode Layar', 'presentation_website', 'gmahk-galilea.vercel.app', 'Alamat website yang tampil di presentasi'],
+    ['Mode Layar', 'presentation_ornaments_enabled', 'YA', 'YA untuk menampilkan ornamen; TIDAK untuk menyembunyikan semuanya'],
+    ['Mode Layar', 'presentation_ornament_strength', 'JELAS', 'Pilihan: LEMBUT, SEIMBANG, atau JELAS'],
+    ['Mode Layar', 'presentation_schedule_ornament', 'AUTO', 'AUTO menyesuaikan slide; pilihan manual: CHURCH, CALENDAR, BOOK, MUSIC, USERS, BELL, HEART'],
+    ['Mode Layar', 'presentation_bible_ornament', 'BOOK', 'Ornamen Alkitab. Gunakan BOOK atau pilihan ikon Mode Layar lainnya'],
+    ['Mode Layar', 'presentation_hymnal_ornament', 'MUSIC', 'Ornamen Lagu Sion. Gunakan MUSIC atau pilihan ikon Mode Layar lainnya'],
+    ['Mode Layar', 'presentation_announcement_ornament', 'AUTO', 'AUTO memilih ornamen berbeda dari isi pengumuman'],
     ['Tema Advent', 'advent_theme_year', '', 'Kosong mengikuti tahun berjalan'],
     ['Tampilan', 'primary_color', '#476452', 'Warna utama HEX'],
     ['Tampilan', 'accent_color', '#B79A61', 'Warna aksen HEX'],

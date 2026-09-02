@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-RESPONSIVE-ABOUT-35-3-1" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-ADMIN-ORNAMENT-35-6-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -2999,6 +2999,100 @@
 #reader-dialog :is(.btn,.icon-button){
   border-color:var(--line-strong);
 }
+
+/* V35.6 — tombol MENU berbentuk pill dan ornamen fullscreen kontekstual. */
+.site-header .mobile-toggle,
+.site-header.is-scrolled .mobile-toggle{
+  border-radius:999px!important;
+}
+.site-header .mobile-toggle::before{
+  border-radius:inherit;
+}
+
+.presentation-shell{
+  --presentation-ornament-opacity:.18;
+}
+.presentation-shell[data-presentation-ornament="off"] :is(.presentation-context-art,.presentation-art){
+  display:none!important;
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="schedule"] .presentation-context-art,
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"] .presentation-context-art,
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="announcement"] .presentation-context-art{
+  display:block!important;
+  right:clamp(22px,4vw,76px)!important;
+  bottom:clamp(92px,11vh,150px)!important;
+  width:clamp(180px,28vw,430px)!important;
+  height:clamp(180px,28vw,430px)!important;
+  padding:clamp(24px,3.5vw,52px);
+  color:#ead18b!important;
+  opacity:var(--presentation-ornament-opacity)!important;
+  border:1px solid currentColor;
+  border-radius:50%;
+  filter:drop-shadow(0 24px 70px rgba(0,0,0,.16));
+  transform:rotate(-4deg);
+}
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-art.is-bible,
+.presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-art.is-song{
+  display:block!important;
+  right:clamp(12px,3vw,54px)!important;
+  bottom:clamp(82px,10vh,132px)!important;
+  width:clamp(290px,39vw,640px)!important;
+  height:auto!important;
+  opacity:var(--presentation-ornament-opacity)!important;
+  filter:drop-shadow(0 30px 80px rgba(0,0,0,.2));
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%,#000 100%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 34%,#000 100%);
+}
+.presentation-shell[data-presentation-type="bible"] .presentation-art.is-bible{color:#cbe0c7!important}
+.presentation-shell[data-presentation-type="song"] .presentation-art.is-song{color:#efd58b!important}
+.presentation-shell[data-presentation-type="bible"] .presentation-frame::after,
+.presentation-shell[data-presentation-type="song"] .presentation-frame::after{display:none!important}
+.presentation-shell.is-light[data-presentation-type="bible"] .presentation-art.is-bible{color:#225c39!important}
+.presentation-shell.is-light[data-presentation-type="song"] .presentation-art.is-song{color:#735710!important}
+.presentation-shell.is-light:not([data-presentation-ornament="off"]):is([data-presentation-type="schedule"],[data-presentation-type="operator"],[data-presentation-type="announcement"]) .presentation-context-art{
+  color:#245f3c!important;
+}
+
+/* Pengumuman memakai motif yang berbeda tanpa foto, mengikuti konteks slide. */
+.presentation-shell[data-presentation-kind="announcement"] .presentation-frame::before{
+  background-image:
+    radial-gradient(circle at 84% 26%,rgba(225,200,127,.15),transparent 27%),
+    linear-gradient(118deg,#031008 0%,#0b2a18 58%,#193a26 100%)!important;
+  background-size:auto!important;
+  background-position:center!important;
+}
+.presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="1"] .presentation-frame::before{
+  background-image:radial-gradient(circle at 78% 24%,rgba(188,218,188,.15),transparent 26%),linear-gradient(122deg,#020d07,#123421 64%,#234731)!important;
+}
+.presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="2"] .presentation-frame::before{
+  background-image:radial-gradient(circle at 82% 70%,rgba(216,188,112,.16),transparent 29%),linear-gradient(120deg,#031008,#10301d 60%,#34442d)!important;
+}
+.presentation-shell[data-presentation-kind="announcement"][data-presentation-variant="3"] .presentation-frame::before{
+  background-image:repeating-linear-gradient(0deg,transparent 0 58px,rgba(230,207,145,.04) 59px 60px),linear-gradient(120deg,#031008,#102f1d 62%,#2c402e)!important;
+}
+.presentation-shell.is-light[data-presentation-kind="announcement"] .presentation-frame::before{
+  background-image:radial-gradient(circle at 84% 26%,rgba(130,96,28,.1),transparent 27%),linear-gradient(118deg,#fbfcf8 0%,#edf3e9 58%,#dce8db 100%)!important;
+}
+.presentation-shell.is-light[data-presentation-kind="announcement"][data-presentation-variant="1"] .presentation-frame::before{
+  background-image:radial-gradient(circle at 78% 24%,rgba(42,104,65,.1),transparent 26%),linear-gradient(122deg,#fbfcf8,#edf3e9 64%,#d7e6d8)!important;
+}
+.presentation-shell.is-light[data-presentation-kind="announcement"][data-presentation-variant="2"] .presentation-frame::before{
+  background-image:radial-gradient(circle at 82% 70%,rgba(139,102,25,.1),transparent 29%),linear-gradient(120deg,#fbfcf8,#edf3e9 60%,#e7e1c8)!important;
+}
+.presentation-shell.is-light[data-presentation-kind="announcement"][data-presentation-variant="3"] .presentation-frame::before{
+  background-image:repeating-linear-gradient(0deg,transparent 0 58px,rgba(49,92,62,.04) 59px 60px),linear-gradient(120deg,#fbfcf8,#edf3e9 62%,#dce8db)!important;
+}
+
+@media(max-width:820px){
+  .site-header .mobile-toggle,.site-header.is-scrolled .mobile-toggle{border-radius:999px!important}
+  .presentation-shell:not([data-presentation-ornament="off"]):is([data-presentation-type="schedule"],[data-presentation-type="operator"],[data-presentation-type="announcement"]) .presentation-context-art{
+    right:-8vw!important;bottom:86px!important;width:clamp(150px,48vw,250px)!important;height:clamp(150px,48vw,250px)!important;padding:24px!important;opacity:var(--presentation-ornament-opacity)!important
+  }
+  .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-art.is-bible,
+  .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-art.is-song{
+    right:-18vw!important;bottom:72px!important;width:min(88vw,440px)!important;opacity:var(--presentation-ornament-opacity)!important
+  }
+}
 </style>
 </head>
 <body>
@@ -3611,6 +3705,9 @@
         if (logoFallback) logoFallback.hidden = false;
         $('#header-name').textContent = 'GMAHK Galilea';
         $('#header-tagline').textContent = site.tagline || '';
+        const menuLabel = String(site.navigation_menu_label || 'MENU').trim().slice(0,12) || 'MENU';
+        const menuLabelNode = $('#mobile-toggle .menu-label');
+        if (menuLabelNode) menuLabelNode.textContent = menuLabel;
         $('#footer-address').textContent = site.address || 'Balikpapan, Kalimantan Timur';
         $('#footer-whatsapp').href = whatsappUrl(site);
         $('#footer-whatsapp').innerHTML = brandIcon('whatsapp') + 'WhatsApp';
@@ -4382,9 +4479,29 @@
         return Math.abs(Number(index)||0)%4;
       }
       function setPresentationOrnament(kind,context,index){
-        const shell=$('#presentation-shell'),use=$('#presentation-context-art-use'),map={overview:'church',agenda:'calendar',bible:'book',scripture:'book',song:'music','song-reference':'music',service:'users',announcement:'bell',reminder:'church',connection:'heart',closing:'church'};
-        if(shell){shell.dataset.presentationKind=String(kind||'overview');shell.dataset.presentationVariant=String(kind==='announcement'?announcementBackdropVariant(context,index):Math.abs(Number(index)||0)%4);}
-        if(use)use.setAttribute('href','#i-'+(map[kind]||'church'));
+        const shell=$('#presentation-shell'),use=$('#presentation-context-art-use'),site=state.data&&state.data.site||{};
+        const baseMap={overview:'church',agenda:'calendar',bible:'book',scripture:'book',song:'music','song-reference':'music',service:'users',announcement:'bell',reminder:'church',connection:'heart',closing:'church'};
+        const allowed=['church','calendar','book','music','users','bell','heart'];
+        const disabled=/^(?:TIDAK|NO|OFF|FALSE|0)$/i.test(String(site.presentation_ornaments_enabled||'YA').trim());
+        const strength=String(site.presentation_ornament_strength||'JELAS').trim().toUpperCase();
+        const opacity={LEMBUT:.1,SEIMBANG:.145,JELAS:.19}[strength]||.19;
+        const variant=kind==='announcement'?announcementBackdropVariant(context,index):Math.abs(Number(index)||0)%4;
+        let setting='';
+        if(['overview','agenda','service'].includes(kind))setting=site.presentation_schedule_ornament;
+        else if(['bible','scripture'].includes(kind))setting=site.presentation_bible_ornament;
+        else if(['song','song-reference'].includes(kind))setting=site.presentation_hymnal_ornament;
+        else if(kind==='announcement')setting=site.presentation_announcement_ornament;
+        let ornament=String(setting||'AUTO').trim().toLowerCase();
+        if(ornament==='auto'||!allowed.includes(ornament)){
+          ornament=kind==='announcement'?(['calendar','book','heart','users'][variant]||'bell'):(baseMap[kind]||'church');
+        }
+        if(shell){
+          shell.dataset.presentationKind=String(kind||'overview');
+          shell.dataset.presentationVariant=String(variant);
+          shell.dataset.presentationOrnament=disabled?'off':ornament;
+          shell.style.setProperty('--presentation-ornament-opacity',String(opacity));
+        }
+        if(use)use.setAttribute('href','#i-'+ornament);
       }
       function launchPresentation(view){
         const dialog=$('#presentation-dialog'),shell=$('#presentation-shell');if(!dialog||!shell||!view)return;
@@ -4483,6 +4600,7 @@
         if(view.type==='bible'){
           const item=state.bibleReader,verses=item&&item.verses||[];if(!verses.length)return;
           view.index=Math.max(0,Math.min(verses.length-1,Number(view.index)||0));const verse=verses[view.index];
+          setPresentationOrnament('bible',verse,view.index);
           kicker.textContent=item.source||'Alkitab Bahasa Indonesia';title.textContent=item.book+' '+item.chapter+':'+verse.number;setPresentationNavigationLabels('Ayat');
           stage.innerHTML='<span class="presentation-verse-label">AYAT '+esc(verse.number)+'</span><div class="presentation-copy bible">'+esc(verse.text)+'</div>';
           counter.textContent=(view.index+1)+' / '+verses.length;counter.setAttribute('aria-label','Ayat '+(view.index+1)+' dari '+verses.length);
@@ -4492,6 +4610,7 @@
         const song=state.hymnalReader&&state.hymnalReader.song,parts=song&&song.lyrics||[];
         const verses=parts.filter(part=>!/(chorus|refrain)/i.test(part.type)),chorus=parts.find(part=>/(chorus|refrain)/i.test(part.type));if(!verses.length)return;
         view.index=Math.max(0,Math.min(verses.length-1,Number(view.index)||0));const verse=verses[view.index],isTheme=Boolean(state.hymnalReader.isTheme||song.isTheme);
+        setPresentationOrnament('song',song,view.index);
         kicker.textContent=isTheme?'LAGU TEMA · GMAHK GALILEA BALIKPAPAN':'LAGU SION · NOMOR '+song.number;title.textContent=song.title;setPresentationNavigationLabels('Ayat');
         stage.innerHTML='<span class="presentation-verse-label">AYAT '+esc(verse.index||view.index+1)+'</span><div class="presentation-copy">'+verse.lines.map(esc).join('<br>')+'</div>'+(chorus?'<div class="presentation-refrain"><strong>REFF</strong>'+chorus.lines.map(esc).join('<br>')+'</div>':'');
         counter.textContent='Ayat '+(view.index+1)+' / '+verses.length;counter.setAttribute('aria-label','Ayat '+(view.index+1)+' dari '+verses.length);
