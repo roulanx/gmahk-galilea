@@ -12,8 +12,8 @@ const index = read('index.html');
 const worker = read('sw.js');
 const robots = read('robots.txt');
 const sitemap = read('sitemap.xml');
-assert.match(index, /data-build="GALILEA-DUAL-BRAND-31-0-0"/);
-assert.match(index, /GALILEA-RESPONSIVE-CONTRAST-20-0-0/);
+assert.match(index, /data-build="GALILEA-ADMIN-STABILITY-35-8-0"/);
+assert.match(index, /GALILEA-RESPONSIVE-ABOUT-35-1-0/);
 assert.match(index, /profile-role/);
 assert.match(index, /fetch\('\/api\/gas'/);
 assert.match(index, /fetch\('\/api\/quarterly-pdf'/);
@@ -81,7 +81,7 @@ assert.doesNotMatch(index, /Siap ditampilkan/i);
 assert.doesNotMatch(index, /theme-song-preview/);
 assert.match(index, /id="presentation-offline"/);
 assert.match(index, /async function cachedResource/);
-assert.match(worker, /galilea-v31-dual-brand/);
+assert.match(worker, /galilea-v35-8-admin-stability/);
 assert.match(index, /GALILEA-DUAL-BRAND-31-0-0/);
 assert.match(index, /assets\/logo-galilea-light\.webp/);
 assert.match(index, /assets\/logo-galilea-dark\.webp/);
@@ -136,8 +136,8 @@ assert.match(index, /data-start-worship-operator/);
 assert.match(index, /data-open-screen-check/);
 assert.match(index, /data-prepare-worship-offline/);
 assert.match(index, /v2900-worship-offline-/);
-assert.match(index, /v2900-awr-video/);
-assert.match(index, /v2900-sabbath-discussion-single/);
+assert.match(index, /v3400-awr-video/);
+assert.match(index, /v3400-sabbath-discussion/);
 assert.match(index, /function renderAwrHomeMedia\(media\)/);
 assert.match(index, /function renderSabbathDiscussionMedia\(media\)/);
 assert.match(index, /\.slice\(0,3\)/);
@@ -159,7 +159,8 @@ assert.ok(structuredData, 'Data terstruktur SEO belum tersedia.');
 assert.equal(JSON.parse(structuredData[1])['@graph'][0]['@type'], 'Church');
 
 const proxy = read('api/gas.js');
-const mediaProxy = read('api/media.js');
+const youtubeProxy = read('api/media.js');
+const thumbnailProxy = read('api/thumbnail.js');
 const quarterlyPdf = read('api/quarterly-pdf.js');
 const weeklyPdf = read('api/weekly-bulletin.js');
 const bridge = read('apps-script-backend/VercelApi.gs');
@@ -183,8 +184,19 @@ assert.match(admin, /'RABU MALAM', 'IBADAH KHOTBAH', 'SEKOLAH SABAT', 'PEMUDA AD
 assert.match(website, /kategori tampilan/);
 assert.match(website, /category: category/);
 assert.match(admin, /TIM_PELAYANAN/);
+assert.match(admin, /function adminGetDashboardSummary\(\)/);
+assert.match(admin, /scheduleSheet: 'Sedang diperiksa…'/);
+assert.match(adminHtml, /adminGetBootstrap',\[\],30000/);
+assert.match(adminHtml, /loadDashboardSummary\(false\)/);
+assert.match(adminHtml, /data-delete-approval/);
+assert.match(adminHtml, /data-delete-service/);
+assert.match(index, /state\.async\.featuredResource/);
+assert.match(index, /loaded&&String\(loaded\.resourceType/);
+assert.match(index, /--presentation-bg-schedule/);
+assert.match(website, /presentation_schedule_background_url/);
+assert.match(proxy, /public, s-maxage=900, stale-while-revalidate=1800/);
 assert.match(adminHtml, /multiple accept="image\/png/);
-assert.match(adminHtml, /GALILEA-ADMIN-DUAL-BRAND-31-0-0/);
+assert.match(adminHtml, /GALILEA-ADMIN-BOOTSTRAP-35-8-0/);
 assert.match(adminHtml, /logo-galilea-light\.webp/);
 assert.match(adminHtml, /logo-galilea-dark\.webp/);
 assert.doesNotMatch(adminHtml, /adventist_logo\.png/);
@@ -288,7 +300,7 @@ assert.equal(forwarded.body.secret, process.env.GALILEA_API_SECRET);
 const {default: adminHandler} = await import('../api/admin.js');
 process.env.GALILEA_APPS_SCRIPT_ADMIN_URL = 'https://script.google.com/macros/s/DEPLOYMENT_ID/exec';
 response = mockResponse();
-adminHandler({method: 'GET'}, response);
+adminHandler({method: 'GET', query: {open: '1'}}, response);
 assert.equal(response.statusCode, 307);
 assert.match(response.body, /page=admin/);
 
@@ -321,24 +333,24 @@ assert.equal(weeklyBuffer.subarray(0,4).toString(),'%PDF');
 assert.match(weeklyPdf,/GALILEA-WEEKLY-BULLETIN-20\.0\.0/);
 assert.match(weeklyPdf,/AGENDA DAN PENGUMUMAN/);
 assert.doesNotMatch(weeklyPdf,/KEGIATAN MENDATANG/);
-assert.match(mediaProxy, /DRIVE_ID_PATTERN/);
-assert.match(mediaProxy, /lh3\.googleusercontent\.com/);
-assert.match(mediaProxy, /drive\.google\.com\/thumbnail/);
-assert.match(mediaProxy, /stale-while-revalidate=2592000/);
+assert.match(youtubeProxy, /youtube\.com\/feeds\/videos\.xml/);
+assert.match(youtubeProxy, /uniqueByTitle\(videos, 3\)/);
+assert.match(thumbnailProxy, /i\.ytimg\.com\/vi/);
+assert.match(thumbnailProxy, /stale-while-revalidate=604800/);
 
-const {default: mediaHandler} = await import('../api/media.js');
+const {default: mediaHandler} = await import('../api/thumbnail.js');
 response = mockResponse();
-await mediaHandler({method:'GET',query:{id:'tidak-valid'}},response);
+await mediaHandler({method:'GET',query:{id:'bad'}},response);
 assert.equal(response.statusCode,400);
 
 globalThis.fetch = async () => ({
   ok:true,
   status:200,
-  headers:new Headers({'content-type':'image/png','content-length':'12'}),
-  async arrayBuffer(){return Uint8Array.from([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a,0,0,0,0]).buffer;}
+  headers:new Headers({'content-type':'image/png','content-length':'1000'}),
+  async arrayBuffer(){const bytes=new Uint8Array(1000);bytes.set([0x89,0x50,0x4e,0x47,0x0d,0x0a,0x1a,0x0a]);return bytes.buffer;}
 });
 response = mockResponse();
-await mediaHandler({method:'GET',query:{id:'1FYa4YRhPNm5YbLf96plDA8nQpKc44h8o'}},response);
+await mediaHandler({method:'GET',query:{id:'abcdefghijk'}},response);
 globalThis.fetch = nativeFetch;
 assert.equal(response.statusCode,200);
 assert.equal(response.headers['Content-Type'],'image/png');

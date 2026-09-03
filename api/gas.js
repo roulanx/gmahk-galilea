@@ -24,12 +24,12 @@ const PUBLIC_METHODS = new Set([
   'translateViewerTexts'
 ]);
 
-const BUILD = 'GALILEA-VERCEL-BRIDGE-17.3.0';
+const BUILD = 'GALILEA-VERCEL-BRIDGE-17.4.0';
 const MAX_REQUEST_BYTES = 180000;
 
-function reply(response, status, body) {
+function reply(response, status, body, cacheControl) {
   response.setHeader('Content-Type', 'application/json; charset=utf-8');
-  response.setHeader('Cache-Control', 'no-store, max-age=0');
+  response.setHeader('Cache-Control', cacheControl || 'no-store, max-age=0');
   response.setHeader('X-Content-Type-Options', 'nosniff');
   response.setHeader('X-Galilea-Build', BUILD);
   return response.status(status).json(body);
@@ -249,8 +249,7 @@ export default async function handler(request, response) {
     if (method === 'getDailyDevotional') {
       try {
         const devotional = await getOfficialDailyDevotional(args[0]);
-        response.setHeader('Cache-Control', 'public, s-maxage=900, stale-while-revalidate=1800');
-        return reply(response, 200, {ok: true, data: devotional, meta: {source: 'adventech-direct', build: BUILD}});
+        return reply(response, 200, {ok: true, data: devotional, meta: {source: 'adventech-direct', build: BUILD}}, 'public, s-maxage=900, stale-while-revalidate=1800');
       } catch (devotionalError) {
         return reply(response, 502, {
           ok: false,

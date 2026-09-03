@@ -7,8 +7,8 @@
  */
 
 const GW = Object.freeze({
-  VERSION: '20.2.0',
-  BUILD_ID: 'GALILEA-20260903-ADMIN-ORNAMENT-2020',
+  VERSION: '20.3.0',
+  BUILD_ID: 'GALILEA-20260903-ADMIN-BOOTSTRAP-2030',
   TITLE: 'GMAHK Galilea Balikpapan',
   TIMEZONE: 'Asia/Makassar',
   UTC_OFFSET: '+08:00',
@@ -724,6 +724,9 @@ function gwSettingDefinitions_() {
     ['Mode Layar', 'presentation_website', 'gmahk-galilea.vercel.app', 'Alamat website yang tampil di presentasi'],
     ['Mode Layar', 'presentation_ornaments_enabled', 'YA', 'YA untuk menampilkan ornamen; TIDAK untuk menyembunyikan semuanya'],
     ['Mode Layar', 'presentation_ornament_strength', 'JELAS', 'Pilihan: LEMBUT, SEIMBANG, atau JELAS'],
+    ['Mode Layar', 'presentation_schedule_background_url', '', 'Opsional: URL HTTPS foto latar Jadwal Terdekat; kosong memakai gambar bawaan'],
+    ['Mode Layar', 'presentation_bible_background_url', '', 'Opsional: URL HTTPS foto latar Alkitab; kosong memakai gambar bawaan'],
+    ['Mode Layar', 'presentation_hymnal_background_url', '', 'Opsional: URL HTTPS foto latar Lagu Sion; kosong memakai gambar bawaan'],
     ['Mode Layar', 'presentation_schedule_ornament', 'AUTO', 'AUTO menyesuaikan slide; pilihan manual: CHURCH, CALENDAR, BOOK, MUSIC, USERS, BELL, HEART'],
     ['Mode Layar', 'presentation_bible_ornament', 'BOOK', 'Ornamen Alkitab. Gunakan BOOK atau pilihan ikon Mode Layar lainnya'],
     ['Mode Layar', 'presentation_hymnal_ornament', 'MUSIC', 'Ornamen Lagu Sion. Gunakan MUSIC atau pilihan ikon Mode Layar lainnya'],

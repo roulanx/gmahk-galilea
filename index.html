@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-REALISTIC-PRESENTATION-35-7-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
+<html lang="id" data-theme="light" data-font="normal" data-motion="full" data-build="GALILEA-ADMIN-STABILITY-35-8-0" data-ui-revision="GALILEA-RESPONSIVE-ABOUT-35-1-0" data-devotional-mode="official-text-only">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -3011,6 +3011,9 @@
 
 .presentation-shell{
   --presentation-ornament-opacity:.18;
+  --presentation-bg-schedule:url('/assets/presentation/schedule.webp');
+  --presentation-bg-bible:url('/assets/presentation/bible.webp');
+  --presentation-bg-hymnal:url('/assets/presentation/hymnal.webp');
 }
 .presentation-shell[data-presentation-ornament="off"] :is(.presentation-context-art,.presentation-art){
   display:none!important;
@@ -3111,25 +3114,25 @@
   background-image:
     linear-gradient(90deg,rgba(1,8,4,.985) 0%,rgba(3,17,9,.95) 43%,rgba(4,18,10,.78) 68%,rgba(2,9,5,.5) 100%),
     linear-gradient(180deg,rgba(5,24,13,.08),rgba(1,8,4,.5)),
-    url('/assets/presentation/schedule.webp')!important;
+    var(--presentation-bg-schedule)!important;
 }
 .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,8,.95) 45%,rgba(4,18,10,.79) 68%,rgba(2,9,5,.48) 100%),
     linear-gradient(180deg,rgba(5,25,13,.06),rgba(1,8,4,.48)),
-    url('/assets/presentation/bible.webp')!important;
+    var(--presentation-bg-bible)!important;
 }
 .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,9,.95) 45%,rgba(4,18,11,.78) 68%,rgba(2,9,5,.46) 100%),
     linear-gradient(180deg,rgba(4,24,13,.06),rgba(1,8,4,.5)),
-    url('/assets/presentation/hymnal.webp')!important;
+    var(--presentation-bg-hymnal)!important;
 }
 .presentation-shell:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="overview"],[data-presentation-kind="agenda"],[data-presentation-kind="service"],[data-presentation-kind="closing"]) .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(1,8,4,.985) 0%,rgba(3,17,9,.95) 43%,rgba(4,18,10,.78) 68%,rgba(2,9,5,.5) 100%),
     linear-gradient(180deg,rgba(5,24,13,.08),rgba(1,8,4,.5)),
-    url('/assets/presentation/schedule.webp')!important;
+    var(--presentation-bg-schedule)!important;
   background-size:cover!important;
   background-position:center!important;
 }
@@ -3137,7 +3140,7 @@
   background-image:
     linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,8,.95) 45%,rgba(4,18,10,.79) 68%,rgba(2,9,5,.48) 100%),
     linear-gradient(180deg,rgba(5,25,13,.06),rgba(1,8,4,.48)),
-    url('/assets/presentation/bible.webp')!important;
+    var(--presentation-bg-bible)!important;
   background-size:cover!important;
   background-position:center!important;
 }
@@ -3145,7 +3148,7 @@
   background-image:
     linear-gradient(90deg,rgba(1,8,4,.99) 0%,rgba(3,16,9,.95) 45%,rgba(4,18,11,.78) 68%,rgba(2,9,5,.46) 100%),
     linear-gradient(180deg,rgba(4,24,13,.06),rgba(1,8,4,.5)),
-    url('/assets/presentation/hymnal.webp')!important;
+    var(--presentation-bg-hymnal)!important;
   background-size:cover!important;
   background-position:center!important;
 }
@@ -3154,37 +3157,37 @@
   background-image:
     linear-gradient(90deg,rgba(250,252,248,.99) 0%,rgba(244,248,241,.965) 43%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.68) 100%),
     linear-gradient(180deg,rgba(245,249,242,.18),rgba(225,236,222,.36)),
-    url('/assets/presentation/schedule.webp')!important;
+    var(--presentation-bg-schedule)!important;
 }
 .presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="bible"] .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.66) 100%),
     linear-gradient(180deg,rgba(247,250,244,.2),rgba(225,236,222,.34)),
-    url('/assets/presentation/bible.webp')!important;
+    var(--presentation-bg-bible)!important;
 }
 .presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="song"] .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.65) 100%),
     linear-gradient(180deg,rgba(247,250,244,.18),rgba(225,236,222,.34)),
-    url('/assets/presentation/hymnal.webp')!important;
+    var(--presentation-bg-hymnal)!important;
 }
 .presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="overview"],[data-presentation-kind="agenda"],[data-presentation-kind="service"],[data-presentation-kind="closing"]) .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(250,252,248,.99) 0%,rgba(244,248,241,.965) 43%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.68) 100%),
     linear-gradient(180deg,rgba(245,249,242,.18),rgba(225,236,222,.36)),
-    url('/assets/presentation/schedule.webp')!important;
+    var(--presentation-bg-schedule)!important;
 }
 .presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="bible"],[data-presentation-kind="scripture"]) .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.66) 100%),
     linear-gradient(180deg,rgba(247,250,244,.2),rgba(225,236,222,.34)),
-    url('/assets/presentation/bible.webp')!important;
+    var(--presentation-bg-bible)!important;
 }
 .presentation-shell.is-light:not([data-presentation-ornament="off"])[data-presentation-type="operator"]:is([data-presentation-kind="song"],[data-presentation-kind="song-reference"]) .presentation-frame::before{
   background-image:
     linear-gradient(90deg,rgba(250,252,248,.995) 0%,rgba(244,248,241,.97) 45%,rgba(235,243,232,.86) 68%,rgba(229,239,226,.65) 100%),
     linear-gradient(180deg,rgba(247,250,244,.18),rgba(225,236,222,.34)),
-    url('/assets/presentation/hymnal.webp')!important;
+    var(--presentation-bg-hymnal)!important;
 }
 
 /* Saat ornamen dimatikan dari admin, foto ikut disembunyikan dan gradien aman tetap dipakai. */
@@ -3596,7 +3599,7 @@
 
       async function server(name, args, timeoutMs) {
         const controller = new AbortController();
-        const timeout = Math.max(6000,Number(timeoutMs) || 14000);
+        const timeout = Math.max(8000,Number(timeoutMs) || 22000);
         const timer = window.setTimeout(() => controller.abort(),timeout);
         try {
           const response = await fetch('/api/gas',{
@@ -3887,6 +3890,13 @@
 
       function setShellData() {
         const site = state.data.site;
+        const presentationShell = $('#presentation-shell');
+        if (presentationShell) {
+          const backgroundValue = (value,fallback) => 'url(' + JSON.stringify(safeUrl(value) || fallback) + ')';
+          presentationShell.style.setProperty('--presentation-bg-schedule',backgroundValue(site.presentation_schedule_background_url,'/assets/presentation/schedule.webp'));
+          presentationShell.style.setProperty('--presentation-bg-bible',backgroundValue(site.presentation_bible_background_url,'/assets/presentation/bible.webp'));
+          presentationShell.style.setProperty('--presentation-bg-hymnal',backgroundValue(site.presentation_hymnal_background_url,'/assets/presentation/hymnal.webp'));
+        }
         const logoFallback = $('#header-logo-fallback');
         /* Identitas viewer selalu satu: lambang Advent inline yang mengikuti mode. */
         if (logoFallback) logoFallback.hidden = false;
@@ -4312,7 +4322,7 @@
         let detail=null,detailMessage='';
         try{detail=await fetchMissionDetail(payload.featured.sourceId);}catch(error){detailMessage=error.message||'Isi lengkap belum tersedia.';}
         if(!$('#sabbath-content'))return;
-        state.async.featuredResource=detail;
+        state.async.featuredResource=detail?Object.assign({},detail,{sourceId:detail.sourceId||payload.featured.sourceId,resourceType:'mission'}):null;
         const featured=detail?Object.assign({},payload.featured,{title:detail.title,summary:detail.summary||payload.featured.summary}):payload.featured;
         const reader=detail?missionReadingHtml(detail):'<p class="lead">'+esc(featured.summary||'')+'</p><div class="notice">'+icon('info')+'<div class="notice-copy"><strong>Bacaan lengkap belum tersambung</strong><span>'+esc(detailMessage)+'</span></div></div>';
         const others=(payload.items||[]).filter(item=>item.sourceId!==featured.sourceId).slice(0,12);
@@ -4326,12 +4336,16 @@
         const type=String(button&&button.dataset.downloadFeaturedResource||'').toLowerCase();
         const id=String(button&&button.dataset.resourceId||'');
         if(!type||!id)return toast('Bacaan belum siap diunduh.');
+        const oldHtml=button.innerHTML;button.disabled=true;button.setAttribute('aria-busy','true');button.innerHTML=icon('refresh')+'Menyiapkan…';
         try{
-          const key='v3400-download-'+type+'-'+id;
-          let data=cacheGet(key);
+          const key='v3500-download-'+type+'-'+id;
+          const loaded=state.async.featuredResource;
+          const loadedId=loaded&&String(loaded.sourceId||loaded.id||'');
+          let data=loaded&&String(loaded.resourceType||loaded.type||type).toLowerCase()===type&&loadedId===id?loaded:cacheGet(key);
           if(!data)data=type==='mission'?await fetchMissionDetail(id):await server('getSabbathResourceDetail',[type,id]);
           cacheSet(key,data,21600000);downloadResourceData(data);
         }catch(error){toast(error.message||'Bacaan belum dapat diunduh.');}
+        finally{button.disabled=false;button.removeAttribute('aria-busy');button.innerHTML=oldHtml;}
       }
 
       async function loadSabbathResources(type) {
@@ -4370,7 +4384,7 @@
               detailMessage = 'Isi lengkap sedang belum dapat diambil. Ringkasan dan arsip tetap dapat digunakan.';
             }
           }
-          state.async.featuredResource = detail;
+          state.async.featuredResource = detail ? Object.assign({},detail,{sourceId:detail.sourceId||data.featured.sourceId,resourceType:type}) : null;
           const featured = data.featured;
           const manualLink=!detail&&safeUrl(featured.url)?'<a class="btn primary" href="'+attr(featured.url)+'" target="_blank" rel="noopener">Buka link bacaan cadangan'+icon('external')+'</a>':'';
           const reader = detail ? resourceReadingHtml(detail,type) : '<p class="lead">' + esc(featured.summary || '') + '</p>' + (detailMessage ? '<div class="notice">' + icon('info') + '<div class="notice-copy"><strong>Bacaan lengkap belum tersambung</strong><span>' + esc(detailMessage) + '</span></div></div>' : '')+manualLink;

@@ -6,7 +6,7 @@
  */
 
 const GA = Object.freeze({
-  VERSION: '20.2.0',
+  VERSION: '20.3.0',
   SHEETS: Object.freeze({
     admins: 'Website Admin',
     workflow: 'Website Workflow',
@@ -210,7 +210,11 @@ function gaEnsureEntityIds_(spreadsheet, onlyKey) {
 function gaEnsureServiceColumns_() {
   const sheet = gwServiceSheet_();
   if (sheet.getMaxColumns() < 12) sheet.insertColumnsAfter(sheet.getMaxColumns(), 12 - sheet.getMaxColumns());
-  sheet.getRange(1, 10, 1, 3).setValues([['Catatan Admin', 'Diperbarui', 'Privasi']]);
+  const expected = ['Catatan Admin', 'Diperbarui', 'Privasi'];
+  const current = sheet.getRange(1, 10, 1, 3).getDisplayValues()[0];
+  if (expected.some(function (value, index) { return current[index] !== value; })) {
+    sheet.getRange(1, 10, 1, 3).setValues([expected]);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -264,7 +268,6 @@ function gaPublicUser_(user) {
 function adminGetBootstrap() {
   const user = gaRequireRole_('VIEWER');
   const spreadsheet = gwSpreadsheet_();
-  if (typeof gwEnsureV200ContentSchemas_ === 'function') gwEnsureV200ContentSchemas_(spreadsheet);
   const definitions = gaEntityDefinitions_();
   const entities = Object.keys(definitions).map(function (key) {
     return { key: key, label: definitions[key].label, icon: definitions[key].icon };
@@ -272,42 +275,97 @@ function adminGetBootstrap() {
   entities.push({ key: 'settings', label: 'Identitas & Tampilan', icon: 'settings' });
   entities.push({ key: 'schedule', label: 'Jadwal Pelayanan', icon: 'calendar' });
 
-  const workflow = gaWorkflowRows_(spreadsheet);
-  const settings = gwReadSettings_(spreadsheet);
-  const scheduleSheet = gwChooseScheduleSheet_(spreadsheet);
-  const announcementSheet = spreadsheet.getSheetByName(GW.SHEETS.announcements);
-  const activitySheet = spreadsheet.getSheetByName(GW.SHEETS.activities);
-  const health = gaHealthSources_(spreadsheet);
-  const publishedCount = function (sheet, statusColumn) {
-    if (!sheet || sheet.getLastRow() < 2) return 0;
-    return sheet.getRange(2, statusColumn, sheet.getLastRow() - 1, 1).getDisplayValues()
-      .filter(function (row) { return String(row[0] || '').toUpperCase() === 'PUBLISH'; }).length;
-  };
-  let serviceRows = [];
-  if (user.level >= GA.ROLES.EDITOR) {
-    const serviceSheet = gwServiceSheet_();
-    serviceRows = serviceSheet.getLastRow() > 1 ? serviceSheet.getRange(2, 1, serviceSheet.getLastRow() - 1, 9).getDisplayValues() : [];
-  }
+  /*
+   * Bootstrap sengaja hanya berisi data yang dibutuhkan untuk menggambar shell.
+   * Migrasi, pemeriksaan sumber, dan pembacaan sheet berukuran besar tidak boleh
+   * berjalan saat login. Ringkasan lengkap dimuat terpisah melalui
+   * adminGetDashboardSummary(), sehingga portal tetap dapat dibuka meski salah
+   * satu sumber statistik sedang lambat.
+   */
   return {
     version: GA.VERSION,
     user: gaPublicUser_(user),
     entities: entities,
     dashboard: {
-      pendingApprovals: workflow.filter(function (item) { return item.state === 'PENDING'; }).length,
-      myDrafts: workflow.filter(function (item) { return item.state === 'DRAFT' && item.ownerEmail === user.email; }).length,
-      activeAnnouncements: publishedCount(announcementSheet, 5),
-      upcomingActivities: publishedCount(activitySheet, 6),
-      serviceRequests: serviceRows.filter(function (row) { return ['SELESAI', 'DITUTUP'].indexOf(String(row[8]).toUpperCase()) < 0; }).length,
+      pendingApprovals: 0,
+      myDrafts: 0,
+      activeAnnouncements: 0,
+      upcomingActivities: 0,
+      serviceRequests: 0,
+      updatedAt: gwFormatDateTime_(new Date()),
+      scheduleSheet: 'Sedang diperiksa…',
+      systemStatus: 'BELUM DIPERIKSA',
+      loading: true
+    },
+    publicSite: {
+      churchName: GW.TITLE,
+      logoUrl: GW.SOURCES.adventLogo,
+      publicUrl: 'https://gmahk-galilea.vercel.app/',
+      spreadsheetUrl: spreadsheet.getUrl()
+    }
+  };
+}
+
+/**
+ * Statistik dashboard dimuat setelah shell admin sudah tampil. Fungsi ini hanya
+ * membaca data; setup dan migrasi tetap dijalankan secara eksplisit dari menu
+ * Sistem atau setupAdminGalilea().
+ */
+function adminGetDashboardSummary() {
+  const user = gaRequireRole_('VIEWER');
+  const spreadsheet = gwSpreadsheet_();
+  const workflowSheet = spreadsheet.getSheetByName(GA.SHEETS.workflow);
+  let pendingApprovals = 0;
+  let myDrafts = 0;
+  if (workflowSheet && workflowSheet.getLastRow() > 1) {
+    workflowSheet.getRange(2, 6, workflowSheet.getLastRow() - 1, 2).getDisplayValues().forEach(function (row) {
+      const workflowState = String(row[0] || '').toUpperCase();
+      const ownerEmail = gaNormalizeEmail_(row[1]);
+      if (workflowState === 'PENDING') pendingApprovals++;
+      if (workflowState === 'DRAFT' && ownerEmail === user.email) myDrafts++;
+    });
+  }
+
+  const publishedCount = function (sheet, statusColumn) {
+    if (!sheet || sheet.getLastRow() < 2) return 0;
+    return sheet.getRange(2, statusColumn, sheet.getLastRow() - 1, 1).getDisplayValues()
+      .filter(function (row) { return String(row[0] || '').toUpperCase() === 'PUBLISH'; }).length;
+  };
+
+  let serviceRequests = 0;
+  if (user.level >= GA.ROLES.EDITOR) {
+    try {
+      const serviceSheet = gwServiceSheet_();
+      serviceRequests = serviceSheet.getLastRow() > 1
+        ? serviceSheet.getRange(2, 9, serviceSheet.getLastRow() - 1, 1).getDisplayValues()
+          .filter(function (row) { return ['SELESAI', 'DITUTUP'].indexOf(String(row[0] || '').toUpperCase()) < 0; }).length
+        : 0;
+    } catch (ignore) {
+      serviceRequests = null;
+    }
+  }
+
+  const settings = gwReadSettings_(spreadsheet);
+  const scheduleSheet = gwChooseScheduleSheet_(spreadsheet);
+  const health = gaHealthSources_(spreadsheet);
+  return {
+    dashboard: {
+      pendingApprovals: pendingApprovals,
+      myDrafts: myDrafts,
+      activeAnnouncements: publishedCount(spreadsheet.getSheetByName(GW.SHEETS.announcements), 5),
+      upcomingActivities: publishedCount(spreadsheet.getSheetByName(GW.SHEETS.activities), 6),
+      serviceRequests: serviceRequests,
       updatedAt: gwFormatDateTime_(new Date()),
       scheduleSheet: scheduleSheet ? scheduleSheet.getName() : 'Belum ditemukan',
       systemStatus: health.some(function (item) {
         return ['GANGGUAN', 'ERROR', 'LEWATI'].indexOf(String(item.status || '').toUpperCase()) >= 0;
-      }) ? 'PERLU DIPERIKSA' : (health.length ? 'BAIK' : 'BELUM DIPERIKSA')
+      }) ? 'PERLU DIPERIKSA' : (health.length ? 'BAIK' : 'BELUM DIPERIKSA'),
+      loading: false
     },
     publicSite: {
       churchName: settings.church_name || GW.TITLE,
       logoUrl: gwSafeUrl_(settings.logo_url) || GW.SOURCES.adventLogo,
-      publicUrl: gwSafeUrl_(settings.google_site_url) || ScriptApp.getService().getUrl() || '',
+      publicUrl: gwSafeUrl_(settings.google_site_url) || 'https://gmahk-galilea.vercel.app/',
       spreadsheetUrl: spreadsheet.getUrl()
     }
   };
@@ -362,7 +420,6 @@ function adminListEntity(entityKey) {
   const user = gaRequireRole_('VIEWER');
   const key = gwClean_(entityKey);
   const spreadsheet = gwSpreadsheet_();
-  if (typeof gwEnsureV200ContentSchemas_ === 'function') gwEnsureV200ContentSchemas_(spreadsheet);
   if (key === 'settings') return gaListSettings_(spreadsheet, user);
   if (key === 'schedule') return gaListSchedule_(spreadsheet, user);
   const definition = gaEntityDefinitions_()[key];
