@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const DEFAULT_ADMIN_URL =
   'https://script.google.com/macros/s/AKfycbxOkCVxWcipB8IY6Y9ToTuWfJ-XQAM5VBJLx33qeuuUU8jmaVJjCitgimo50Mq15n_68Q/exec';
 
-const BUILD = 'GALILEA-VERCEL-ADMIN-20.4.0';
+const BUILD = 'GALILEA-VERCEL-ADMIN-20.5.0';
 
 function resolveAdminUrl() {
   const raw = process.env.GALILEA_APPS_SCRIPT_ADMIN_URL || DEFAULT_ADMIN_URL;
@@ -99,6 +99,34 @@ async function fetchLiveWebsiteData(forceRefresh = false) {
   if (!forceRefresh && cachedLiveSiteData && (now - cachedLiveSiteDataTime) < 30000) {
     return cachedLiveSiteData;
   }
+  const apiUrl = appsScriptApiUrl();
+  const secret = String(process.env.GALILEA_API_SECRET || '');
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 25000);
+  try {
+    const upstream = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain; charset=utf-8',
+        'Accept': 'application/json',
+        'User-Agent': BUILD
+      },
+      body: JSON.stringify({ secret, method: 'getWebsiteData', args: [] }),
+      redirect: 'follow',
+      signal: controller.signal
+    });
+    const text = await upstream.text();
+    const parsed = JSON.parse(text);
+    if (parsed && parsed.ok && parsed.data) {
+      cachedLiveSiteData = parsed.data;
+      cachedLiveSiteDataTime = now;
+      return cachedLiveSiteData;
+    }
+  } catch (_) {
+  } finally {
+    clearTimeout(timer);
+  }
+
   try {
     const res = await callGoogleAppsScript('getWebsiteData', []);
     if (res && res.ok && res.data) {
@@ -244,6 +272,7 @@ const localServices = [];
 export default async function handler(request, response) {
   response.setHeader('Cache-Control', 'no-store, max-age=0');
   response.setHeader('X-Content-Type-Options', 'nosniff');
+  response.setHeader('X-Galilea-Admin-Build', BUILD);
 
   // 1. GET requests: serve the native Admin Panel SPA on Vercel
   if (request.method === 'GET' || request.method === 'HEAD') {
