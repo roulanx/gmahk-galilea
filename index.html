@@ -1971,6 +1971,12 @@
     #reader-dialog .reader-content :where(h1,h2,h3,h4,strong){color:var(--text)!important}
     #reader-dialog .reader-content :where(p,li,blockquote){color:var(--text-soft)!important}
     #reader-dialog .reader-content :where(table,pre){display:block;max-width:100%;overflow-x:auto}
+    #reader-dialog .reader-content table{width:100%;border-collapse:collapse;margin:18px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+    #reader-dialog .reader-content th,#reader-dialog .reader-content td{padding:10px 14px;border:1px solid var(--line);color:var(--text);text-align:left}
+    #reader-dialog .reader-content th{background:var(--surface-soft);font-weight:750}
+    #reader-dialog .reader-content tr:nth-child(even) td{background:color-mix(in srgb,var(--surface-soft) 45%,transparent)}
+    .footer-admin-link{color:inherit;opacity:.78;text-decoration:none;font-size:inherit;transition:opacity .2s var(--ease)}
+    .footer-admin-link:hover{opacity:1;text-decoration:underline}
 
     /* Nomor dekoratif footer dihapus: tautan kini terbaca sebagai navigasi biasa. */
     .footer-group{counter-reset:none!important}
@@ -3387,7 +3393,7 @@
         <div class="footer-social"><a id="footer-instagram" target="_blank" rel="noopener" aria-label="Instagram GMAHK Galilea"><svg class="brand-svg instagram-svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.4" cy="6.7" r="1.15" fill="currentColor"/></svg><span id="footer-instagram-label">@advent.galilea</span></a><a id="footer-maps" target="_blank" rel="noopener"><svg class="icon"><use href="#i-map"></use></svg>Petunjuk arah</a></div>
       </section>
       <nav class="footer-group" aria-label="Menu ibadah"><strong>Ibadah & Firman</strong><button class="footer-link" data-route="today">Ibadah Hari Ini</button><button class="footer-link" data-route="schedule">Jadwal Pelayanan</button><button class="footer-link" data-route="bulletin">Warta Digital</button><button class="footer-link" data-route="sabbath">Sekolah Sabat</button><button class="footer-link" data-route="bible">Alkitab</button><button class="footer-link" data-route="hymnal">Lagu Sion</button></nav>
-      <nav class="footer-group" aria-label="Menu informasi"><strong>Jemaat & Informasi</strong><button class="footer-link" data-route="announcements">Pengumuman</button><button class="footer-link" data-route="activities">Berita Jemaat</button><button class="footer-link" data-route="gallery">Galeri</button><button class="footer-link" data-route="services">Layanan Jemaat</button><button class="footer-link" data-route="aboutsite">Tentang Website</button><button class="footer-link" data-route="contact">Kontak Gereja</button></nav>
+      <nav class="footer-group" aria-label="Menu informasi"><strong>Jemaat & Informasi</strong><button class="footer-link" data-route="announcements">Pengumuman</button><button class="footer-link" data-route="activities">Berita Jemaat</button><button class="footer-link" data-route="gallery">Galeri</button><button class="footer-link" data-route="services">Layanan Jemaat</button><button class="footer-link" data-route="aboutsite">Tentang Website</button><button class="footer-link" data-route="contact">Kontak Gereja</button><a class="footer-link" href="/admin" style="display:inline-block;margin-top:2px;opacity:.85">Portal Sekretariat</a></nav>
       <section class="footer-visit" aria-label="Informasi kunjungan">
         <span class="eyebrow">Datang beribadah</span>
         <div class="footer-visit-row"><svg class="icon"><use href="#i-calendar"></use></svg><div><small>Ibadah Sabat</small><strong id="footer-sabbath">Setiap Sabat · 09.00 WITA</strong></div></div>
@@ -3395,7 +3401,7 @@
         <div class="footer-tools"><button type="button" data-open="search"><svg class="icon"><use href="#i-search"></use></svg>Cari</button><button type="button" data-open="settings"><svg class="icon"><use href="#i-access"></use></svg>Aksesibilitas</button><button type="button" id="install-app"><svg class="icon"><use href="#i-down"></use></svg>Simpan di HP</button></div>
       </section>
     </div>
-    <div class="shell footer-bottom"><span id="footer-copy">© Sekretaris Jemaat Galilea</span><span id="footer-updated">Memuat pembaruan…</span></div>
+    <div class="shell footer-bottom"><span id="footer-copy">© Sekretaris Jemaat Galilea</span><a class="footer-admin-link" href="/admin" title="Masuk ke Portal Pengurus Gereja">Portal Pengurus</a><span id="footer-updated">Memuat pembaruan…</span></div>
   </footer>
 
   <dialog id="search-dialog"><div class="modal"><div class="modal-head"><strong>Pencarian</strong><button class="icon-button" type="button" data-close><svg class="icon"><use href="#i-close"></use></svg></button></div><div class="modal-body"><form class="search-box" id="search-form"><input id="search-input" type="search" minlength="2" autocomplete="off" placeholder="Cari jadwal, nama, lagu, atau halaman…"><button class="btn primary" type="submit"><svg class="icon"><use href="#i-search"></use></svg>Cari</button></form><div class="search-results" id="search-results"><p class="muted">Ketik sedikitnya dua huruf.</p></div></div></div></dialog>

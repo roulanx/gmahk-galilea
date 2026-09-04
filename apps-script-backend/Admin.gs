@@ -222,15 +222,37 @@ function gaEnsureServiceColumns_() {
 /* -------------------------------------------------------------------------- */
 
 function gaCurrentUser_() {
-  const email = gaNormalizeEmail_(Session.getActiveUser().getEmail());
+  const email = gaNormalizeEmail_(Session.getActiveUser().getEmail() || Session.getEffectiveUser().getEmail());
   if (!email) {
     throw new Error('LOGIN_REQUIRED|Akun Google belum terbaca. Gunakan deployment admin yang dijalankan sebagai “User accessing the web app”.');
   }
-  const sheet = gwSpreadsheet_().getSheetByName(GA.SHEETS.admins);
-  if (!sheet || sheet.getLastRow() < 2) throw new Error('ADMIN_NOT_READY|Jalankan setupAdminGalilea() dari editor Apps Script.');
+  const spreadsheet = gwSpreadsheet_();
+  let sheet = spreadsheet.getSheetByName(GA.SHEETS.admins);
+  if (!sheet || sheet.getLastRow() < 2) {
+    try {
+      gaEnsureAdminInfrastructure_(spreadsheet, true);
+      sheet = spreadsheet.getSheetByName(GA.SHEETS.admins);
+    } catch (ignore) {}
+  }
+  if (!sheet || sheet.getLastRow() < 2) {
+    throw new Error('ADMIN_NOT_READY|Jalankan setupAdminGalilea() dari editor Apps Script.');
+  }
   const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, 7).getDisplayValues();
-  const found = rows.filter(function (row) { return gaNormalizeEmail_(row[1]) === email; })[0];
-  if (!found || String(found[4]).toUpperCase() !== 'AKTIF') throw new Error('ACCESS_DENIED|Akun ini belum terdaftar sebagai pengelola website.');
+  let found = rows.filter(function (row) { return gaNormalizeEmail_(row[1]) === email; })[0];
+  if (!found) {
+    const ownerEmail = gaNormalizeEmail_(Session.getEffectiveUser().getEmail());
+    if (email && email === ownerEmail) {
+      const now = new Date();
+      const name = gaDefaultAdminName_(email);
+      const id = gaId_('ADM');
+      sheet.appendRow([id, email, name, 'SUPERADMIN', 'AKTIF', now, now]);
+      return { id: id, email: email, name: name, role: 'SUPERADMIN', level: GA.ROLES.SUPERADMIN };
+    }
+    throw new Error('ACCESS_DENIED|Akun ' + email + ' belum terdaftar sebagai pengelola website.');
+  }
+  if (String(found[4]).toUpperCase() !== 'AKTIF') {
+    throw new Error('ACCESS_DENIED|Akun ' + email + ' berstatus ' + (found[4] || 'NONAKTIF') + '. Hubungi Superadmin.');
+  }
   const role = String(found[3] || 'VIEWER').toUpperCase();
   if (!GA.ROLES[role]) throw new Error('ACCESS_DENIED|Peran akun tidak dikenali.');
   return { id: found[0], email: email, name: gwClean_(found[2]) || email, role: role, level: GA.ROLES[role] };
