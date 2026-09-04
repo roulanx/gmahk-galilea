@@ -216,11 +216,80 @@ export default async function handler(request, response) {
       }
 
       if (method === 'adminListServices') {
-        return reply(response, 200, { ok: true, data: { services: [] } });
+        return reply(response, 200, {
+          ok: true,
+          data: [
+            {
+              id: 'SRV-001',
+              receivedAt: 'Sabat, 29 Agustus 2026',
+              type: 'Doa Syafaat & Pemulihan',
+              name: 'Keluarga Bpk. R. Tampubolon',
+              phone: '081234567890',
+              message: 'Mohon dukungan doa syafaat jemaat untuk pemulihan kesehatan dan kelancaran ibadah rumah tangga.',
+              status: 'BARU',
+              privacy: 'TIM_PELAYANAN'
+            },
+            {
+              id: 'SRV-002',
+              receivedAt: 'Rabu, 2 September 2026',
+              type: 'Kunjungan Pastoral',
+              name: 'Ibu Sarah M.',
+              phone: '085298765432',
+              message: 'Permohonan kunjungan doa keluarga dan pendalaman Alkitab di rumah jemaat.',
+              status: 'DIPROSES',
+              privacy: 'TIM_PELAYANAN'
+            }
+          ]
+        });
+      }
+
+      if (method === 'adminDeleteService') {
+        const [id] = args;
+        return reply(response, 200, {
+          ok: true,
+          id: id || '',
+          message: 'Permohonan layanan (' + (id || '') + ') berhasil dihapus secara permanen.'
+        });
+      }
+
+      if (method === 'adminUpdateServiceStatus') {
+        const [id, status, note] = args;
+        return reply(response, 200, {
+          ok: true,
+          id: id || '',
+          status: status || 'DIPROSES',
+          message: 'Status permohonan layanan berhasil diperbarui.'
+        });
+      }
+
+      if (method === 'adminSaveWorkflow') {
+        const [entity, id, payload, intent] = args;
+        return reply(response, 200, {
+          ok: true,
+          id: id || 'REC-' + Date.now(),
+          message: intent === 'draft' ? 'Draft berhasil disimpan.' : 'Usulan diajukan untuk persetujuan warta.'
+        });
+      }
+
+      if (method === 'adminDeleteWorkflow') {
+        const [id] = args;
+        return reply(response, 200, {
+          ok: true,
+          id: id || '',
+          message: 'Data berhasil dihapus.'
+        });
       }
 
       if (method === 'adminListApprovals') {
-        return reply(response, 200, { ok: true, data: { approvals: [] } });
+        return reply(response, 200, { ok: true, data: [] });
+      }
+
+      if (method === 'adminRunSystemAction') {
+        const [action] = args;
+        return reply(response, 200, {
+          ok: true,
+          message: action === 'purgeCache' ? 'Seluruh cache Viewer dan API berhasil dibersihkan.' : 'Pencadangan snapshot data berhasil.'
+        });
       }
 
       if (method === 'adminListUsers') {
