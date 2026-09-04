@@ -430,6 +430,25 @@
       .toast-zone{left:14px;right:14px;bottom:14px}
       .toast{width:100%}
     }
+
+    /* Workflow & Audit Log Components */
+    .workflow-strip{display:grid;gap:10px;margin-bottom:20px}
+    .workflow-item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+    .workflow-item strong,.workflow-item span{display:block}
+    .workflow-item span{color:var(--faint);font-size:.78rem}
+    .workflow-note{margin-top:4px;color:var(--gold)!important;font-weight:600}
+    .workflow-guide{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:20px}
+    .workflow-step{position:relative;display:grid;gap:4px;padding:12px;border:1px solid var(--line);border-radius:14px;color:var(--faint);background:var(--surface-2);font-size:.76rem}
+    .workflow-step:after{position:absolute;top:50%;right:-9px;width:10px;height:1px;content:"";background:var(--line)}
+    .workflow-step:last-child:after{display:none}
+    .workflow-step.active{border-color:var(--brand);color:var(--text);background:var(--brand-soft)}
+    .workflow-step.done{border-color:var(--gold);color:var(--text)}
+    .activity-list{display:grid;gap:10px}
+    .activity-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:start;gap:14px;padding:16px;border:1px solid var(--line);border-radius:16px;background:var(--surface)}
+    .activity-dot{width:11px;height:11px;margin-top:5px;border:3px solid var(--brand-soft);border-radius:50%;background:var(--brand)}
+    .activity-row strong,.activity-row span{display:block}
+    .activity-row span{color:var(--faint);font-size:.8rem}
+
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
     }
@@ -756,6 +775,7 @@
             nav('approvals', 'check', 'Persetujuan Warta', pendingCount, pendingCount > 0) +
             '<div class="nav-label">Sistem & Pengurus</div>' +
             nav('users', 'users', 'Pengelola Portal') +
+            nav('activity', 'clock', 'Audit & Aktivitas') +
             nav('system', 'settings', 'Sistem & Cache') +
           '</nav>' +
           '<div class="sidebar-user">' +
@@ -1015,6 +1035,7 @@
 
       const isCards = state.viewMode === 'cards';
       const entityLabel = friendlyEntity(state.entity);
+      const workflows = data.workflows || [];
 
       $('#content').innerHTML =
         '<div class="section-head">' +
@@ -1025,6 +1046,7 @@
           '</div>' +
           (canEdit ? '<button class="btn primary" data-new-record>' + icon('plus') + 'Tambah ' + esc(entityLabel) + '</button>' : '') +
         '</div>' +
+        workflowHtml(workflows) +
         '<div class="toolbar">' +
           '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px">' +
             '<label class="search">' + icon('search') + '<input id="entity-search" placeholder="Cari data ' + esc(entityLabel.toLowerCase()) + '…" value="' + attr(state.search) + '"></label>' +
@@ -1043,6 +1065,33 @@
         (items.length
           ? (isCards ? '<div class="grid-cards">' + items.map(recordCardHtml).join('') + '</div>' : entityTableHtml(items))
           : emptyHtml('Belum ada data ' + esc(entityLabel.toLowerCase()) + ' pada status ini.'));
+    }
+
+    function workflowHtml(items) {
+      if (!items || !items.length) return '';
+      return '<div class="workflow-strip">' + items.map(w => {
+        const canManage = (state.boot && state.boot.user && (w.ownerEmail === state.boot.user.email || state.boot.user.role === 'SUPERADMIN'));
+        const canApprove = (state.boot && state.boot.user && state.boot.user.permissions && state.boot.user.permissions.approve);
+        let actions = '';
+        if (w.state === 'PENDING') {
+          if (canApprove) actions += '<button class="btn primary small" data-open-review="' + attr(w.id) + '">' + icon('check') + 'Tinjau</button>';
+          if (canManage) actions += '<button class="btn small" data-cancel-workflow="' + attr(w.id) + '">Tarik Kembali</button>';
+          if (!actions) actions = '<span class="small faint">Menunggu reviewer</span>';
+        } else if (canManage) {
+          if (w.action === 'DELETE') actions += '<button class="btn primary small" data-resubmit-workflow="' + attr(w.id) + '">' + icon('send') + 'Ajukan Hapus Lagi</button>';
+          else actions += '<button class="btn small" data-edit-workflow="' + attr(w.id) + '">' + icon('edit') + (w.state === 'REJECTED' ? 'Perbaiki Revisi' : 'Lanjutkan Draft') + '</button>';
+          actions += '<button class="btn small danger" data-delete-workflow="' + attr(w.id) + '" aria-label="Hapus draft">' + icon('trash') + '</button>';
+        } else {
+          actions = '<span class="small faint">Dikelola oleh ' + esc(w.ownerName || 'Pengurus') + '</span>';
+        }
+        return '<div class="workflow-item">' +
+          status(w.state) +
+          '<div class="workflow-copy"><strong>' + esc(friendlyEntity(w.entity)) + ' · ' + esc(w.action === 'DELETE' ? 'HAPUS' : 'UBAH / TAMBAH') + '</strong>' +
+          '<span>' + esc(w.ownerName || 'Admin') + ' · ' + esc(w.updatedAt || 'Baru saja') + '</span>' +
+          (w.note ? '<span class="workflow-note">Catatan: ' + esc(w.note) + '</span>' : '') + '</div>' +
+          '<div class="button-row">' + actions + '</div>' +
+        '</div>';
+      }).join('') + '</div>';
     }
 
     function entityTableHtml(items) {
@@ -1116,13 +1165,88 @@
       '</div>';
     }
 
+    /* Workflow Progress Guide */
+    function workflowGuide(active) {
+      const steps = [
+        ['DRAFT', '1. Draft', 'Isi & periksa'],
+        ['PENDING', '2. Diajukan', 'Menunggu reviewer'],
+        ['REVIEW', '3. Ditinjau', 'Setujui / revisi'],
+        ['PUBLISH', '4. Terbit', 'Tampil di website']
+      ];
+      const rank = { DRAFT: 0, REJECTED: 0, PENDING: 1, REVIEW: 2, APPROVED: 3, PUBLISH: 3 };
+      const current = rank[active] ?? 0;
+      return '<div class="workflow-guide">' + steps.map((step, index) =>
+        '<div class="workflow-step ' + (index === current ? 'active' : index < current ? 'done' : '') + '">' +
+          '<b>' + step[1] + '</b>' +
+          '<span>' + step[2] + '</span>' +
+        '</div>'
+      ).join('') + '</div>';
+    }
+
+    async function cancelWorkflow(id) {
+      if (!confirm('Tarik pengajuan warta ini kembali menjadi draf?')) return;
+      try {
+        const result = await server('adminCancelWorkflow', [id]);
+        toast(result && result.message ? result.message : 'Pengajuan ditarik kembali.');
+        if (state.boot && state.boot.dashboard) state.boot.dashboard.myDrafts = Number(state.boot.dashboard.myDrafts || 0) + 1;
+        await loadEntity(state.entity);
+      } catch (error) {
+        toast(cleanError(error.message), 'danger');
+      }
+    }
+
+    async function resubmitWorkflow(id) {
+      const workflow = (state.entityData && state.entityData.workflows || []).find(w => w.id === id);
+      if (!workflow) return;
+      if (!confirm('Ajukan kembali permintaan ' + (workflow.action === 'DELETE' ? 'penghapusan' : 'perubahan') + ' ini?')) return;
+      try {
+        const result = await server('adminSaveWorkflow', [{
+          entity: workflow.entity,
+          entityId: workflow.entityId,
+          workflowId: workflow.id,
+          action: workflow.action,
+          payload: workflow.payload || {},
+          submit: true
+        }]);
+        toast(result && result.message ? result.message : 'Permintaan diajukan kembali.');
+        await loadEntity(state.entity);
+      } catch (error) {
+        toast(cleanError(error.message), 'danger');
+      }
+    }
+
+    function openWorkflow(id) {
+      const workflow = (state.entityData && state.entityData.workflows || []).find(w => w.id === id);
+      if (!workflow) return;
+      if (workflow.action === 'DELETE') return resubmitWorkflow(id);
+      const entity = state.entityData.entity;
+      state.currentEdit = { id: workflow.entityId || '', workflowId: workflow.id, isNew: !workflow.entityId, payload: workflow.payload || {} };
+      $('#editor-title').textContent = (workflow.state === 'REJECTED' ? 'Perbaiki ' : 'Lanjutkan Draft ') + esc(entity.label || friendlyEntity(state.entity));
+      $('#editor-subtitle').textContent = workflow.state === 'REJECTED' ? 'Perbaiki sesuai catatan peninjau lalu ajukan kembali.' : 'Lanjutkan persiapan draf sebelum diajukan.';
+      $('#editor-workflow').innerHTML = workflowGuide(workflow.state || 'DRAFT');
+      $('#editor-fields').innerHTML = fieldsHtml(entity, workflow.payload || {});
+      $('#editor-preview').innerHTML = '';
+      $('#editor-dialog').showModal();
+    }
+
+    async function deleteWorkflow(id) {
+      if (!confirm('Hapus draf atau usulan ini secara permanen?')) return;
+      try {
+        const res = await server('adminDeleteWorkflow', [id]);
+        toast(res && res.message ? res.message : 'Draf berhasil dihapus.');
+        await loadEntity(state.entity);
+      } catch (error) {
+        toast(cleanError(error.message), 'danger');
+      }
+    }
+
     /* Editor Modal Handlers */
     function openNewRecord() {
       const entity = state.entityData.entity;
       state.currentEdit = { id: '', isNew: true, payload: {} };
       $('#editor-title').textContent = 'Tambah ' + esc(entity.label);
       $('#editor-subtitle').textContent = 'Buat data baru yang akan dipublikasikan ke jemaat';
-      $('#editor-workflow').innerHTML = '';
+      $('#editor-workflow').innerHTML = workflowGuide('DRAFT');
       $('#editor-fields').innerHTML = fieldsHtml(entity, {});
       $('#editor-preview').innerHTML = '';
       $('#editor-dialog').showModal();
@@ -1135,7 +1259,7 @@
       state.currentEdit = { id: id, isNew: false, payload: item };
       $('#editor-title').textContent = 'Edit ' + esc(entity.label);
       $('#editor-subtitle').textContent = 'Perbarui data dan ajukan persetujuan warta';
-      $('#editor-workflow').innerHTML = '';
+      $('#editor-workflow').innerHTML = workflowGuide(item.status || item.state || 'PUBLISH');
       $('#editor-fields').innerHTML = fieldsHtml(entity, item);
       $('#editor-preview').innerHTML = '';
       $('#editor-dialog').showModal();
@@ -1149,9 +1273,29 @@
       const entity = state.entityData.entity;
       $('#editor-title').textContent = 'Duplikasi ' + esc(entity.label);
       $('#editor-subtitle').textContent = 'Salin susunan untuk sabat berikutnya';
+      $('#editor-workflow').innerHTML = workflowGuide('DRAFT');
       $('#editor-fields').innerHTML = fieldsHtml(entity, copy);
       $('#editor-preview').innerHTML = '';
       $('#editor-dialog').showModal();
+    }
+
+    function settingFieldConfig(values, field) {
+      const id = String((values && (values.id || values.key)) || field.key || '');
+      const choices = {
+        presentation_ornaments_enabled: ['YA', 'TIDAK'],
+        presentation_ornament_strength: ['LEMBUT', 'SEIMBANG', 'JELAS'],
+        presentation_schedule_ornament: ['AUTO', 'CHURCH', 'CALENDAR', 'BOOK', 'MUSIC', 'USERS', 'BELL', 'HEART'],
+        presentation_bible_ornament: ['BOOK', 'CHURCH', 'CALENDAR', 'MUSIC', 'HEART'],
+        presentation_hymnal_ornament: ['MUSIC', 'CHURCH', 'BOOK', 'HEART'],
+        presentation_announcement_ornament: ['AUTO', 'BELL', 'CALENDAR', 'BOOK', 'USERS', 'HEART'],
+        default_theme: ['system', 'light', 'dark']
+      };
+      const configured = Object.assign({}, field);
+      if (choices[id]) {
+        configured.type = 'select';
+        configured.options = choices[id];
+      }
+      return configured;
     }
 
     function fieldsHtml(entity, values) {
@@ -1168,22 +1312,25 @@
 
       const fields = entity.fields || [];
       return fields.map(f => {
-        const v = values[f.key] != null ? values[f.key] : '';
-        if (f.type === 'images') {
-          return '<div class="field full"><label>' + esc(f.label) + '</label>' +
-            '<textarea name="' + attr(f.key) + '" placeholder="Masukkan URL foto per baris">' + esc(Array.isArray(v) ? v.join('\n') : v) + '</textarea>' +
-            '<input type="file" multiple accept="image/png, image/jpeg, image/webp" class="image-file" style="margin-top:6px">' +
+        const configured = (entity.key === 'settings') ? settingFieldConfig(values, f) : f;
+        const v = values[configured.key] != null ? values[configured.key] : '';
+        if (configured.type === 'images') {
+          return '<div class="field full"><label>' + esc(configured.label) + '</label>' +
+            '<textarea name="' + attr(configured.key) + '" placeholder="Masukkan URL foto per baris">' + esc(Array.isArray(v) ? v.join('\n') : v) + '</textarea>' +
+            '<div style="display:flex;align-items:center;gap:10px;margin-top:6px">' +
+              '<input type="file" multiple accept="image/png, image/jpeg, image/webp" class="image-file" data-image-target="' + attr(configured.key) + '" data-image-mode="append">' +
+            '</div>' +
             '<small>Pilih satu atau lebih file foto untuk diunggah langsung ke Google Drive jemaat.</small></div>';
         }
-        if (f.type === 'textarea') {
-          return '<div class="field full"><label>' + esc(f.label) + '</label><textarea name="' + attr(f.key) + '">' + esc(v) + '</textarea><small>' + esc(f.help || '') + '</small></div>';
+        if (configured.type === 'textarea') {
+          return '<div class="field full"><label>' + esc(configured.label) + '</label><textarea name="' + attr(configured.key) + '">' + esc(v) + '</textarea><small>' + esc(configured.help || '') + '</small></div>';
         }
-        if (f.type === 'select') {
-          return '<div class="field"><label>' + esc(f.label) + '</label><select name="' + attr(f.key) + '">' +
-            (f.options || []).map(o => '<option ' + (o === v ? 'selected' : '') + '>' + esc(o) + '</option>').join('') +
-          '</select><small>' + esc(f.help || '') + '</small></div>';
+        if (configured.type === 'select') {
+          return '<div class="field"><label>' + esc(configured.label) + '</label><select name="' + attr(configured.key) + '">' +
+            (configured.options || []).map(o => '<option value="' + attr(o) + '" ' + (o === v ? 'selected' : '') + '>' + esc(o) + '</option>').join('') +
+          '</select><small>' + esc(configured.help || '') + '</small></div>';
         }
-        return '<div class="field"><label>' + esc(f.label) + '</label><input type="' + (f.type || 'text') + '" name="' + attr(f.key) + '" value="' + attr(v) + '"><small>' + esc(f.help || '') + '</small></div>';
+        return '<div class="field"><label>' + esc(configured.label) + '</label><input type="' + (configured.type || 'text') + '" name="' + attr(configured.key) + '" value="' + attr(v) + '"><small>' + esc(configured.help || '') + '</small></div>';
       }).join('');
     }
 
@@ -1194,6 +1341,40 @@
         const val = existing[f.label] || existing[f.key] || '';
         return '<div class="field" style="margin-bottom:10px"><label>' + esc(f.label) + '</label><input name="field_' + attr(f.label) + '" value="' + attr(val) + '" placeholder="Nama petugas…"></div>';
       }).join('');
+    }
+
+    async function uploadImage(input) {
+      const files = Array.from(input.files || []);
+      if (!files.length) return;
+      if (files.length > 12) return toast('Maksimal 12 foto dalam satu unggahan.', 'warning');
+      if (files.some(file => file.size > 4 * 1024 * 1024)) return toast('Setiap file gambar maksimal 4 MB.', 'warning');
+      const target = input.dataset.imageTarget;
+      const append = input.dataset.imageMode === 'append';
+      const field = $('[name="' + CSS.escape(target) + '"]', $('#editor-form'));
+      const uploaded = [];
+      try {
+        for (let index = 0; index < files.length; index++) {
+          const file = files[index];
+          toast('Mengunggah foto ' + (index + 1) + ' dari ' + files.length + ' ke Google Drive…');
+          const base64 = await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(String(reader.result).split(',')[1]);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+          });
+          const res = await server('adminUploadImage', [{ name: file.name, mimeType: file.type, base64: base64 }], 35000);
+          if (res && res.url) uploaded.push(res.url);
+        }
+        if (field && uploaded.length) {
+          const existing = append ? String(field.value || '').split(/\n+/).map(v => v.trim()).filter(Boolean) : [];
+          field.value = existing.concat(uploaded).join('\n');
+          toast('Berhasil mengunggah ' + uploaded.length + ' foto ke Drive.');
+        }
+      } catch (error) {
+        toast(cleanError(error.message), 'danger');
+      } finally {
+        input.value = '';
+      }
     }
 
     function previewEditor() {
@@ -1227,7 +1408,15 @@
 
       try {
         const id = state.currentEdit ? state.currentEdit.id : '';
-        await server('adminSaveWorkflow', [state.entity, id, payload, intent]);
+        const workflowId = state.currentEdit ? state.currentEdit.workflowId : '';
+        await server('adminSaveWorkflow', [{
+          entity: state.entity,
+          entityId: id,
+          workflowId: workflowId,
+          action: 'UPSERT',
+          payload: payload,
+          submit: intent !== 'draft'
+        }]);
         $('#editor-dialog').close();
         toast(intent === 'draft' ? 'Draft berhasil disimpan.' : 'Usulan diajukan untuk persetujuan warta.');
         await loadEntity(state.entity);
@@ -1294,6 +1483,9 @@
           '<tbody>' +
             items.map(item => {
               const phoneLink = item.phone ? '<a class="small" href="https://wa.me/' + item.phone.replace(/\D/g, '').replace(/^0/, '62') + '" target="_blank" rel="noopener">' + esc(item.phone) + ' ↗</a>' : '<span class="small faint">Tanpa kontak</span>';
+              const shareBtn = (!item.restricted && item.privacy === 'ANONIM'
+                ? '<button class="btn small soft" data-share-prayer="' + attr(item.id) + '" title="Bagikan Pokok Doa ke WhatsApp">' + icon('send') + '</button>'
+                : '');
               return '<tr>' +
                 '<td><strong>' + esc(item.name) + '</strong><span class="small faint" style="display:block">' + phoneLink + '</span></td>' +
                 '<td><strong>' + esc(item.type) + '</strong><span class="small muted" style="display:block">' + esc(item.message || '').slice(0, 90) + '</span></td>' +
@@ -1301,6 +1493,7 @@
                 '<td>' + status(item.status) + '</td>' +
                 '<td>' +
                   '<div class="button-row">' +
+                    shareBtn +
                     '<button class="btn small" data-open-service="' + attr(item.id) + '">' + icon('edit') + 'Detail</button>' +
                     '<button class="btn small danger" data-delete-service="' + attr(item.id) + '" title="Hapus Permanen">' + icon('trash') + '</button>' +
                   '</div>' +
@@ -1317,6 +1510,9 @@
       const waBtn = (!item.restricted && item.phone
         ? '<a class="btn soft" href="https://wa.me/' + phoneClean + '?text=' + encodeURIComponent('Shalom ' + item.name + ', kami dari tim pelayanan GMAHK Galilea menindaklanjuti permohonan Anda.') + '" target="_blank" rel="noopener">' + icon('external') + 'WhatsApp</a>'
         : '');
+      const shareBtn = (!item.restricted && item.privacy === 'ANONIM'
+        ? '<button class="btn soft" data-share-prayer="' + attr(item.id) + '">' + icon('send') + 'Bagikan Anonim</button>'
+        : '');
 
       return '<article class="card item-card">' +
         '<div>' +
@@ -1331,10 +1527,18 @@
         '</div>' +
         '<div class="button-row">' +
           waBtn +
+          shareBtn +
           '<button class="btn" data-open-service="' + attr(item.id) + '">' + icon('edit') + 'Tindak Lanjuti</button>' +
           '<button class="btn danger" data-delete-service="' + attr(item.id) + '">' + icon('trash') + 'Hapus</button>' +
         '</div>' +
       '</article>';
+    }
+
+    function sharePrayer(id) {
+      const item = (state.services || []).find(entry => entry.id === id);
+      if (!item || item.restricted) return;
+      const text = 'Permohonan Doa Jemaat (Anonim)\n\n' + item.message + '\n\nMohon dukungan doa dari keluarga besar GMAHK Galilea.';
+      window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
     }
 
     function openService(id) {
@@ -1641,6 +1845,57 @@
       }
     }
 
+    /* Audit & Activity */
+    async function loadActivity() {
+      try {
+        state.activity = await server('adminGetDashboardActivity', []);
+        const audit = (state.activity && (state.activity.audit || state.activity.logs)) || [];
+        const health = (state.activity && state.activity.health) || [];
+        $('#content').innerHTML =
+          '<div class="section-head">' +
+            '<div>' +
+              '<span class="eyebrow">JEJAK PERUBAHAN & INTEGRASI</span>' +
+              '<h1>Audit & Aktivitas</h1>' +
+              '<p>Riwayat tindakan pengelola dan status koneksi sumber data GMAHK Galilea.</p>' +
+            '</div>' +
+            '<button class="btn" data-reload>' + icon('refresh') + 'Muat Ulang</button>' +
+          '</div>' +
+          '<div class="grid grid-2">' +
+            '<section>' +
+              '<div class="section-head" style="margin-top:0"><h3>Aktivitas Terbaru</h3></div>' +
+              '<div class="activity-list">' +
+                (audit.length ? audit.map(activityHtml).join('') : emptyHtml('Belum ada aktivitas yang tercatat.')) +
+              '</div>' +
+            '</section>' +
+            '<section>' +
+              '<div class="section-head" style="margin-top:0"><h3>Status Sumber Data Terakhir</h3></div>' +
+              '<div class="activity-list">' +
+                (health.length
+                  ? health.map(item =>
+                      '<article class="activity-row">' +
+                        '<span class="activity-dot"></span>' +
+                        '<div><strong>' + esc(item.source) + '</strong><span>' + esc(item.note || 'Tidak ada catatan.') + '</span></div>' +
+                        status(item.status || 'PUBLISH') +
+                      '</article>'
+                    ).join('')
+                  : emptyHtml('Pemeriksaan sistem belum pernah dijalankan.')) +
+              '</div>' +
+            '</section>' +
+          '</div>';
+      } catch (err) {
+        $('#content').innerHTML = errorBox(cleanError(err.message));
+      }
+    }
+
+    function activityHtml(item) {
+      return '<article class="activity-row">' +
+        '<span class="activity-dot"></span>' +
+        '<div><strong>' + esc(item.name || item.email || item.user || 'Admin') + ' · ' + esc(item.action || 'Operasi') + '</strong>' +
+        '<span>' + esc(friendlyEntity(item.entity || 'general')) + (item.detail ? ' · ' + esc(item.detail) : '') + '</span></div>' +
+        '<time class="small faint">' + esc(item.time || 'Baru saja') + '</time>' +
+      '</article>';
+    }
+
     /* System & Cache */
     function renderSystem() {
       $('#content').innerHTML =
@@ -1709,7 +1964,22 @@
           .catch(e => toast(cleanError(e.message), 'danger'));
       }
 
-      if (event.target.closest('[data-retry]')) return renderRoute();
+      if (event.target.closest('[data-retry]') || event.target.closest('[data-reload]')) return renderRoute();
+
+      const cancelWf = event.target.closest('[data-cancel-workflow]');
+      if (cancelWf) return cancelWorkflow(cancelWf.dataset.cancelWorkflow);
+
+      const resubmitWf = event.target.closest('[data-resubmit-workflow]');
+      if (resubmitWf) return resubmitWorkflow(resubmitWf.dataset.resubmitWorkflow);
+
+      const editWf = event.target.closest('[data-edit-workflow]');
+      if (editWf) return openWorkflow(editWf.dataset.editWorkflow);
+
+      const delWf = event.target.closest('[data-delete-workflow]');
+      if (delWf) return deleteWorkflow(delWf.dataset.deleteWorkflow);
+
+      const sharePrayerBtn = event.target.closest('[data-share-prayer]');
+      if (sharePrayerBtn) return sharePrayer(sharePrayerBtn.dataset.sharePrayer);
 
       const filterStatus = event.target.closest('[data-filter-status]');
       if (filterStatus) {
@@ -1782,6 +2052,8 @@
         const section = (state.entityData.sections || []).find(s => s.id === event.target.value);
         $('#schedule-fields').innerHTML = scheduleFieldsHtml(section, {});
       }
+      const imgInput = event.target.closest('.image-file');
+      if (imgInput) uploadImage(imgInput);
     });
 
     $('#editor-form').addEventListener('submit', saveEditor);

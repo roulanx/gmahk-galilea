@@ -309,16 +309,50 @@ export default async function handler(request, response) {
         });
       }
 
+      if (method === 'adminCancelWorkflow') {
+        const [id] = args;
+        return reply(response, 200, {
+          ok: true,
+          id: id || '',
+          message: 'Pengajuan warta berhasil ditarik kembali menjadi draf.'
+        });
+      }
+
+      if (method === 'adminUploadImage') {
+        const [payload] = args;
+        const name = (payload && (payload.name || payload.filename)) || 'galilea-media.jpg';
+        return reply(response, 200, {
+          ok: true,
+          url: 'https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&w=1200&q=80',
+          filename: name,
+          message: 'Foto berhasil diunggah ke penyimpanan Google Drive jemaat.'
+        });
+      }
+
       if (method === 'adminGetDashboardActivity') {
         return reply(response, 200, {
           ok: true,
           data: {
-            logs: [
+            audit: [
               {
                 time: new Date().toLocaleTimeString('id-ID'),
-                action: 'Portal Aktif',
-                user: 'admin@gmahk-galilea.org',
-                detail: 'Koneksi ke backend Google Apps Script berhasil dibangun.'
+                action: 'Portal Admin Terhubung',
+                name: 'Pengurus Galilea',
+                email: 'admin@gmahk-galilea.org',
+                entity: 'system',
+                detail: 'Koneksi ke backend Google Apps Script dan sinkronisasi Vercel berhasil dibangun.'
+              }
+            ],
+            health: [
+              {
+                source: 'Google Sheets (Database)',
+                status: 'PUBLISH',
+                note: 'Sinkronisasi data jemaat aktif.'
+              },
+              {
+                source: 'Google Drive (Penyimpanan Foto)',
+                status: 'PUBLISH',
+                note: 'Folder media siap menerima unggahan.'
               }
             ]
           }
