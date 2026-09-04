@@ -5,7 +5,8 @@
   "trailingSlash": false,
   "functions": {
     "api/*.js": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "includeFiles": "apps-script-backend/Admins.html"
     }
   },
   "rewrites": [
