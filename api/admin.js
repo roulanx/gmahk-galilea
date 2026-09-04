@@ -279,9 +279,32 @@ export default async function handler(request, response) {
     }
 
     try {
-      // Step A: First attempt upstream Apps Script call
       const upstreamResult = await callGoogleAppsScript(method, args);
       if (upstreamResult && upstreamResult.ok === true) {
+        if (method === 'adminListEntity' && args[0] === 'themeSong' && (!upstreamResult.data?.records || upstreamResult.data.records.length === 0)) {
+          const siteData = await fetchLiveWebsiteData();
+          const song = siteData.themeSong;
+          if (song) {
+            const v1 = song.lyrics?.find(l => l.type === 'verse' && l.index === 1)?.lines?.join('\n') || '';
+            const v2 = song.lyrics?.find(l => l.type === 'verse' && l.index === 2)?.lines?.join('\n') || '';
+            const v3 = song.lyrics?.find(l => l.type === 'verse' && l.index === 3)?.lines?.join('\n') || '';
+            const ref = song.lyrics?.find(l => l.type === 'chorus' || l.type === 'refrain')?.lines?.join('\n') || '';
+            upstreamResult.data.records = [{
+              id: song.id || 'THEME-01',
+              title: song.title || 'Lagu Tema Jemaat',
+              status: 'PUBLISH',
+              group: 'Lagu Sion',
+              values: {
+                title: song.title || '',
+                verse1: v1,
+                verse2: v2,
+                verse3: v3,
+                refrain: ref,
+                note: song.note || song.source || ''
+              }
+            }];
+          }
+        }
         return reply(response, 200, upstreamResult);
       }
 
