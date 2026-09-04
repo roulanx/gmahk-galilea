@@ -9,7 +9,7 @@ const __dirname = path.dirname(__filename);
 const DEFAULT_ADMIN_URL =
   'https://script.google.com/macros/s/AKfycbxOkCVxWcipB8IY6Y9ToTuWfJ-XQAM5VBJLx33qeuuUU8jmaVJjCitgimo50Mq15n_68Q/exec';
 
-const BUILD = 'GALILEA-VERCEL-ADMIN-20.5.0';
+const BUILD = 'GALILEA-VERCEL-ADMIN-21.0.0';
 
 function resolveAdminUrl() {
   const raw = process.env.GALILEA_APPS_SCRIPT_ADMIN_URL || DEFAULT_ADMIN_URL;
